@@ -1,0 +1,161 @@
+body {
+  background: linear-gradient(to left, rgb(23 129 234 / 50%), rgb(1 4 8));
+}
+
+.account-info {
+  // background: linear-gradient(to right, #171d1c, #273b4a);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  // background: linear-gradient(to left, rgb(23 129 234 / 50%), rgb(1 4 8));
+  color: #fff;
+  padding: 80px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+
+  .title {
+    font-size: 24px;
+    margin: 8px 0;
+  }
+
+  .subscription {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 100px;
+
+    span {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .subscribe-btn {
+      background-color: #3c5e3c;
+      color: #fff;
+      border: none;
+      padding: 5px 16px;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 5px 16px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+  }
+
+  .divider {
+    border: 1px solid #ccc;
+    border-color: #4a5568;
+    margin-bottom: 1px;
+  }
+
+  .username {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 80px;
+
+    input {
+      margin: 0 10px;
+      padding: 5px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      font-size: 12px;
+      width: 200px;
+    }
+
+        button {
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          padding: 5px 16px;
+          border-radius: 3px;
+          cursor: pointer;
+          font-size: 14px;
+        }
+  }
+
+  .personal-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 80px;
+
+    input {
+      margin-left: 10px;
+              margin-right: 10px;
+      padding: 5px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      font-size: 12px;
+      width: 180px;
+    }
+        button {
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          padding: 5px 16px;
+          border-radius: 3px;
+          cursor: pointer;
+          font-size: 14px;
+        }
+  }
+
+  .change-password {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 100px;
+
+    .password-fields {
+      display: flex;
+
+      input {
+        margin-right: 10px;
+        padding: 5px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        font-size: 12px;
+        width: 200px;
+      }
+    }
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+  }
+
+  .account-actions {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid #fff;
+      padding: 8px 16px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+
+      &.delete-btn {
+        background-color: #dc3545;
+        border-color: #dc3545;
+      }
+    }
+  }
+}
