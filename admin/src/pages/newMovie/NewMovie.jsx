@@ -9,7 +9,7 @@ export default function NewMovie() {
   const [movie, setMovie] = useState(null);
   const [img, setImg] = useState(null);
   const [imgTitle, setImgTitle] = useState(null);
-  const [imgSm, setImgSm] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
   const [trailer, setTrailer] = useState(null);
   const [video, setVideo] = useState(null);
   const [uploaded, setUploaded] = useState(0);
@@ -57,7 +57,7 @@ export default function NewMovie() {
     upload([
       { file: img, label: "img" },
       { file: imgTitle, label: "imgTitle" },
-      { file: imgSm, label: "imgSm" },
+      { file: thumbnail, label: "thumbnail" },
       { file: trailer, label: "trailer" },
       { file: video, label: "video" },
     ]);
@@ -96,8 +96,8 @@ export default function NewMovie() {
           <input
             type="file"
             id="imgSm"
-            name="imgSm"
-            onChange={(e) => setImgSm(e.target.files[0])}
+            name="thumbnail"
+            onChange={(e) => setThumbnail(e.target.files[0])}
           />
         </div>
         <div className="addProductItem">
@@ -114,7 +114,7 @@ export default function NewMovie() {
           <input
             type="text"
             placeholder="Tefetarism"
-            name="title_eng"
+            name="title1"
             onChange={handleChange}
           />
         </div>
@@ -123,7 +123,7 @@ export default function NewMovie() {
           <input
             type="text"
             placeholder="description"
-            name="desc"
+            name="description"
             onChange={handleChange}
           />
         </div>
@@ -132,7 +132,7 @@ export default function NewMovie() {
           <input
             type="text"
             placeholder="release_date"
-            name="release_date"
+            name="releaseDate"
             onChange={handleChange}
           />
         </div>

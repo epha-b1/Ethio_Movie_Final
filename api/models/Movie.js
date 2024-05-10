@@ -4,16 +4,15 @@ const { type } = require("os");
 
 const MovieSchema = new mongoose.Schema(
   {
-    id:{type:Number },
     title: { type: String, required: true, unique: true },
-    title_eng:{type:String,required:true,unique:true},
-    desc: { type: String },
+    title1:{type:String,required:true,unique:true},
+    description: { type: String },
     img: { type: String },
     imgTitle: { type: String },
-    imgSm: { type: String },
+    thumbnail: { type: String },
     trailer: { type: String },
     video: { type: String },
-    release_date: { type: String },
+    releaseDate: { type: String },
     limit: { type: Number },
     genre: { type: String },
     isSeries: { type: Boolean, default: false },
