@@ -26,7 +26,7 @@ const movieRoute = require("./routes/movies");
 const listRoute = require("./routes/lists");
 const paymentRoute = require("./routes/subscription"); 
 const roleRoute = require("./routes/role"); 
-const seriousRoute = require("./routes/tvSerious"); 
+const seriousRoute = require("./routes/serious"); 
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);

@@ -2,12 +2,12 @@ import { useContext, useState } from "react";
 import "./newSerious.css";
 import { storage } from "../../firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "@firebase/storage";
-import { createTVSeries } from "../../context/tvSeriesContext/apiCalls";
-import { TVSeriesContext } from "../../context/tvSeriesContext/TVSeriesContext";
+import { createSerious } from "../../context/seriesContext/apiCalls";
+import { SeriousContext } from "../../context/seriesContext/SeriousContext";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function NewSerious() {
-  const [tvSeries, setTVSeries] = useState({
+  const [Series, setSeries] = useState({
     title: "",
     description: "",
     img: null,
@@ -38,16 +38,16 @@ export default function NewSerious() {
 
   const [uploaded, setUploaded] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const { dispatch } = useContext(TVSeriesContext);
+  const { dispatch } = useContext(SeriousContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTVSeries({ ...tvSeries, [name]: value });
+    setSeries({ ...Series, [name]: value });
   };
 
   const handleFileChange = (e, label) => {
     const file = e.target.files[0];
-    setTVSeries({ ...tvSeries, [label]: file });
+    setSeries({ ...Series, [label]: file });
   };
 
   const upload = (items) => {
@@ -68,7 +68,7 @@ export default function NewSerious() {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            setTVSeries((prev) => {
+            setSeries((prev) => {
               return { ...prev, [item.label]: url };
             });
             setUploaded((prev) => prev + 1);
@@ -81,17 +81,17 @@ export default function NewSerious() {
   const handleUpload = (e) => {
     e.preventDefault();
     upload([
-      { file: tvSeries.img, label: "img" },
-      { file: tvSeries.imgTitle, label: "imgTitle" },
-      { file: tvSeries.imgSm, label: "imgSm" },
-      { file: tvSeries.trailer, label: "trailer" },
-      { file: tvSeries.video, label: "video" },
+      { file: Series.img, label: "img" },
+      { file: Series.imgTitle, label: "imgTitle" },
+      { file: Series.imgSm, label: "imgSm" },
+      { file: Series.trailer, label: "trailer" },
+      { file: Series.video, label: "video" },
     ]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createTVSeries(tvSeries, dispatch);
+    createSerious(Series, dispatch);
   };
 
   return (
@@ -104,7 +104,7 @@ export default function NewSerious() {
             type="text"
             placeholder="Title"
             name="title"
-            value={tvSeries.title}
+            value={Series.title}
             onChange={handleChange}
           />
         </div>
@@ -114,7 +114,7 @@ export default function NewSerious() {
             type="text"
             placeholder="Description"
             name="description"
-            value={tvSeries.description}
+            value={Series.description}
             onChange={handleChange}
           />
         </div>
@@ -124,7 +124,7 @@ export default function NewSerious() {
             type="text"
             placeholder="Year"
             name="year"
-            value={tvSeries.year}
+            value={Series.year}
             onChange={handleChange}
           />
         </div>
@@ -134,7 +134,7 @@ export default function NewSerious() {
             type="text"
             placeholder="Genre"
             name="genre"
-            value={tvSeries.genre}
+            value={Series.genre}
             onChange={handleChange}
           />
         </div>
@@ -144,7 +144,7 @@ export default function NewSerious() {
             type="text"
             placeholder="Language"
             name="language"
-            value={tvSeries.language}
+            value={Series.language}
             onChange={handleChange}
           />
         </div>
@@ -154,7 +154,7 @@ export default function NewSerious() {
             type="text"
             placeholder="Country"
             name="country"
-            value={tvSeries.country}
+            value={Series.country}
             onChange={handleChange}
           />
         </div>
@@ -198,12 +198,15 @@ export default function NewSerious() {
             onChange={(e) => handleFileChange(e, "video")}
           />
         </div>
-        <button className="addProductButton" onClick={handleUpload}>
-          Upload
-        </button>
-        <button className="addProductButton" onClick={handleSubmit}>
-          Create
-        </button>
+        {uploaded === 5 ? (
+          <button className="addProductButton" onClick={handleSubmit}>
+            Create
+          </button>
+        ) : (
+          <button className="addProductButton" onClick={handleUpload}>
+            Upload
+          </button>
+        )}
       </form>
       {uploaded < 5 && (
         <div className="progressIndicator">

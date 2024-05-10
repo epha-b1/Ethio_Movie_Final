@@ -1,82 +1,81 @@
 import axios from "axios";
 import { toast } from "sonner";
-
 import {
-  createMovieFailure,
-  createMovieStart,
-  createMovieSuccess,
-  deleteMovieFailure,
-  deleteMovieStart,
-  deleteMovieSuccess,
-  getMoviesFailure,
-  getMoviesStart,
-  getMoviesSuccess,
-  updateMovieFailure,
-  updateMovieStart,
-  updateMovieSuccess,
-} from "./MovieActions";
+  createSeriousFailure,
+  createSeriousStart,
+  createSeriousSuccess,
+  deleteSeriousFailure,
+  deleteSeriousStart,
+  deleteSeriousSuccess,
+  getSeriousFailure,
+  getSeriousStart,
+  getSeriousSuccess,
+  updateSeriousFailure,
+  updateSeriousStart,
+  updateSeriousSuccess,
+} from "./SeriousActions";
 
-export const getMovies = async (dispatch) => {
-  dispatch(getMoviesStart());
+export const getSerious = async (dispatch) => {
+  dispatch(getSeriousStart());
   try {
     const res = await axios.get("/serious", {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
       },
     });
-    dispatch(getMoviesSuccess(res.data));
+    dispatch(getSeriousSuccess(res.data));
   } catch (err) {
-    dispatch(getMoviesFailure());
+    dispatch(getSeriousFailure());
   }
 };
 
 //create
-export const createMovie = async (movie, dispatch) => {
-  dispatch(createMovieStart());
+export const createSerious = async (movie, dispatch) => {
+  dispatch(createSeriousStart());
   try {
     const res = await axios.post("/movies", movie, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
       },
     });
-    dispatch(createMovieSuccess(res.data));
+    dispatch(createSeriousSuccess(res.data));
     toast.success("Movie Added successfuly!"); // Display success toast
   } catch (err) {
-    dispatch(createMovieFailure());
+    dispatch(createSeriousFailure());
     toast.error("Fail to Add Movie. Please try again."); // Display error toast
   }
 };
 
 //delete
-export const deleteMovie = async (id, dispatch) => {
-  dispatch(deleteMovieStart());
+export const deleteSerious = async (id, dispatch) => {
+  dispatch(deleteSeriousStart());
   try {
     await axios.delete("/movies/" + id, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
       },
     });
-    dispatch(deleteMovieSuccess(id));
+    dispatch(deleteSeriousSuccess(id));
     toast.success("Delete Movie successful!"); // Display success toast
   } catch (err) {
-    dispatch(deleteMovieFailure());
+    dispatch(deleteSeriousFailure());
     toast.error("Fail To delete Movie. Please try again."); // Display error toast
   }
 };
 
 //update
-export const updateMovie = async (id, updatedMovie, dispatch) => {
-  dispatch(updateMovieStart());
+export const updateSerious = async (id, updatedMovie, dispatch) => {
+  dispatch(updateSeriousStart());
   try {
     const res = await axios.put(`/movies/${id}`, updatedMovie, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
       },
     });
-    dispatch(updateMovieSuccess(res.data));
+    dispatch(updateSeriousSuccess(res.data));
     toast.success("Movie updated successfully!"); // Display success toast
   } catch (err) {
-    dispatch(updateMovieFailure());
+    dispatch(updateSeriousFailure());
     toast.error("Failed to update movie. Please try again."); // Display error toast
   }
 };

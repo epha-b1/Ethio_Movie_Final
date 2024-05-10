@@ -14,7 +14,7 @@ const SeasonSchema = new mongoose.Schema({
   episodes: [EpisodeSchema],
 });
 
-const TVSeriesSchema = new mongoose.Schema(
+const SeriesSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     description: { type: String },
@@ -28,4 +28,4 @@ const TVSeriesSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("TVSeries", TVSeriesSchema);
+module.exports = mongoose.model("Series", SeriesSchema);

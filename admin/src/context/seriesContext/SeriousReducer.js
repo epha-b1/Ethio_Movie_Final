@@ -1,4 +1,4 @@
-const MovieReducer = (state, action) => {
+const SeriousReducer = (state, action) => {
   switch (action.type) {
     case "GET_SERIOUS_START":
       return {
@@ -68,7 +68,7 @@ const MovieReducer = (state, action) => {
         isFetching: false,
         error: false,
       };
-    case "DELETE_MOVIE_FAILURE":
+    case "DELETE_SERIOUS_FAILURE":
       return {
         ...state,
         isFetching: false,
@@ -79,4 +79,4 @@ const MovieReducer = (state, action) => {
   }
 };
 
-export default MovieReducer;
+export default SeriousReducer;

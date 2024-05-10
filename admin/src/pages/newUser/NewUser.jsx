@@ -90,7 +90,7 @@ export default function NewUser() {
           >
             <option value="">Select Role</option>
             <option value="Admin">Admin</option>
-            <option value="Content Creator">Content Creator</option>
+            <option value="Content_Creator">Content Creator</option>
           </select>
         </div>
 

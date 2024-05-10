@@ -104,8 +104,17 @@ export default function NewMovie() {
           <label>Title</label>
           <input
             type="text"
-            placeholder="John Wick"
+            placeholder="ተፈጣሪዝም"
             name="title"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Title_eng</label>
+          <input
+            type="text"
+            placeholder="Tefetarism"
+            name="title_eng"
             onChange={handleChange}
           />
         </div>
@@ -119,11 +128,11 @@ export default function NewMovie() {
           />
         </div>
         <div className="addProductItem">
-          <label>Year</label>
+          <label>Release Date</label>
           <input
             type="text"
-            placeholder="Year"
-            name="year"
+            placeholder="release_date"
+            name="release_date"
             onChange={handleChange}
           />
         </div>
@@ -146,11 +155,56 @@ export default function NewMovie() {
           />
         </div>
         <div className="addProductItem">
-          <label>Limit</label>
+          <label>Age Limit</label>
           <input
             type="text"
-            placeholder="limit"
+            placeholder=""
             name="limit"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Director</label>
+          <input
+            type="text"
+            placeholder="Director"
+            name="director"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Actors</label>
+          <input
+            type="text"
+            placeholder="actors"
+            name="actors"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Language</label>
+          <input
+            type="text"
+            placeholder="language"
+            name="language"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Rating</label>
+          <input
+            type="text"
+            placeholder="rating"
+            name="rating"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Country</label>
+          <input
+            type="text"
+            placeholder="country"
+            name="country"
             onChange={handleChange}
           />
         </div>

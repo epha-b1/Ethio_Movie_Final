@@ -1,4 +1,4 @@
-import MovieReducer from "./MovieReducer";
+import MovieReducer from "./SeriousReducer";
 import { createContext, useReducer } from "react";
 
 const INITIAL_STATE = {
@@ -7,13 +7,13 @@ const INITIAL_STATE = {
   error: false,
 };
 
-export const MovieContext = createContext(INITIAL_STATE);
+export const SeriousContext = createContext(INITIAL_STATE);
 
-export const MovieContextProvider = ({ children }) => {
+export const SeriousContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(MovieReducer, INITIAL_STATE);
 
   return (
-    <MovieContext.Provider
+    <SeriousContext.Provider
       value={{
         movies: state.movies,
         isFetching: state.isFetching,
@@ -22,6 +22,6 @@ export const MovieContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </MovieContext.Provider>
+    </SeriousContext.Provider>
   );
 };
