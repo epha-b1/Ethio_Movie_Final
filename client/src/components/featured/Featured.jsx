@@ -53,7 +53,7 @@ export default function Featured({ type, setGenre }) {
           </select>
         </div>
       )}
-      <video controls autoplay muted preload="auto" poster={content.thumbnail} >
+      <video autoplay muted preload="auto" poster={content.thumbnail} >
         <source src={content.trailer} type="video/mp4" />
       </video>
       <div className="info">
