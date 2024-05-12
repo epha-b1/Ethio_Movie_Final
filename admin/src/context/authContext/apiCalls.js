@@ -1,6 +1,6 @@
 import axios from "axios";
 import { loginFailure, loginStart, loginSuccess } from "./AuthActions";
-import { Toaster, toast } from "sonner";
+import {  toast } from "sonner";
 
 export const login = async (user, dispatch) => {
   dispatch(loginStart());

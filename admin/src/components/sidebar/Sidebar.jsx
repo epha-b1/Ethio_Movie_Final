@@ -13,6 +13,7 @@ import {
   Report,
   AddToQueue,
   QueuePlayNext,
+  PlayArrow,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
@@ -52,6 +53,12 @@ export default function Sidebar() {
               <li className="sidebarListItem">
                 <PlayCircleOutline className="sidebarIcon" />
                 Movies
+              </li>
+            </Link>
+            <Link to="/series" className="link">
+              <li className="sidebarListItem">
+                <PlayArrow className="sidebarIcon" />
+                Series
               </li>
             </Link>
             <Link to="/lists" className="link">

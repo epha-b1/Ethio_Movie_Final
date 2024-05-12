@@ -21,6 +21,7 @@ import Movie from "./pages/movie/Movie.jsx";
 import NewMovie from "./pages/newMovie/NewMovie";
 import NewSerious from "./pages/newSerious/NewSerious";
 import { useContext } from "react";
+import SeriesList from "./pages/seriesList/SeriousList.jsx";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -50,6 +51,9 @@ function App() {
               </Route>
               <Route path="/movies">
                 <MovieList />
+              </Route>
+              <Route path="/series">
+                <SeriesList />
               </Route>
               <Route path="/movie/:movieId">
                 <Movie />
