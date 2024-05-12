@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import "./newSerious.css";
 import { storage } from "../../firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "@firebase/storage";
-import { createSerious } from "../../context/seriesContext/apiCalls";
-import { SeriousContext } from "../../context/seriesContext/SeriousContext";
+// import { SeriousContext } from "../../context/seriesContext/SeriousContext";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 
@@ -21,7 +20,7 @@ export default function NewSerious() {
 
   const [uploaded, setUploaded] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const { dispatch } = useContext(SeriousContext);
+  // const { dispatch } = useContext(SeriousContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -105,7 +104,7 @@ export default function NewSerious() {
   const handleSubmit = async (e) => {
     e.preventDefault();
       try {
-        const res = await axios.post("http://localhost:8800/api/serious",series, {
+         await axios.post("http://localhost:8800/api/serious",series, {
           headers: {
             token:
               "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
