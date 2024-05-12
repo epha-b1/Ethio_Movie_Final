@@ -13,7 +13,7 @@ export default function Watch() {
           Home
         </div>
       </Link>
-      <video className="video" autoPlay progress controls src={movie.video} />
+      <video className="video" autoPlay controls controlsList="nodownload" src={movie.video} />
     </div>
   );
 }
