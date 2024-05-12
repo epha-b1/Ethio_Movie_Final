@@ -57,8 +57,8 @@ export default function SeriesList() {
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            {/* Assuming you have a 'thumbnail' property for series */}
-            <img className="productListImg" src={params.row.thumbnail} alt="" />
+            <img className="productListImg" src={params.row.seasons[0].episodes[0].thumbnail}
+ alt="" />
             {params.row.title}
           </div>
         );
