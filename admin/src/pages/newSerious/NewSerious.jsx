@@ -5,6 +5,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from "@firebase/storage";
 // import { SeriousContext } from "../../context/seriesContext/SeriousContext";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
+import {  toast } from "sonner";
 
 export default function NewSerious() {
   const [series, setSeries] = useState({
@@ -111,9 +112,12 @@ export default function NewSerious() {
           },
         });
 
-        
+        toast.success("Series added successful!");
+
       } catch (error) {
         console.error("Error serious adding:", error);
+        toast.error("Series added error!");
+
       }
     
   };
