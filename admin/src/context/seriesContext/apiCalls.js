@@ -30,19 +30,19 @@ export const getSerious = async (dispatch) => {
 };
 
 //create
-export const createSerious = async (movie, dispatch) => {
+export const createSerious = async (serious, dispatch) => {
   dispatch(createSeriousStart());
   try {
-    const res = await axios.post("/movies", movie, {
+    const res = await axios.post("/serious", serious, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
       },
     });
     dispatch(createSeriousSuccess(res.data));
-    toast.success("Movie Added successfuly!"); // Display success toast
+    toast.success("Serious Added successfuly!"); // Display success toast
   } catch (err) {
     dispatch(createSeriousFailure());
-    toast.error("Fail to Add Movie. Please try again."); // Display error toast
+    toast.error("Fail to Add Serious. Please try again."); // Display error toast
   }
 };
 
@@ -50,7 +50,7 @@ export const createSerious = async (movie, dispatch) => {
 export const deleteSerious = async (id, dispatch) => {
   dispatch(deleteSeriousStart());
   try {
-    await axios.delete("/movies/" + id, {
+    await axios.delete("/serious/" + id, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
       },
