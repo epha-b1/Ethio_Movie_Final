@@ -36,7 +36,7 @@ export default function FeaturedInfo() {
 
   return (
     <div className="featured">
-      <div className="featuredItem">
+      {/* <div className="featuredItem">
         <span className="featuredTitle">Total Series</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">{seriesTotal}</span>
@@ -44,7 +44,7 @@ export default function FeaturedInfo() {
             <ArrowUpward className="featuredIcon postive" />
           </span>
         </div>
-      </div>
+      </div> */}
       <div className="featuredItem">
         <span className="featuredTitle">Total Movies</span>
         <div className="featuredMoneyContainer">

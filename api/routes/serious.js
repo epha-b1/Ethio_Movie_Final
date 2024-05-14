@@ -123,5 +123,20 @@ router.get("/", verify, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+// Update view count for a movie
+router.post("/:id/views", async (req, res) => {
+  try {
+    const seriesId = req.params.id;
+    const series = await Movie.findById(seriesId);
+    if (!series) {
+      return res.status(404).json({ message: "Series not found" });
+    }
+    series.views += 1;
+    await series.save();
+    res.json({ message: "View count updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 module.exports = router;

@@ -24,7 +24,8 @@ const SeriesSchema = new mongoose.Schema(
     language: { type: String },
     country: { type: String },
     seasons: [SeasonSchema],
-    uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" } // Reference to the User schema
+    uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, 
+    views: { type: Number, default: 0 }, // Number of views
 
   },
   { timestamps: true }
