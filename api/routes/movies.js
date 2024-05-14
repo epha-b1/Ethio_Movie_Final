@@ -62,8 +62,6 @@ router.put("/:id", verify, async (req, res) => {
   }
 });
 // DELETE
-
-
 router.delete("/:id", verify, async (req, res) => {
   try {
     // Fetch the movie by ID
