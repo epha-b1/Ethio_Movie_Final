@@ -27,6 +27,8 @@ const MovieSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    views: { type: Number, default: 0 }, // Number of views
+
   },
   { timestamps: true }
 );
