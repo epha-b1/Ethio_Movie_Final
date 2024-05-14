@@ -30,7 +30,6 @@ router.post("/", verify, async (req, res) => {
 
 
 
-
 // UPDATE
 router.put("/:id", verify, async (req, res) => {
   try {
