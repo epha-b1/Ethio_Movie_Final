@@ -43,12 +43,6 @@ export default function Sidebar() {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Quick Menu</h3>
           <ul className="sidebarList">
-            <Link to="/users" className="link">
-              <li className="sidebarListItem">
-                <PermIdentity className="sidebarIcon" />
-                Users
-              </li>
-            </Link>
             <Link to="/movies" className="link">
               <li className="sidebarListItem">
                 <PlayCircleOutline className="sidebarIcon" />
@@ -61,12 +55,7 @@ export default function Sidebar() {
                 Series
               </li>
             </Link>
-            <Link to="/lists" className="link">
-              <li className="sidebarListItem">
-                <List className="sidebarIcon" />
-                Lists
-              </li>
-            </Link>
+ 
             <Link to="/newMovie" className="link">
               <li className="sidebarListItem">
                 <AddToQueue className="sidebarIcon" />
@@ -79,12 +68,7 @@ export default function Sidebar() {
                 Add Serious
               </li>
             </Link>
-            <Link to="/newList" className="link">
-              <li className="sidebarListItem">
-                <QueuePlayNext className="sidebarIcon" />
-                Add List
-              </li>
-            </Link>
+
           </ul>
         </div>
         <div className="sidebarMenu">
