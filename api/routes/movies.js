@@ -62,18 +62,28 @@ router.put("/:id", verify, async (req, res) => {
   }
 });
 // DELETE
+
+
 router.delete("/:id", verify, async (req, res) => {
   try {
+    // Fetch the movie by ID
+    const movie = await Movie.findById(req.params.id);
+    if (!movie) {
+      return res.status(404).json("Movie not found");
+    }
     const roleRes = await axios.get(
       `http://localhost:8800/api/role/${req.user.role}`
     );
     const roleName = roleRes.data.role_name;
 
-    if (roleName === "Admin") {
+
+    // Check if the authenticated user is the uploader or an admin
+    if (roleName === "Admin" || req.user.id === movie.uploadedBy.toString()) {
+      // Delete the movie
       await Movie.findByIdAndDelete(req.params.id);
       res.status(200).json("The movie has been deleted...");
     } else {
-      res.status(403).json("You are not allowed!");
+      res.status(403).json("You are not allowed to delete this movie");
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
