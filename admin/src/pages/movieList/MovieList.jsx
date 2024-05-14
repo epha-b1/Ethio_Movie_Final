@@ -35,7 +35,7 @@ export default function MovieList() {
       },
     },
     { field: "genre", headerName: "Genre", width: 120 },
-    { field: "year", headerName: "year", width: 120 },
+    { field: "releaseDate", headerName: "releaseDate", width: 120 },
     { field: "limit", headerName: "limit", width: 120 },
     { field: "isSeries", headerName: "isSeries", width: 120 },
 
