@@ -15,7 +15,7 @@ export const SeriousContextProvider = ({ children }) => {
   return (
     <SeriousContext.Provider
       value={{
-        movies: state.movies,
+        series: state.series,
         isFetching: state.isFetching,
         error: state.error,
         dispatch,
