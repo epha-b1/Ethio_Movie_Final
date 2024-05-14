@@ -22,6 +22,11 @@ const MovieSchema = new mongoose.Schema(
     actors :{type:Array},
     language :{type:String},
     country :{type:String},
+    uploadedBy: {
+      type: String, // Assuming phoneNumber is stored as a string
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true }
 );
