@@ -30,12 +30,16 @@ router.post("/", verify, async (req, res) => {
 // UPDATE
 router.put("/:id", verify, async (req, res) => {
   try {
+    const series = await Series.findById(req.params.id);
+    if (!series) {
+      return res.status(404).json("Series not found");
+    }
     const roleRes = await axios.get(
       `http://localhost:8800/api/role/${req.user.role}`
     );
     const roleName = roleRes.data.role_name;
 
-    if (roleName === "Admin") {
+    if (roleName === "Admin" || req.user.id === series.uploadedBy.toString()) {
       const updatedSeries = await Series.findByIdAndUpdate(
         req.params.id,
         { $set: req.body },
@@ -53,12 +57,16 @@ router.put("/:id", verify, async (req, res) => {
 // DELETE
 router.delete("/:id", verify, async (req, res) => {
   try {
+    const series = await Series.findById(req.params.id);
+    if (!series) {
+      return res.status(404).json("Movie not found");
+    }
     const roleRes = await axios.get(
       `http://localhost:8800/api/role/${req.user.role}`
     );
     const roleName = roleRes.data.role_name;
 
-    if (roleName === "Admin") {
+    if (roleName === "Admin" || req.user.id === series.uploadedBy.toString()) {
       await Series.findByIdAndDelete(req.params.id);
       res.status(200).json("The series has been deleted...");
     } else {
@@ -100,8 +108,13 @@ router.get("/", verify, async (req, res) => {
     );
     const roleName = roleRes.data.role_name;
 
-    if (roleName === "Admin") {
-      const series = await Series.find().sort({ _id: -1 });
+    if (roleName === "Admin" || roleName === "Content_Creator") {
+      let series;
+      if (roleName === "Admin"){
+        series = await Series.find().sort({ _id: -1 });
+      }else{
+        series = await Series.find({uploadedBy:req.user.id}).sort({ _id: -1 });
+      }
       res.status(200).json(series);
     } else {
       res.status(403).json("You are not allowed!");
