@@ -73,8 +73,6 @@ router.delete("/:id", verify, async (req, res) => {
       `http://localhost:8800/api/role/${req.user.role}`
     );
     const roleName = roleRes.data.role_name;
-
-
     // Check if the authenticated user is the uploader or an admin
     if (roleName === "Admin" || req.user.id === movie.uploadedBy.toString()) {
       // Delete the movie
