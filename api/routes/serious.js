@@ -11,8 +11,11 @@ router.post("/", verify, async (req, res) => {
     );
     const roleName = roleRes.data.role_name;
 
-    if (roleName === "Admin") {
-      const newSeries = new Series(req.body);
+    if (roleName === "Admin" || roleName === "Content_Creator") {
+      const newSeries = new Series({
+        ...req.body,
+        uploadedBy: req.user.id
+      });
       const savedSeries = await newSeries.save();
       res.status(201).json(savedSeries);
     } else {
@@ -22,6 +25,7 @@ router.post("/", verify, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // UPDATE
 router.put("/:id", verify, async (req, res) => {
