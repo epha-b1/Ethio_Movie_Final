@@ -6,22 +6,28 @@ const axios = require("axios");
 // CREATE
 router.post("/", verify, async (req, res) => {
   try {
+    // Make an API call to fetch the user's role
     const roleRes = await axios.get(
       `http://localhost:8800/api/role/${req.user.role}`
     );
     const roleName = roleRes.data.role_name;
 
-    if (roleName === "Admin") {
-      const newMovie = new Movie(req.body);
+    // Check if the user is either an Admin or a Content Creator
+    if (roleName === "Admin" || roleName === "Content_Creator") {
+      const newMovie = new Movie({
+        ...req.body,
+        uploadedBy: req.user.id, // Associate the movie with the authenticated user
+      });
       const savedMovie = await newMovie.save();
       res.status(201).json(savedMovie);
     } else {
-      res.status(403).json("You are not allowed!");
+      res.status(403).json("You are not allowed to upload movies");
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // UPDATE
 router.put("/:id", verify, async (req, res) => {
@@ -92,6 +98,7 @@ router.get("/random", verify, async (req, res) => {
   }
 });
 
+
 // GET ALL
 router.get("/", verify, async (req, res) => {
   try {
@@ -99,9 +106,15 @@ router.get("/", verify, async (req, res) => {
       `http://localhost:8800/api/role/${req.user.role}`
     );
     const roleName = roleRes.data.role_name;
-
-    if (roleName === "Admin") {
-      const movies = await Movie.find().sort({ _id: -1 });
+    if (roleName === "Admin" || roleName === "Content_Creator") {
+      let movies;
+      if (roleName === "Admin") {
+        // If the user is an admin, retrieve all movies
+        movies = await Movie.find().sort({ _id: -1 });
+      } else {
+        // If the user is a content creator, retrieve movies uploaded by the creator
+        movies = await Movie.find({ uploadedBy: req.user.id }).sort({ _id: -1 });
+      }
       res.status(200).json(movies);
     } else {
       res.status(403).json("You are not allowed!");
