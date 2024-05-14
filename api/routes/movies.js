@@ -136,4 +136,20 @@ router.get("/", verify, async (req, res) => {
   }
 });
 
+// Update view count for a movie
+router.post("/:id/views", async (req, res) => {
+  try {
+    const movieId = req.params.id;
+    const movie = await Movie.findById(movieId);
+    if (!movie) {
+      return res.status(404).json({ message: "Movie not found" });
+    }
+    movie.views += 1;
+    await movie.save();
+    res.json({ message: "View count updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
