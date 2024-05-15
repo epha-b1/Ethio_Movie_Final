@@ -71,7 +71,7 @@ export default function SeriesList() {
               src={params.row.seasons[0].episodes[0].thumbnail}
               alt=""
             />
-            {params.row.title}
+            <b>{params.row.title}</b>
           </div>
         );
       },

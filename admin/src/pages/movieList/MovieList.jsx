@@ -44,15 +44,15 @@ export default function MovieList() {
         return (
           <div className="productListItem">
             <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.title}
+            <b>{params.row.title}</b>
           </div>
         );
       },
     },
     { field: "genre", headerName: "Genre", width: 120 },
     { field: "releaseDate", headerName: "year", width: 120 },
-    { field: "limit", headerName: "limit", width: 120 },
-    { field: "isSeries", headerName: "isSeries", width: 120 },
+    { field: "rating", headerName: "rating", width: 120 },
+    { field: "duration", headerName: "duration", width: 120 },
 
     {
       field: "action",
