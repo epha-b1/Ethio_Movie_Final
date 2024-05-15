@@ -1,23 +1,40 @@
-import "./movieList.css";
+import "./movieList.css"
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MovieContext } from "../../context/movieContext/MovieContext";
 import { deleteMovie, getMovies } from "../../context/movieContext/apiCalls";
+import ConfirmDialog from '../../components/confirmDialoge/ConfirmDialog '; // Import the ConfirmDialog component
 
 export default function MovieList() {
   const { movies, dispatch } = useContext(MovieContext);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedMovieId, setSelectedMovieId] = useState(null); // State to track the selected movie ID for deletion
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false); // State to manage the visibility of the confirmation dialog
 
   useEffect(() => {
-    getMovies(dispatch);
+    const fetchMovies = async () => {
+      await getMovies(dispatch);
+      setIsLoading(false);
+    };
+
+    fetchMovies();
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    deleteMovie(id, dispatch);
+    setSelectedMovieId(id); // Set the selected movie ID for deletion
+    setIsConfirmDialogOpen(true); // Open the confirmation dialog
   };
 
-  console.log(movies)
+  const handleConfirmDelete = async () => {
+    await deleteMovie(selectedMovieId, dispatch); // Delete the movie
+    setIsConfirmDialogOpen(false); // Close the confirmation dialog
+  };
+
+  const handleCloseConfirmDialog = () => {
+    setIsConfirmDialogOpen(false); // Close the confirmation dialog
+  };
 
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
@@ -61,16 +78,23 @@ export default function MovieList() {
     },
   ];
 
+  const rows = movies.map((movie) => ({ ...movie, id: movie._id }));
+
   return (
     <div className="productList">
-      <DataGrid
-        rows={movies}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-        getRowId={(r) => r._id}
+      <ConfirmDialog
+        open={isConfirmDialogOpen}
+        handleClose={handleCloseConfirmDialog}
+        handleConfirm={handleConfirmDelete}
       />
+        <DataGrid
+          rows={rows}
+          disableSelectionOnClick
+          columns={columns}
+          pageSize={8}
+          checkboxSelection
+        />
+  
     </div>
   );
 }

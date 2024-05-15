@@ -9,7 +9,7 @@ const ConfirmDialog = ({ open, handleClose, handleConfirm }) => {
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Confirm Delete</DialogTitle>
-      <DialogContent>Are you sure you want to delete this user?</DialogContent>
+      <DialogContent>Are you sure you want to delete this?</DialogContent>
       <DialogActions>
         <Button
           onClick={handleClose}
