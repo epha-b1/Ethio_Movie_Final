@@ -7,7 +7,6 @@ import axios from "axios";
 
 export default function FeaturedInfo() {
   const { movies, dispatch: movieDispatch } = useContext(MovieContext);
-  const [isLoading, setIsLoading] = useState(true);
   const [seriesTotal, setSeriesTotal] = useState(0); // Corrected variable name
 
   useEffect(() => {

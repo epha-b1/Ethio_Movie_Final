@@ -11,8 +11,29 @@ export default function FeaturedInfo() {
   const { users, dispatch: userDispatch } = useContext(UserContext);
   const { movies, dispatch: movieDispatch } = useContext(MovieContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [seriesTotal, setSeriesTotal] = useState(0); // Corrected variable name
+
   const [TotalRevenue, setTotalRevenue] = useState();
 
+  useEffect(() => {
+    const fetchSeriesTotal = async () => {
+      try {
+        const res = await axios.get("/serious", {
+          headers: {
+            token: `Bearer ${
+              JSON.parse(localStorage.getItem("user")).accessToken
+            }`,
+          },
+        });
+        const totalSeries = res.data.length; // Corrected variable name
+        setSeriesTotal(totalSeries); // Corrected variable name
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchSeriesTotal();
+  }, []);
   useEffect(() => {
     getUsers(userDispatch)
       .then(() => setIsLoading(false))
@@ -75,6 +96,15 @@ export default function FeaturedInfo() {
           </span>
         </div>
         {/* <span className="featuredSub">Compared to last month</span> */}
+      </div>
+      <div className="featuredItem">
+        <span className="featuredTitle">Total Series</span>
+        <div className="featuredMoneyContainer">
+          <span className="featuredMoney">{seriesTotal}</span>
+          <span className="featuredMoneyRate">
+            <ArrowUpward className="featuredIcon postive" />
+          </span>
+        </div>
       </div>
     </div>
   );
