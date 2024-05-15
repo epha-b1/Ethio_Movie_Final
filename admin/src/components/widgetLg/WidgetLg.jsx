@@ -5,8 +5,6 @@ import { getMovies } from "../../context/movieContext/apiCalls";
 import axios from "axios";
 
 export default function WidgetLg() {
- 
-
   const { movies, dispatch: movieDispatch } = useContext(MovieContext);
   const [series, setSeries] = useState([]);
 
@@ -63,7 +61,7 @@ export default function WidgetLg() {
             <tr className="widgetLgTr" key={serie._id}>
               <td className="widgetLgUser">
                 <img
-                  src={serie.thumbnail} // Assuming `thumbnail` is the property for series thumbnail
+                  src={serie.seasons[0].episodes[0].thumbnail} // Assuming `thumbnail` is the property for series thumbnail
                   alt=""
                   className="widgetLgImg"
                 />
