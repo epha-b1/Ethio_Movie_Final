@@ -9,14 +9,12 @@ import ConfirmDialog from '../../components/confirmDialoge/ConfirmDialog '; // I
 
 export default function MovieList() {
   const { movies, dispatch } = useContext(MovieContext);
-  const [isLoading, setIsLoading] = useState(true);
   const [selectedMovieId, setSelectedMovieId] = useState(null); // State to track the selected movie ID for deletion
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false); // State to manage the visibility of the confirmation dialog
 
   useEffect(() => {
     const fetchMovies = async () => {
       await getMovies(dispatch);
-      setIsLoading(false);
     };
 
     fetchMovies();

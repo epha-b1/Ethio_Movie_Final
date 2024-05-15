@@ -13,24 +13,23 @@ export default function SeriesList() {
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false); // State to manage the visibility of the confirmation dialog
 
   useEffect(() => {
+    const fetchSeries = async () => {
+      try {
+        const res = await axios.get("/serious", {
+          headers: {
+            token:
+              "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+          },
+        });
+
+        setSeries(res.data);
+      } catch (error) {
+        console.error("Error fetching series:", error);
+      }
+    };
+
     fetchSeries();
   }, []);
-
-  const fetchSeries = async () => {
-    try {
-      const res = await axios.get("/serious", {
-        headers: {
-          token:
-            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-        },
-      });
-
-      setSeries(res.data);
-      console.log(series);
-    } catch (error) {
-      console.error("Error fetching series:", error);
-    }
-  };
 
   const handleDelete = (id) => {
     setSelectedSeriesId(id); // Set the selected series ID for deletion
