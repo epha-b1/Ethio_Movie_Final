@@ -65,12 +65,15 @@ export default function ForgotPassword() {
         toast.success(" Reset email sent successfully!");
 
       } else {
-        setError("Failed to reset password.");
         toast.error("Failed to reset password.");
+
+        setError("Failed to reset password.");
 
         setSuccess(false);
       }
     } catch (err) {
+      toast.error("An error occurred while resetting password.");
+
       setError("An error occurred while resetting password.");
       setSuccess(false);
     }

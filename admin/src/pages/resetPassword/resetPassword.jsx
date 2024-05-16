@@ -82,6 +82,8 @@ export default function ResetPassword() {
       }
     } catch (err) {
       setError("An error occurred while resetting password.");
+      toast.error("An error occurred while resetting password.");
+
       setSuccess(false);
     }
   };

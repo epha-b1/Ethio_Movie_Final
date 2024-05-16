@@ -69,6 +69,8 @@ export default function ForgotPassword() {
         setSuccess(false);
       }
     } catch (err) {
+      toast.error("Failed to reset password.");
+
       setError("An error occurred while resetting password.");
       setSuccess(false);
     }
