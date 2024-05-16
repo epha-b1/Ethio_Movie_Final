@@ -48,3 +48,17 @@ position: relative;
 img{
   width: 80px;
 }
+input {
+  height: 40px;
+  width: 50%;
+  border-radius: 5px;
+  background-color: gray;
+  color: white;
+  padding-left: 10px;
+  
+
+  &::placeholder {
+    color: lightgray;
+  }
+}
+
