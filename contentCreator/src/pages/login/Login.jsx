@@ -43,6 +43,10 @@ const customTypographyStyle = {
   marginBottom: '15px',
     color: 'white',
 };
+const customInputStyle = {
+  marginBottom: '8px',
+    color: 'white',
+};
 export default function Auth() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -71,12 +75,15 @@ export default function Auth() {
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
         <input
+        style={customInputStyle}
             type="text"
             placeholder="Email or phone number"
             onChange={(e) => setEmail(e.target.value)}
           />
-          
+
           <input
+                  style={customInputStyle}
+
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
@@ -92,7 +99,7 @@ export default function Auth() {
             disabled={isFetching}
             style={customColorStyle} // Apply the custom style here
             >
-            {isLogin ? "Sign In" : "Sign Up"}
+            "Sign In" 
           </Button>
           <Grid container>
             <Grid item xs>

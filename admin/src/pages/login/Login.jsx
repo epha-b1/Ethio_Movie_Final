@@ -3,9 +3,6 @@ import { login } from "../../context/authContext/apiCalls";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -28,7 +25,15 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: "100%", // Fix IE 11 issue.
+    display: "flex",
+    flexDirection: "column",
     marginTop: theme.spacing(1),
+    input:{
+      width: "100%", // Fix IE 11 issue.
+
+      display: "flex",
+      flexDirection: "row",
+    }
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -67,12 +72,10 @@ export default function Auth() {
       <Container component="main" maxWidth="xs" className="container1">
         <CssBaseline />
         <div className={classes.paper}>
-          {/* <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar> */}
+          
           <img src={Logo} alt="" />
           <Typography component="h1" variant="h5" style={customTypographyStyle}>
-            {isLogin ? "Admin Sign in" : "Sign up"}
+            "Admin Sign in" 
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <input
