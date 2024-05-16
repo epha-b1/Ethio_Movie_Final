@@ -14,7 +14,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import Logo from "../../asset/image/logo.png";
 import "./login.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +36,19 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
+const customColorStyle = {
+  backgroundColor: ' #e9b14c ', // Background color
+  color: 'black', // Text color
+};
+const customInputStyle = {
+  borderRadius: '5px',
+  backgroundColor: 'white',
+  color: 'white',
+};
+const customTypographyStyle = {
+  // borderRadius: '5px',
+  color: 'white',
+};
 export default function Auth() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -54,14 +66,16 @@ export default function Auth() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+ <div className="login">
+     <Container component="main" maxWidth="xs" className="container1">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        {/* <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          {isLogin ? "Sign in" : "Sign up"}
+        </Avatar> */}
+        <img src={Logo} alt="" />
+        <Typography component="h1" variant="h5" style={customTypographyStyle }>
+          {isLogin ? "Content Creator Sign in" : "Sign up"}
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
@@ -74,6 +88,7 @@ export default function Auth() {
             name="email"
             autoComplete="email"
             autoFocus
+            style={customInputStyle }
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -86,13 +101,15 @@ export default function Auth() {
             label="Password"
             type="password"
             id="password"
+            style={customInputStyle }
+
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           {!isLogin && (
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox value="remember" color="primary" style={customTypographyStyle }/>}
               label="Remember me"
             />
           )}
@@ -100,15 +117,16 @@ export default function Auth() {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
-            className={classes.submit}
+            className="submit"
             disabled={isFetching}
-          >
+            style={customColorStyle} // Apply the custom style here
+            >
             {isLogin ? "Sign In" : "Sign Up"}
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="#" variant="body2"             style={customTypographyStyle }
+>
                 Forgot password?
               </Link>
             </Grid>
@@ -116,9 +134,9 @@ export default function Auth() {
         </form>
       </div>
       <Box mt={8}>
-        <Typography variant="body2" color="textSecondary" align="center">
+        <Typography variant="body2" color="textSecondary" align="center" style={customTypographyStyle }>
           {"Copyright © "}
-          <Link color="inherit" href="https://mui.com/">
+          <Link color="inherit" href="https://mui.com/" >
             Ethio Movies
           </Link>{" "}
           {new Date().getFullYear()}
@@ -126,5 +144,6 @@ export default function Auth() {
         </Typography>
       </Box>
     </Container>
+ </div>
   );
 }
