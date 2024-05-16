@@ -146,7 +146,8 @@ const MySetting = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="account-info">
+        <div className="body">
+          <div className="account-info">
           <span className="title">Account Information</span>
 
           <hr />
@@ -227,6 +228,7 @@ const MySetting = () => {
               Delete account
             </button>
           </div>
+        </div>
         </div>
       )}
       <ConfirmDialog

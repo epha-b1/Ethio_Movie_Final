@@ -22,13 +22,20 @@ import NewMovie from "./pages/newMovie/NewMovie.jsx";
 import NewSerious from "./pages/newSerious/NewSerious.jsx";
 import { useContext } from "react";
 import SeriesList from "./pages/seriesList/SeriousList.jsx";
-
+import ForgotPassword from "./pages/forgotPassword/ForgotPassword.jsx";
+import ResetPassword from "./pages/resetPassword/resetPassword.jsx"
 function App() {
   const { user } = useContext(AuthContext);
 
   return (
     <Router>
       <Switch>
+      <Route path="/forgot-password">
+          <ForgotPassword />
+        </Route>
+        <Route path="/reset-password/:token" >
+          <ResetPassword />
+        </Route>
         <Route exact path="/login">
           {user ? <Redirect to="/" /> : <Login />}
         </Route>

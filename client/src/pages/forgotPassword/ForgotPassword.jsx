@@ -114,7 +114,7 @@ export default function ForgotPassword() {
                   variant="body2"
                   style={customTypographyStyle}
                 >
-                  Login Page
+                  Back to Login
                 </Link>
               </Grid>
             </Grid>
