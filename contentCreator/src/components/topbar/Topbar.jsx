@@ -20,7 +20,7 @@ export default function Topbar() {
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">EthioView Admin</span>
+          <span className="logo">EthioView Content Creator</span>
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">
