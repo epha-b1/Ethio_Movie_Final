@@ -12,7 +12,7 @@ export default function ForgotPassword() {
   const handleResetPassword = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/reset-password", {
+      const response = await axios.post("/users/forgot-password", {
         email: email,
       });
 

@@ -5,6 +5,7 @@ import Register from "./pages/register/Register";
 import Watch from "./pages/watch/Watch";
 import Login from "./pages/login/Login";
 import ForgotPassword from "./pages/forgotPassword/ForgotPassword.jsx";
+import ResetPassword from "./pages/resetPassword/resetPassword.jsx"
 import {
   BrowserRouter as Router,
   Switch,
@@ -83,6 +84,9 @@ const App = () => {
         <Route path="/login">{!user ? <Login /> : <Redirect to="/" />}</Route>
         <Route path="/forgot-password">
           <ForgotPassword />
+        </Route>
+        <Route path="/reset-password/:token" component={ResetPassword}>
+          <ResetPassword />
         </Route>
         {user && (
           <>
