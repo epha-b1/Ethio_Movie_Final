@@ -2,6 +2,8 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.75);
+  // background: linear-gradient(to left, rgb(23 129 234 / 50%), rgb(1 4 8));
+
   background-size: cover;
   position: relative;
 
@@ -79,7 +81,10 @@
         flex: 9;
         height: 100%;
         border: none;
+        color: black;
+        background-color: white;
         padding: 0 10px;
+        
       }
 
       .registerButton {
@@ -93,4 +98,7 @@
       }
     }
   }
+  input::placeholder {
+    color: black;
+}
 }
