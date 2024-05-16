@@ -35,14 +35,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const customColorStyle = {
+  marginTop: '8px', // Adjust padding top as needed
+  marginBottom: '8px', // Adjust padding top as needed
   backgroundColor: ' #e9b14c ', // Background color
-  color: 'black', // Text color
+  color: 'white', // Text color
 };
-const customInputStyle = {
-  borderRadius: '5px',
-  backgroundColor: 'white',
-  color: 'white',
-};
+
 const customTypographyStyle = {
   // borderRadius: '5px',
   color: 'white',
@@ -68,49 +66,26 @@ export default function Auth() {
      <Container component="main" maxWidth="xs" className="container1">
       <CssBaseline />
       <div className={classes.paper}>
-        {/* <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar> */}
+      
         <img src={Logo} alt="" />
         <Typography component="h1" variant="h5" style={customTypographyStyle }>
-          {isLogin ? "Content Creator Sign in" : "Sign up"}
+          {isLogin ? "Content-creator Sign in" : "Sign up"}
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            style={customInputStyle }
-            value={email}
+        <input
+            type="text"
+            placeholder="Email or phone number"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
+          
+          <input
             type="password"
-            id="password"
-            style={customInputStyle }
-
-            autoComplete="current-password"
-            value={password}
+            placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          {!isLogin && (
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" style={customTypographyStyle }/>}
-              label="Remember me"
-            />
-          )}
+          
+          
+    
           <Button
             type="submit"
             fullWidth
