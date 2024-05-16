@@ -75,7 +75,7 @@ export default function Auth() {
           
           <img src={Logo} alt="" />
           <Typography component="h1" variant="h5" style={customTypographyStyle}>
-            Admin Sign in
+            Admin Sign in 
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <input
