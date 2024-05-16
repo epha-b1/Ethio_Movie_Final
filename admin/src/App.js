@@ -22,6 +22,8 @@ import NewMovie from "./pages/newMovie/NewMovie";
 import NewSerious from "./pages/newSerious/NewSerious";
 import { useContext } from "react";
 import SeriesList from "./pages/seriesList/SeriousList.jsx";
+import ForgotPassword from "./pages/forgotPassword/ForgotPassword.jsx";
+import ResetPassword from "./pages/resetPassword/resetPassword.jsx"
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -29,6 +31,12 @@ function App() {
   return (
     <Router>
       <Switch>
+      <Route path="/forgot-password">
+          <ForgotPassword />
+        </Route>
+        <Route path="/reset-password/:token" >
+          <ResetPassword />
+        </Route>
         <Route exact path="/login">
           {user ? <Redirect to="/" /> : <Login />}
         </Route>

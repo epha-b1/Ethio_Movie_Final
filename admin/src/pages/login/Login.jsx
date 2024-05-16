@@ -99,7 +99,7 @@ export default function Auth() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2" style={customTypographyStyle}>
+                <Link href="/forgot-password" variant="body2" style={customTypographyStyle}>
                   Forgot password?
                 </Link>
               </Grid>

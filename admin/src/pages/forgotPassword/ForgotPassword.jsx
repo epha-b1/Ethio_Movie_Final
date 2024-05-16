@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import "./forgotPassword.scss"; // Style your forgot password page here
+import "./forgotPassword.css"; // Style your forgot password page here
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
