@@ -39,7 +39,7 @@ const customColorStyle = {
 };
 
 const customTypographyStyle = {
-  // borderRadius: '5px',
+  marginBottom: '15px',
   color: 'white',
 };
 export default function ResetPassword() {
@@ -133,7 +133,7 @@ export default function ResetPassword() {
          <Box mt={8}>
            <Typography variant="body2" color="textSecondary" align="center" style={customTypographyStyle }>
              {"Copyright © "}
-             <Link color="inherit" href="https://mui.com/" >
+             <Link color="inherit" href="#" >
                Ethio Movies
              </Link>{" "}
              {new Date().getFullYear()}

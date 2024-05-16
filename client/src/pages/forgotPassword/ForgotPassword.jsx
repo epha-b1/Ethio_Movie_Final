@@ -32,15 +32,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const customColorStyle = {
-  marginTop: '8px', // Adjust padding top as needed
-  marginBottom: '8px', // Adjust padding top as needed
-  backgroundColor: ' #e9b14c ', // Background color
-  color: 'white', // Text color
+  marginTop: "8px", // Adjust padding top as needed
+  marginBottom: "8px", // Adjust padding top as needed
+  backgroundColor: " #e9b14c ", // Background color
+  color: "white", // Text color
 };
 
 const customTypographyStyle = {
   // borderRadius: '5px',
-  color: 'white',
+  color: "white",
+  marginBottom: '15px'
 };
 export default function ForgotPassword() {
   const classes = useStyles();
@@ -72,60 +73,69 @@ export default function ForgotPassword() {
 
   return (
     <div className="login">
-        <Container component="main" maxWidth="xs" className="container1">
-         <CssBaseline />
-         <div className={classes.paper}>
-         
-           <img src={Logo} alt="" />
-           <Typography component="h1" variant="h5" style={customTypographyStyle }>
-           <h2>Forgot Password</h2>
-      {success && <p className="success">Reset email sent successfully!</p>}
-      {error && <p className="error">{error}</p>} 
-           </Typography>
-           <form className={classes.form} onSubmit={handleResetPassword} noValidate>
-           <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-             
-        
-             
-             
-       
-             <Button
-               type="submit"
-               fullWidth
-               variant="contained"
-               className="submit"
+      <Container component="main" maxWidth="xs" className="container1">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <img src={Logo} alt="" />
+          <Typography component="h1" variant="h5" style={customTypographyStyle}>
+            <h2>Forgot Password</h2>
+            {success && (
+              <p className="success">Reset email sent successfully!</p>
+            )}
+            {error && <p className="error">{error}</p>}
+          </Typography>
+          <form
+            className={classes.form}
+            onSubmit={handleResetPassword}
+            noValidate
+          >
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              className="submit"
               //  disabled={isFetching}
-               style={customColorStyle} // Apply the custom style here
-               >
-               Request password reset
-             </Button>
-             <Grid container>
-               <Grid item xs>
-                 <Link href="/login" variant="body2"             style={customTypographyStyle }
-   >Login Page
-                   
-                 </Link>
-               </Grid>
-             </Grid>
-           </form>
-         </div>
-         <Box mt={8}>
-           <Typography variant="body2" color="textSecondary" align="center" style={customTypographyStyle }>
-             {"Copyright © "}
-             <Link color="inherit" href="https://mui.com/" >
-               Ethio Movies
-             </Link>{" "}
-             {new Date().getFullYear()}
-             {"."}
-           </Typography>
-         </Box>
-       </Container>
+              style={customColorStyle} // Apply the custom style here
+            >
+              Request password reset
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link
+                  href="/login"
+                  variant="body2"
+                  style={customTypographyStyle}
+                >
+                  Login Page
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+        <Box >
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            align="center"
+            style={customTypographyStyle}
+          >
+            {"Copyright © "}
+            <Link color="inherit" href="#">
+              Ethio Movies
+            </Link>{" "}
+            {new Date().getFullYear()}
+            {"."}
+          </Typography>
+        </Box>
+      </Container>
     </div>
-     );
+  );
 }

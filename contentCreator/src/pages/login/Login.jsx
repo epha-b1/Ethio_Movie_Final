@@ -39,8 +39,9 @@ const customColorStyle = {
 };
 
 const customTypographyStyle = {
-  // borderRadius: '5px',
-  color: 'white',
+  marginTop: '15px',
+  marginBottom: '15px',
+    color: 'white',
 };
 export default function Auth() {
   const classes = useStyles();
@@ -103,10 +104,10 @@ export default function Auth() {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
+      <Box >
         <Typography variant="body2" color="textSecondary" align="center" style={customTypographyStyle }>
           {"Copyright © "}
-          <Link color="inherit" href="https://mui.com/" >
+          <Link color="inherit" href="#" >
             Ethio Movies
           </Link>{" "}
           {new Date().getFullYear()}

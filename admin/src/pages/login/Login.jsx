@@ -35,15 +35,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const customColorStyle = {
-  marginTop: '8px', 
-  marginBottom: '8px', 
-  backgroundColor: ' #e9b14c ', // Background color
-  color: 'white', // Text color
+  marginTop: "8px",
+  marginBottom: "8px",
+  backgroundColor: " #e9b14c ", // Background color
+  color: "white", // Text color
 };
 
 const customTypographyStyle = {
-  // borderRadius: '5px',
-  color: 'white',
+  color: "white",
+  marginTop: "15px",
+  marginBottom: "15px",
 };
 export default function Auth() {
   const classes = useStyles();
@@ -62,63 +63,65 @@ export default function Auth() {
   };
 
   return (
- <div className="login">
-     <Container component="main" maxWidth="xs" className="container1">
-      <CssBaseline />
-      <div className={classes.paper}>
-        {/* <Avatar className={classes.avatar}>
+    <div className="login">
+      <Container component="main" maxWidth="xs" className="container1">
+        <CssBaseline />
+        <div className={classes.paper}>
+          {/* <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar> */}
-        <img src={Logo} alt="" />
-        <Typography component="h1" variant="h5" style={customTypographyStyle }>
-          {isLogin ? "Admin Sign in" : "Sign up"}
-        </Typography>
-        <form className={classes.form} onSubmit={handleSubmit} noValidate>
-        <input
-            type="text"
-            placeholder="Email or phone number"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          
-          
-    
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            className="submit"
-            disabled={isFetching}
-            style={customColorStyle} // Apply the custom style here
+          <img src={Logo} alt="" />
+          <Typography component="h1" variant="h5" style={customTypographyStyle}>
+            {isLogin ? "Admin Sign in" : "Sign up"}
+          </Typography>
+          <form className={classes.form} onSubmit={handleSubmit} noValidate>
+            <input
+              type="text"
+              placeholder="Email or phone number"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              className="submit"
+              disabled={isFetching}
+              style={customColorStyle} // Apply the custom style here
             >
-            {isLogin ? "Sign In" : "Sign Up"}
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2"             style={customTypographyStyle }
->
-                Forgot password?
-              </Link>
+              {isLogin ? "Sign In" : "Sign Up"}
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2" style={customTypographyStyle}>
+                  Forgot password?
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Typography variant="body2" color="textSecondary" align="center" style={customTypographyStyle }>
-          {"Copyright © "}
-          <Link color="inherit" href="https://mui.com/" >
-            Ethio Movies
-          </Link>{" "}
-          {new Date().getFullYear()}
-          {"."}
-        </Typography>
-      </Box>
-    </Container>
- </div>
+          </form>
+        </div>
+        <Box>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            align="center"
+            style={customTypographyStyle}
+          >
+            {"Copyright © "}
+            <Link color="inherit" href="#">
+              Ethio Movies
+            </Link>{" "}
+            {new Date().getFullYear()}
+            {"."}
+          </Typography>
+        </Box>
+      </Container>
+    </div>
   );
 }
