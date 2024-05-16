@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Logo from "../../asset/image/logo.png";
+import {  toast } from "sonner";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -66,6 +67,8 @@ export default function ResetPassword() {
 
       if (response.status === 200) {
         setSuccess(true);
+        toast.success(" Reset email sent successfully!");
+
         setError("");
         // Redirect to login page after successful password reset
         setTimeout(() => {
@@ -77,6 +80,8 @@ export default function ResetPassword() {
       }
     } catch (err) {
       setError("An error occurred while resetting password.");
+      toast.error("Failed to reset password.");
+
       setSuccess(false);
     }
   };
