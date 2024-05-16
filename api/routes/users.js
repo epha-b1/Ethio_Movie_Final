@@ -199,8 +199,8 @@ router.post("/forgot-password", async (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(`Email sent: ${info.response}`);
-        console.log(`Password reset token: ${token}`); // Log the token for testing
+        // console.log(`Email sent: ${info.response}`);
+        // console.log(`Password reset token: ${token}`); // Log the token for testing
       }
     });
     

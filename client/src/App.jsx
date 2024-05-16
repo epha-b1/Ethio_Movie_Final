@@ -85,7 +85,7 @@ const App = () => {
         <Route path="/forgot-password">
           <ForgotPassword />
         </Route>
-        <Route path="/reset-password/:token" component={ResetPassword}>
+        <Route path="/reset-password/:token" >
           <ResetPassword />
         </Route>
         {user && (
