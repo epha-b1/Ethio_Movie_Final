@@ -101,7 +101,7 @@ export default function Register() {
           <div className="input">
             <input type="email" placeholder="Email address" ref={emailRef} />
             <button className="registerButton" onClick={handleStart}>
-              Get Started
+              <span>Get Started</span>
             </button>
           </div>
         ) : (

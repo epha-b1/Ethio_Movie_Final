@@ -1,5 +1,8 @@
 body {
   background: linear-gradient(to left, rgb(23 129 234 / 50%), rgb(1 4 8));
+  background-position: top left;
+  background-size: cover;
+  position: relative;
 }
 
 .account-info {

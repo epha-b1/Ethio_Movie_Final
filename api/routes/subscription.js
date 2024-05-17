@@ -41,7 +41,7 @@ router.post("/", verify, async (req, res) => {
       last_name: last_name,
       phone_number: phone_number,
       tx_ref: tx_ref,
-      return_url: "http://localhost:3001",
+      return_url: "http://localhost:3002",
       "customization[title]": "Payment",
     }),
   };
