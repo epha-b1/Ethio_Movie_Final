@@ -27,7 +27,7 @@ export default function Login() {
     history.push("/forgot-password");
   };
   return (
-    <div className="login">
+    <div className="login" id="login">
       <div className="top">
         <div className="wrapper">
           <img className="logo" src={logo} alt="" />

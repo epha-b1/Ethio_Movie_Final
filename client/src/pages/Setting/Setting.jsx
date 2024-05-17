@@ -146,7 +146,7 @@ const MySetting = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="body">
+        <div className="setting">
           <div className="account-info">
           <span className="title">Account Information</span>
 
