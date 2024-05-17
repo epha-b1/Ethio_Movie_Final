@@ -27,15 +27,19 @@ export default function Login() {
     history.push("/forgot-password");
   };
   return (
-    <div className="login" id="login">
+    <div className="login">
       <div className="top">
         <div className="wrapper">
-          <img className="logo" src={logo} alt="" />
+          {/* <img className="logo" src={logo} alt="" /> */}
         </div>
       </div>
       <div className="container">
         <form>
-          <h1>Sign In</h1>
+          <div className="header">
+            <img className="logo" src={logo} alt="" />
+
+            <h1>Sign In</h1>
+          </div>
           <input
             type="text"
             placeholder="Email or phone number"
