@@ -197,9 +197,9 @@ export default function NewSerious() {
           />
         </div>
         {series.seasons.map((season, seasonIndex) => (
-          <div key={season._id}>
+          <div key={season._id} className="addProductItem">
             <h2>Season {season.seasonNumber}</h2>
-            <button type="button" onClick={() => addEpisode(seasonIndex)}>Add Episode</button>
+            <button type="button" onClick={() => addEpisode(seasonIndex)} className="addEpisodeBtn">Add Episode</button>
             {season.episodes.map((episode, episodeIndex) => (
               <div key={episode._id}>
                 <div className="addProductItem">
