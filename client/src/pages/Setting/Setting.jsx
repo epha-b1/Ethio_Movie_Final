@@ -148,87 +148,98 @@ const MySetting = () => {
       ) : (
         <div className="setting">
           <div className="account-info">
-          <span className="title">Account Information</span>
+            <span className="title">Account Information</span>
 
-          <hr />
-          <div className="subscription">
-            <span>Subscription</span>
-            {currentUser.subscription ? (
-              <span className="subscribe-btn">Subscribed</span>
-            ) : (
-              <Link to="/payment">
-                <button>Subscribe</button>
-              </Link>
-            )}
-          </div>
-
-          <hr className="divider" />
-          <div className="username">
-            <span>Username</span>
-            <input
-              type="text"
-              placeholder="Username"
-              value={newUsername || currentUser.username}
-              onChange={(e) => setNewUsername(e.target.value)}
-            />
-            <button onClick={handleUpdateUsername}>Update</button>
-          </div>
-          <hr className="divider" />
-
-          <div className="personal-info">
-            <span>Email</span>
-            <input
-              type="text"
-              placeholder="Email"
-              value={newEmail || currentUser.email}
-              onChange={(e) => setNewEmail(e.target.value)}
-            />
-            <button onClick={handleUpdateEmail}>Update</button>
-          </div>
-          <hr className="divider" />
-
-          <div className="personal-info">
-            <span>Phone Number</span>
-            <input
-              type="text"
-              placeholder="Email"
-              value={newPhoneNumber || currentUser.phoneNumber}
-              onChange={(e) => setnewPhoneNumber(e.target.value)}
-            />
-            <button onClick={handleUpdatePhone}>Update</button>
-          </div>
-          <hr className="divider" />
-
-          <div className="change-password">
-            <span>Change password</span>
-
-            <div className="password-fields">
-              <input
-                type="password"
-                placeholder="Old Password"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-              />
-              <input
-                type="password"
-                placeholder="New Password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
+            <hr />
+            <div className="subscription">
+              <span>Subscription</span>
+              {currentUser.subscription ? (
+                <span className="subscribe-btn">Subscribed</span>
+              ) : (
+                <Link to="/payment">
+                  <button>Subscribe</button>
+                </Link>
+              )}
+                
             </div>
-            <button onClick={handleUpdatePassword}>Update</button>
-          </div>
-          <hr className="divider" />
+            <hr className="divider" />
 
-          <div className="account-actions">
-            <Link to="/">
-              <button className="back-btn">Back</button>
-            </Link>
-            <button className="delete-btn" onClick={handleDelete}>
-              Delete account
-            </button>
+            <div className="subscription">
+                  <span>isVerfied-User</span>
+                  {currentUser.isVerified ? (
+                    <span className="verified-true">Verifed</span>
+                  ) : (
+                    <span className="verified-false">Not verfied</span>
+                  )}
+                </div>
+
+            <hr className="divider" />
+            <div className="username">
+              <span>Username</span>
+              <input
+                type="text"
+                placeholder="Username"
+                value={newUsername || currentUser.username}
+                onChange={(e) => setNewUsername(e.target.value)}
+              />
+              <button onClick={handleUpdateUsername}>Update</button>
+            </div>
+            <hr className="divider" />
+
+            <div className="personal-info">
+              <span>Email</span>
+              <input
+                type="text"
+                placeholder="Email"
+                value={newEmail || currentUser.email}
+                onChange={(e) => setNewEmail(e.target.value)}
+              />
+              <button onClick={handleUpdateEmail}>Update</button>
+            </div>
+            <hr className="divider" />
+
+            <div className="personal-info">
+              <span>Phone Number</span>
+              <input
+                type="text"
+                placeholder="Email"
+                value={newPhoneNumber || currentUser.phoneNumber}
+                onChange={(e) => setnewPhoneNumber(e.target.value)}
+              />
+              <button onClick={handleUpdatePhone}>Update</button>
+            </div>
+            <hr className="divider" />
+
+            <div className="change-password">
+              <span>Change password</span>
+
+              <div className="password-fields">
+                <input
+                  type="password"
+                  placeholder="Old Password"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                />
+                <input
+                  type="password"
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
+              <button onClick={handleUpdatePassword}>Update</button>
+            </div>
+            <hr className="divider" />
+
+            <div className="account-actions">
+              <Link to="/">
+                <button className="back-btn">Back</button>
+              </Link>
+              <button className="delete-btn" onClick={handleDelete}>
+                Delete account
+              </button>
+            </div>
           </div>
-        </div>
         </div>
       )}
       <ConfirmDialog
