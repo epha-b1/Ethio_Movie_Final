@@ -77,7 +77,8 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="login">
+   <div className="loginPage">
+     <div className="login">
       <Container component="main" maxWidth="xs" className="container1">
         <CssBaseline />
         <div className={classes.paper}>
@@ -142,5 +143,6 @@ export default function ForgotPassword() {
         </Box>
       </Container>
     </div>
+   </div>
   );
 }
