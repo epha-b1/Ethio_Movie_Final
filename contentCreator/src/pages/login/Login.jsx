@@ -64,7 +64,8 @@ export default function Auth() {
   };
 
   return (
- <div className="login">
+ <div className="loginPage">
+  <div className="login">
      <Container component="main" maxWidth="xs" className="container1">
       <CssBaseline />
       <div className={classes.paper}>
@@ -122,6 +123,7 @@ export default function Auth() {
         </Typography>
       </Box>
     </Container>
+ </div>
  </div>
   );
 }

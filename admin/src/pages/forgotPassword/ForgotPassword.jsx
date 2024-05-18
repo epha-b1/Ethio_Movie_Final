@@ -97,7 +97,7 @@ export default function ForgotPassword() {
             onSubmit={handleResetPassword}
             noValidate
           >
-            <input
+            <input className="input"
               type="email"
               placeholder="Enter your email"
               value={email}

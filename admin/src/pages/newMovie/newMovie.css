@@ -24,6 +24,7 @@
 
 .addProductItem > input {
   padding: 10px;
+  border: 1px solid black;
 }
 
 .addProductItem > select {
