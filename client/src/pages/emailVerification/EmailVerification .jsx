@@ -32,7 +32,8 @@ const EmailVerification = () => {
   }, [token, history]);
 
   return (
-    <div className="container">
+    <div className="email-verification-page">
+      <div className="container">
       {loading ? (
         <div className="spinner-container">
           <div className="spinner"></div>
@@ -44,6 +45,7 @@ const EmailVerification = () => {
           {success && <p className="redirect-text">Redirecting to login...</p>}
         </div>
       )}
+    </div>
     </div>
   );
 };
