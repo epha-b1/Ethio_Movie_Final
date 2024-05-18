@@ -58,10 +58,11 @@ export default function UserList() {
     {
       field: "username",
       headerName: "Username",
-      width: 200,
+      width: 150,
     },
     { field: "email", headerName: "Email", width: 200 },
-    { field: "phoneNumber", headerName: "Phone Number", width: 200 },
+    { field: "phoneNumber", headerName: "Phone Number", width: 150 },
+    { field: "isVerified", headerName: "isVerfied", width: 150 },
     {
       field: "role",
       headerName: "Role",
@@ -73,7 +74,7 @@ export default function UserList() {
     {
       field: "isSubscribed",
       headerName: "Subscribed",
-      width: 120,
+      width: 150,
       renderCell: (params) => {
         return (
           <div className="userListSubscribed">

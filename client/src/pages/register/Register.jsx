@@ -74,7 +74,7 @@ export default function Register() {
        password,
        phoneNumber: inputPhoneNumber,
      }); // Include phone number in the registration request
-     toast.success("Registration successful. You can now login.");
+     toast.success("Registration and Verification email sent successfully. You can now Verify.");
      history.push("/login");
    } catch (err) {
      // Handle registration error
