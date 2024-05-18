@@ -190,11 +190,72 @@ router.post("/forgot-password", async (req, res) => {
       from: process.env.EMAIL_USERNAME,
       to: email,
       subject: "Password Reset",
-      html: `<p>You are receiving this email because you (or someone else) have requested the reset of the password for your account.</p>
-      <p>Please click on the following link, or paste this into your browser to complete the process:</p>
-      <p>http://localhost:3002/reset-password/${token}</p>
+      html: `<html>
+      <head>
+        <style>
+          .email-container {
+            font-family: Arial, sans-serif;
+            color: #333;
+          }
+          .email-header {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+          .email-body {
+            padding: 20px;
+          }
+          .email-footer {
+            background-color: #f4f4f4;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+          }
+          .btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+            
+          }
+          a {
+            color: white;
+            text-decoration: none;
+          }
+          .logo {
+            max-width: 50px; /* Adjust the size as needed */
+          }
+        </style>
+      </head>
+      <body>
+        <div class="email-container">
+          <div class="email-header">
+            <img src="https://firebasestorage.googleapis.com/v0/b/ethiomovie-1d2a0.appspot.com/o/tvSeries%2F1716036726563logo.png?alt=media&token=3128021b-371f-47e0-9226-e788f30f81f8" alt="Logo" class="logo">
+            <h2>Password Reset Request</h2>
 
-      <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>`,
+          </div>
+          <div class="email-body">
+            <p>You are receiving this email because you (or someone else) have requested the reset of the password for your account.</p>
+            <p>Please click on the following link, or paste this into your browser to complete the process:</p>
+            <p><a href="http://localhost:3002/reset-password/${token}" class="btn">Reset Password</a></p>
+            <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
+          </div>
+          <div class="email-footer">
+            <p>Thank you for using our service.</p>
+            <p>Copyright © Ethio Movies 2024.</p>
+
+          </div>
+        </div>
+      </body>
+      </html>`,
     }, (err, info) => {
       if (err) {
         console.log(err);
