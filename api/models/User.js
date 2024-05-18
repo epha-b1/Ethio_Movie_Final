@@ -7,8 +7,11 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     profilePic: { type: String, default: "" },
     phoneNumber: { type: String, required: true, unique: true },
-    role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true }, // Reference to Role schema
-    subscription: { type: mongoose.Schema.Types.ObjectId, ref: "Subscription" }, // Reference to Subscription schema
+    role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true }, 
+    subscription: { type: mongoose.Schema.Types.ObjectId, ref: "Subscription" }, 
+    isVerified: { type: Boolean, default: false }, 
+    verificationToken: String, // Add field for verification token
+
   },
   { timestamps: true }
 );

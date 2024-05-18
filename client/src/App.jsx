@@ -19,6 +19,7 @@ import Payment from "./pages/payment/Payment.jsx";
 import Setting from "./pages/Setting/Setting.jsx";
 import PopupAlert from "./pages/popUp/PopupAlert.jsx";
 import axios from "axios";
+import EmailVerification from "./pages/emailVerification/EmailVerification .jsx";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -87,6 +88,9 @@ const App = () => {
         </Route>
         <Route path="/reset-password/:token" >
           <ResetPassword />
+        </Route>
+        <Route path="/verify-email/:token" >
+          <EmailVerification />
         </Route>
         {user && (
           <>
