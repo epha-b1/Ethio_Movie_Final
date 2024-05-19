@@ -105,11 +105,11 @@
 }
 @media screen and (max-width: 768px) {
   .top .wrapper {
-    padding: 20px 5px; /* Adjusted padding for smaller screens */
+    padding: 20px 5px; 
   }
 
   .logo {
-    height: 50px; /* Further reduced height for smaller screens */
+    height: 50px; 
   }
 
 
@@ -124,8 +124,7 @@
     .input{
       width: 80%;
       input {
-        // width: 100%; /* Further adjusted width for smaller screens */
-        font-size: 12px; /* Further reduced font size for smaller screens */
+        font-size: 12px; 
       }
       button{
         span{
