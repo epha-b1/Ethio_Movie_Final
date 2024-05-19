@@ -18,6 +18,7 @@ import ListList from "./pages/listList/ListList";
 import List from "./pages/list/List.jsx";
 import NewList from "./pages/newList/NewList";
 import Movie from "./pages/movie/Movie.jsx";
+import Series from "./pages/series/Series.jsx"
 import NewMovie from "./pages/newMovie/NewMovie";
 import NewSerious from "./pages/newSerious/NewSerious";
 import { useContext } from "react";
@@ -65,6 +66,9 @@ function App() {
               </Route>
               <Route path="/movie/:movieId">
                 <Movie />
+              </Route>
+              <Route path="/series/:seriesId">
+                <Series />
               </Route>
               <Route path="/newMovie">
                 <NewMovie />
