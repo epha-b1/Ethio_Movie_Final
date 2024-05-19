@@ -81,7 +81,7 @@
 
       input {
         flex: 7;
-        height: 100%;
+        // height: 100%;
         border: none;
         color: black;
         background-color: white;
@@ -112,46 +112,24 @@
     height: 50px; /* Further reduced height for smaller screens */
   }
 
-  .loginButton {
-    font-size: 12px; /* Further reduced font size for smaller screens */
-  }
 
-  .bottom {
-    font-size: 18px; /* Further reduced font size for smaller screens */
-  }
-
-  
-
-  p {
-    font-size: 10px; /* Further reduced font size for smaller screens */
-  }
-
-  .input {
-    width: 90%; 
-  }
-
-  .input input {
-    width: 60%; 
-    font-size: 12px; 
-  }
-
-  .input .registerButton {
-    font-size: 16px; 
-  }
   .container{
+    p {
+      font-size: 10px;
+      
+    }
     h1{
       font-size: 20px;
     }
     .input{
-      width: 100%;
+      width: 80%;
       input {
-
-        width: 100%; /* Further adjusted width for smaller screens */
+        // width: 100%; /* Further adjusted width for smaller screens */
         font-size: 12px; /* Further reduced font size for smaller screens */
       }
       button{
         span{
-        font-size: 17px;
+        font-size: 15px;
         }
       }
     }
