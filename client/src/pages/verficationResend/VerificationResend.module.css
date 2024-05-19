@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to left, rgb(23 129 234 / 50%), rgb(1 4 8));
+}
+  
+  .messageBox {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    text-align: center;
+  }
+  
+  .messageTitle {
+    margin: 0 0 10px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .messageText {
+    margin: 0 0 20px;
+    font-size: 16px;
+  }
+  
+  .resendButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #e9b14c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .resendButton:hover {
+    background-color: #2980b9;
+  }
+  
+  .errorMessage {
+    color: #dc3545;
+    font-size: 14px;
+    margin: 10px 0;
+  }
+  

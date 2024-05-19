@@ -75,7 +75,10 @@ export default function Register() {
        phoneNumber: inputPhoneNumber,
      }); // Include phone number in the registration request
      toast.success("Registration and Verification email sent successfully. You can now Verify.");
-     history.push("/login");
+     history.push({
+      pathname: "/resend-verification",
+      state: { email: email },
+    });
    } catch (err) {
      // Handle registration error
      console.error("Registration error:", err);
