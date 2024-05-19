@@ -12,11 +12,14 @@ const VerificationResend = () => {
 
   const resendEmail = async () => {
     try {
-      setErrorMessage(''); // Clear any previous error messages
+      setErrorMessage(''); 
       await axios.post('/auth/resend-verification', { email });
+      toast.success("Verification email resent!")
       setIsResent(true);
     } catch (error) {
       setErrorMessage('Error resending verification email. Please try again.');
+      toast.error("Error resending verification email!")
+
       console.error('Error resending verification email:', error);
     }
   };
