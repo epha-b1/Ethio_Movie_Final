@@ -30,7 +30,7 @@
         margin-right: 10px;
 
         @include mobile {
-          display: none;
+          // display: none;
         }
       }
 
@@ -39,7 +39,7 @@
         cursor: pointer;
 
         @include tablet {
-          display: none;
+          // display: none;
         }
 
         &.navbarmainLinks {
@@ -92,4 +92,62 @@
       }
     }
   }
+
+  @media screen and (max-width: 768px) {
+    .container {
+      flex-direction: row;
+      align-items: flex-start;
+      height: auto;
+      padding: 10px;
+
+      img{
+        width: 50px;
+        height: 50px;
+      }
+
+      .left {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+
+        .link {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+        .icon{
+          display: none;
+        }
+
+        .profile {
+          .profile_image {
+            // width: 50px;
+            height: 25px;
+          }
+
+          span {
+            display: flex;
+            font-size: 12px;
+          }
+
+          .options {
+            top: 40px;
+            right: 0;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+          }
+        }
+        &:hover {
+          .options {
+            display: flex;
+            width: 200px;
+            padding-right: 0;
+            flex-direction: column;
+            // position: absolute;
+          }
+        }
+      }
+    }
+  }
+
 }
