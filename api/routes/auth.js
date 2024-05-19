@@ -122,25 +122,25 @@ router.get("/verify-email/:token", async (req, res) => {
   }
 });
 
-router.post('/resend-verification', async (req, res) => {
+router.post("/resend-verification", async (req, res) => {
   const { email } = req.body;
 
   try {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     if (user.isVerified) {
-      return res.status(400).json({ message: 'User is already verified' });
+      return res.status(400).json({ message: "User is already verified" });
     }
 
     await sendVerificationEmail(user.email, user.verificationToken);
 
-    res.json({ message: 'Verification email resent' });
+    res.json({ message: "Verification email resent" });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 // User Login Endpoint
