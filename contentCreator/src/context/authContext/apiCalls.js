@@ -8,7 +8,7 @@ export const login = async (user, dispatch) => {
     const res = await axios.post("auth/login", user);
     // Fetch the role name based on the role ID
     const roleRes = await axios.get(
-      `http://localhost:8800/api/role/${res.data.role}`
+      `/role/${res.data.role}`
     );
     const roleName = roleRes.data.role_name;
 
