@@ -7,7 +7,7 @@ const subscriptionSchema = new mongoose.Schema(
     email: { type: String, required: false },
     first_name: { type: String, required: false },
     last_name: { type: String, required: false },
-    phone_number: { type: Number, required: true },
+    phone_number: { type: Number, required: false },
     tx_ref: { type: String, required: true },
     subscription_date: { type: Date, default: Date.now }, // Added subscription date field
     expire_date: { type: Date }, // Added expiration date field

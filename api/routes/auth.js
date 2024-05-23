@@ -165,7 +165,7 @@ router.post("/login", async (req, res) => {
 
     // Generate JWT access token with user ID and role
     const accessToken = jwt.sign(
-      { id: user._id, role: user.role },
+      { id: user._id, role: user.role ,phone:user.phoneNumber,userName:user.username,email:user.email },
       process.env.SECRET_KEY,
       { expiresIn: "5d" }
     );
