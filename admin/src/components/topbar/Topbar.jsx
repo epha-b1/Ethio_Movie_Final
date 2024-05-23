@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { toast } from "sonner";
+import Logo from "../../asset/image/logo.png";
 
 export default function Topbar() {
   const { dispatch, user } = useContext(AuthContext); // Assuming you have user information in your AuthContext
@@ -20,7 +21,9 @@ export default function Topbar() {
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">EthioView Admin</span>
+        <img src={Logo} alt="" className="logo" />
+
+          <span className="logo">Admin</span>
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">
