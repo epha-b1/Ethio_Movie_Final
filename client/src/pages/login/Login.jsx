@@ -54,7 +54,7 @@ export default function Login() {
             Sign In
           </button>
           <span>
-            New to Netflix?{" "}
+            New to EthioMovie?{" "}
             <b onClick={handleSignUpClick} style={{ cursor: "pointer" }}>
               Sign up now.
             </b>

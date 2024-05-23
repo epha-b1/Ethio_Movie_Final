@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     profilePic: { type: String, default: "" },
-    phoneNumber: { type: String, required: true, unique: true },
+    phoneNumber: { type: String, required: false, unique: true },
     role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true }, 
     subscription: { type: mongoose.Schema.Types.ObjectId, ref: "Subscription" }, 
     isVerified: { type: Boolean, default: false }, 
