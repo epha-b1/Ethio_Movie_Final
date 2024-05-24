@@ -130,7 +130,7 @@ export default function NewMovie() {
         <div className="addProductItem">
           <label>Release Date</label>
           <input
-            type="text"
+            type="date"
             placeholder="release_date"
             name="releaseDate"
             onChange={handleChange}
@@ -159,7 +159,7 @@ export default function NewMovie() {
           <input
             type="text"
             placeholder=""
-            name="limit"
+            name="Age"
             onChange={handleChange}
           />
         </div>
@@ -190,7 +190,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        {/* <div className="addProductItem">
           <label>Rating</label>
           <input
             type="text"
@@ -198,7 +198,7 @@ export default function NewMovie() {
             name="rating"
             onChange={handleChange}
           />
-        </div>
+        </div> */}
         <div className="addProductItem">
           <label>Country</label>
           <input

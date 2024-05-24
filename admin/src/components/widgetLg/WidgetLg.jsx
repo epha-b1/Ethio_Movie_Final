@@ -55,13 +55,17 @@ export default function WidgetLg() {
     const fetchData = async () => {
       const userPromises = movies.map(async (movie) => {
         const userData = await fetchUserById(movie.uploadedBy);
-        return { userId: movie.uploadedBy, username: userData.user.username ,role:userData.user.username || "Unknown" };
+        return {
+          userId: movie.uploadedBy,
+          username: userData.user.username,
+          role: userData.user.username || "Unknown",
+        };
       });
 
       const userResults = await Promise.all(userPromises);
 
       const userMap = {};
-      userResults.forEach(user => {
+      userResults.forEach((user) => {
         userMap[user.userId] = user.username;
         userMap[user.userId] = user.role;
       });
@@ -70,7 +74,6 @@ export default function WidgetLg() {
     };
 
     fetchData();
-
   }, [movies]);
 
   return (
@@ -84,22 +87,25 @@ export default function WidgetLg() {
             <th className="widgetLgTh">Views</th>
             <th className="widgetLgTh">UploadedBy</th>
           </tr>
-          {movies.map(movie => (
+          {movies.map((movie) => (
             <tr className="widgetLgTr" key={movie._id}>
               <td className="widgetLgUser">
-                <img
-                  src={movie.thumbnail}
-                  alt=""
-                  className="widgetLgImg"
-                />
+                <img src={movie.thumbnail} alt="" className="widgetLgImg" />
                 <span className="widgetLgName">{movie.title}</span>
               </td>
               <td className="widgetLgGenre">{movie.genre}</td>
-              <td className="widgetLgStatus">{movie.views}</td>
-              <td className="widgetLgStatus">{userMap[movie.uploadedBy] || "Loading..."}</td>
+              <td className="widgetLgStatus">
+                {movie.views.reduce(
+                  (totalViews, view) => totalViews + view.count,
+                  0
+                )}
+              </td>
+              <td className="widgetLgStatus">
+                {userMap[movie.uploadedBy] || "Loading..."}
+              </td>
             </tr>
           ))}
-          {series.map(serie => (
+          {series.map((serie) => (
             <tr className="widgetLgTr" key={serie._id}>
               <td className="widgetLgUser">
                 <img
@@ -110,8 +116,15 @@ export default function WidgetLg() {
                 <span className="widgetLgName">{serie.title}</span>
               </td>
               <td className="widgetLgGenre">{serie.genre}</td>
-              <td className="widgetLgStatus">{serie.views}</td>
-              <td className="widgetLgStatus">{userMap[serie.uploadedBy] || "Loading..."}</td>
+              <td className="widgetLgStatus">
+                {serie.views.reduce(
+                  (totalViews, view) => totalViews + view.count,
+                  0
+                )}
+              </td>
+              <td className="widgetLgStatus">
+                {userMap[serie.uploadedBy] || "Loading..."}
+              </td>
             </tr>
           ))}
         </tbody>

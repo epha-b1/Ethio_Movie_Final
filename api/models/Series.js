@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose; // Import Schema from mongoose
 
 const EpisodeSchema = new mongoose.Schema({
   episodeNumber: { type: Number, required: true },
@@ -25,8 +26,12 @@ const SeriesSchema = new mongoose.Schema(
     country: { type: String },
     seasons: [SeasonSchema],
     uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, 
-    views: { type: Number, default: 0 }, // Number of views
-
+    views: [
+      {
+        user: { type: Schema.Types.ObjectId, ref: "User" },
+        count: { type: Number, default: 1 },
+      },
+    ],
   },
   { timestamps: true }
 );

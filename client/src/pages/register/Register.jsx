@@ -82,7 +82,7 @@ export default function Register() {
    } catch (err) {
      // Handle registration error
      console.error("Registration error:", err);
-    //  toast.error("Registration failed. Please try again.");
+     toast.error("Registration failed. Please try again.");
    }
  };
 

@@ -1,34 +1,37 @@
-const { required } = require("joi");
 const mongoose = require("mongoose");
-const { type } = require("os");
+const { Schema } = mongoose; // Import Schema from mongoose
 
-const MovieSchema = new mongoose.Schema(
+const MovieSchema = new Schema(
   {
     title: { type: String, required: true, unique: true },
-    title1:{type:String,required:true,unique:true},
+    title1: { type: String, required: true, unique: true },
     description: { type: String },
     img: { type: String },
     imgTitle: { type: String },
     thumbnail: { type: String },
     trailer: { type: String },
     video: { type: String },
-    releaseDate: { type: String },
-    limit: { type: Number },
-    genre: { type: String },
+    releaseDate: { type: Date },
+    Age: { type: Number },
+    genre: [String],
     isSeries: { type: Boolean, default: false },
-    rating :{type:String},
-    duration :{type:String},
-    director :{type:String},
-    actors :{type:Array},
-    language :{type:String},
-    country :{type:String},
+    rating: { type: Number, default: 0 },
+    duration: { type: String },
+    director: { type: String },
+    actors: { type: Array },
+    language: { type: String },
+    country: { type: String },
     uploadedBy: {
-      type: String, // Assuming phoneNumber is stored as a string
+      type: Schema.Types.ObjectId, // Assuming phoneNumber is stored as a string
       ref: "User",
       required: true,
     },
-    views: { type: Number, default: 0 }, // Number of views
-
+    views: [
+      {
+        user: { type: Schema.Types.ObjectId, ref: "User" },
+        count: { type: Number, default: 1 },
+      },
+    ],
   },
   { timestamps: true }
 );

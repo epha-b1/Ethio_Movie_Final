@@ -124,19 +124,61 @@ router.get("/", verify, async (req, res) => {
   }
 });
 // Update view count for a movie
-router.post("/:id/views", async (req, res) => {
+// router.post("/:id/views", async (req, res) => {
+//   try {
+//     const seriesId = req.params.id;
+//     const series = await Movie.findById(seriesId);
+//     if (!series) {
+//       return res.status(404).json({ message: "Series not found" });
+//     }
+//     series.views += 1;
+//     await series.save();
+//     res.json({ message: "View count updated successfully" });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+router.post("/:id/views", verify, async (req, res) => {
   try {
     const seriesId = req.params.id;
-    const series = await Movie.findById(seriesId);
-    if (!series) {
-      return res.status(404).json({ message: "Series not found" });
+    const userId = req.user.id; // Assuming the user's ID is provided in the request user object
+
+    // Validate series ID and user ID
+    if (!seriesId || !userId) {
+      return res.status(400).json({ message: 'Missing series ID or user ID' });
     }
-    series.views += 1;
+
+    // Find the series by ID
+    const series = await Series.findById(seriesId);
+    if (!series) {
+      return res.status(404).json({ message: 'Series not found' });
+    }
+
+    // Ensure that the views array is initialized
+    series.views = series.views || [];
+
+    // Check if the user has already viewed the series
+    const viewerIndex = series.views.findIndex(view => view.user && view.user.toString() === userId);
+    if (viewerIndex !== -1) {
+      // If the user has already viewed the series, increment their view count
+      series.views[viewerIndex].count += 1;
+    } else {
+      // If the user hasn't viewed the series yet, add them to the views array
+      series.views.push({ user: userId, count: 1 });
+    }
+
+    // Save the updated series document
     await series.save();
-    res.json({ message: "View count updated successfully" });
+
+    return res.status(200).json({ message: 'View recorded successfully' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error recording view:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+
+
 
 module.exports = router;

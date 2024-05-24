@@ -59,8 +59,12 @@ export default function WidgetLg() {
               </td>
               <td className="widgetLgDescription">{movie.description}</td>
               <td className="widgetLgGenre">{movie.genre}</td>
-              <td className="widgetLgStatus">{movie.views}</td>
-            </tr>
+              <td className="widgetLgStatus">
+                {movie.views.reduce(
+                  (totalViews, view) => totalViews + view.count,
+                  0
+                )}
+              </td>            </tr>
           ))}
           {series.map((serie) => (
             <tr className="widgetLgTr" key={serie._id}>
@@ -74,8 +78,12 @@ export default function WidgetLg() {
               </td>
               <td className="widgetLgDescription">{serie.description}</td>
               <td className="widgetLgGenre">{serie.genre}</td>
-              <td className="widgetLgStatus">{serie.views}</td>
-            </tr>
+              <td className="widgetLgStatus">
+                {serie.views.reduce(
+                  (totalViews, view) => totalViews + view.count,
+                  0
+                )}
+              </td>            </tr>
           ))}
         </tbody>
       </table>

@@ -7,11 +7,18 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     profilePic: { type: String, default: "" },
     phoneNumber: { type: String, required: false, unique: true },
-    role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true }, 
-    subscription: { type: mongoose.Schema.Types.ObjectId, ref: "Subscription" }, 
-    isVerified: { type: Boolean, default: false }, 
+    role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true },
+    subscription: { type: mongoose.Schema.Types.ObjectId, ref: "Subscription" },
+    isVerified: { type: Boolean, default: false },
     verificationToken: String, // Add field for verification token
-
+    //
+    userId: { type: String, required: false, unique: true },
+    firstName: { type: String, required: false },
+    lastName: { type: String, required: false },
+    verificationCode: { type: String },
+    activeSessions: [
+      { token: String, createdAt: { type: Date, default: Date.now } },
+    ],
   },
   { timestamps: true }
 );

@@ -7,16 +7,23 @@ import "./watch.scss";
 export default function Watch() {
   const location = useLocation();
   const movie = location.movie;
+
   useEffect(() => {
     const updateViews = async () => {
       try {
-        await axios.post(`/movies/${movie._id}/views`);
+        await axios.post(`/movies/${movie._id}/views`, {}, {
+          headers: {
+            token:
+            "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+          },
+        });
       } catch (error) {
         console.error("Error updating views:", error);
       }
     };
     updateViews();
   }, [movie]);
+  // Trigger the effect whenever the 'movie' object changes
 
   return (
     <div className="watch">
