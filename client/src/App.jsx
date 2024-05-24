@@ -20,7 +20,8 @@ import Setting from "./pages/Setting/Setting.jsx";
 import PopupAlert from "./pages/popUp/PopupAlert.jsx";
 import axios from "axios";
 import EmailVerification from "./pages/emailVerification/EmailVerification .jsx";
-import VerificationResend from "./pages/verficationResend/VerificationResend .jsx"
+import VerificationResend from "./pages/verficationResend/VerificationResend .jsx";
+import SearchResults from "./components/SearchResults/SearchResults.js"
 const App = () => {
   const { user } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -85,6 +86,9 @@ const App = () => {
         <Route path="/login">{!user ? <Login /> : <Redirect to="/" />}</Route>
         <Route path="/forgot-password">
           <ForgotPassword />
+        </Route>
+        <Route path="/search" >
+          <SearchResults />
         </Route>
         <Route path="/reset-password/:token" >
           <ResetPassword />

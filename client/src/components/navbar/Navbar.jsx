@@ -1,11 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import "./navbar.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../authContext/AuthContext";
 import logo from "../../asset/image/logo.png";
-import { useHistory } from "react-router-dom";
 import { Toaster, toast } from "sonner";
-import { Search } from "@material-ui/icons"; // Ensure to import only the required icon
+import { Search } from "@material-ui/icons";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,12 +25,13 @@ const Navbar = () => {
       try {
         const response = await fetch(`/movies/search?q=${searchQuery}`, {
           headers: {
-            token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+            token:
+            "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
           },
         });
         if (response.ok) {
           const data = await response.json();
-          setSearchResults(data); // Assuming the response directly returns an array of movie objects
+          setSearchResults(data);
         } else {
           console.error("Failed to fetch search results");
         }
@@ -50,6 +50,13 @@ const Navbar = () => {
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
   };
+  
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      history.push(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+  
 
   return (
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
@@ -69,13 +76,19 @@ const Navbar = () => {
           <Search className="icon" onClick={toggleSearch} />
 
           {isSearchOpen && (
-            <input
-              type="text"
-              placeholder="Search..."
-              className="searchInput"
-              value={searchQuery}
-              onChange={handleInputChange}
-            />
+           <input
+           type="text"
+           placeholder="Search..."
+           className="searchInput"
+           value={searchQuery}
+           onChange={handleInputChange}
+           onKeyPress={(e) => {
+             if (e.key === "Enter") {
+               handleSearch();
+             }
+           }}
+         />
+         
           )}
 
           <div className="profile">
@@ -90,17 +103,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      {/* Display search results */}
-      {isSearchOpen && (
-        <div className="searchResults">
-          <h3>Search Results</h3>
-          <ul>
-            {searchResults.map((movie) => (
-              <li key={movie.id}>{movie.title}</li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 };
