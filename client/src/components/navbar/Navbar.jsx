@@ -1,29 +1,56 @@
-import { ArrowDropDown, Notifications, Search } from "@material-ui/icons";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import "./navbar.scss";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../authContext/AuthContext";
 import logo from "../../asset/image/logo.png";
 import { useHistory } from "react-router-dom";
 import { Toaster, toast } from "sonner";
+import { Search } from "@material-ui/icons"; // Ensure to import only the required icon
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { user, dispatch } = useContext(AuthContext); // Assuming you have user information in your AuthContext
-
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const { user, dispatch } = useContext(AuthContext);
   const history = useHistory();
 
   const handleLogout = () => {
-    toast.success("Logout successful!"); // Display success toast
-
+    toast.success("Logout successful!");
     dispatch({ type: "LOGOUT" });
-    history.push("/login"); // Redirect to login page after logout
+    history.push("/login");
   };
 
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => (window.onscroll = null);
+  useEffect(() => {
+    const searchMovies = async () => {
+      try {
+        const response = await fetch(`/movies/search?q=${searchQuery}`, {
+          headers: {
+            token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setSearchResults(data); // Assuming the response directly returns an array of movie objects
+        } else {
+          console.error("Failed to fetch search results");
+        }
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+      }
+    };
+
+    searchMovies();
+  }, [searchQuery]);
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
   };
+
+  const handleInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">
@@ -39,7 +66,17 @@ const Navbar = () => {
             <span className="navbarmainLinks">Movies</span>
           </Link>
 
-          <Search className="icon" />
+          <Search className="icon" onClick={toggleSearch} />
+
+          {isSearchOpen && (
+            <input
+              type="text"
+              placeholder="Search..."
+              className="searchInput"
+              value={searchQuery}
+              onChange={handleInputChange}
+            />
+          )}
 
           <div className="profile">
             <span className="profile_image icon">{user.username}</span>
@@ -49,11 +86,21 @@ const Navbar = () => {
                 <span>Account and Settings</span>
               </Link>
               <span onClick={handleLogout}>Logout</span>
-              {/* Display the user's name */}
             </div>
           </div>
         </div>
       </div>
+      {/* Display search results */}
+      {isSearchOpen && (
+        <div className="searchResults">
+          <h3>Search Results</h3>
+          <ul>
+            {searchResults.map((movie) => (
+              <li key={movie.id}>{movie.title}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

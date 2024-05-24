@@ -208,5 +208,30 @@ router.post("/:id/views", verify, async (req, res) => {
   }
 });
 
+//to search movie
+
+// SEARCH
+router.get("/search", verify, async (req, res) => {
+  try {
+    const query = req.query.q;
+    if (!query) {
+      return res.status(400).json({ message: 'Missing search query' });
+    }
+
+    // Perform a case-insensitive search for movies whose title or title1 contains the query
+    const movies = await Movie.find({
+      $or: [
+        { title: { $regex: query, $options: 'i' } }, // Search in the title field
+        { title1: { $regex: query, $options: 'i' } } // Search in the title1 field
+      ]
+    });
+
+    res.status(200).json(movies);
+  } catch (err) {
+    console.error('Error searching movies:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 module.exports = router;
