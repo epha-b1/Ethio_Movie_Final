@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
     subscription: { type: mongoose.Schema.Types.ObjectId, ref: "Subscription" },
     isVerified: { type: Boolean, default: false },
     verificationToken: String, // Add field for verification token
-    //
+    //for mobile
     userId: { type: String, required: false, unique: true },
     firstName: { type: String, required: false },
     lastName: { type: String, required: false },
