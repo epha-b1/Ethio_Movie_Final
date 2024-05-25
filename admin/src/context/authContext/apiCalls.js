@@ -20,8 +20,16 @@ export const login = async (user, dispatch) => {
       toast.error("You are not an admin. Please log in with an admin account.");
     }
   } catch (err) {
+    const errorMessage = err.response.data.message;
+  
+    if (errorMessage === "Maximum session limit reached") {
+      toast.error("Maximum session limit reached. Please try again later.");
+    } else if (errorMessage === "Wrong email, phoneNumber, or password!") {
+      toast.error("Invalid email/phone number or password. Please try again.");
+    } else {
+      toast.error("An error occurred. Please try again later.");
+    }
     dispatch(loginFailure());
-    toast.error("Invalid email or password. Please try again.");
     console.error("Error fetching role:", err);
   }
 };
