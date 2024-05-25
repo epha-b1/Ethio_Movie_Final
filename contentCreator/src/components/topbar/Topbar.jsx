@@ -6,16 +6,37 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { toast } from "sonner";
 import Logo from "../../asset/image/logo.png";
+import axios from "axios"; // Import axios for making HTTP requests
 
 export default function Topbar() {
   const { dispatch, user } = useContext(AuthContext); // Assuming you have user information in your AuthContext
   const history = useHistory();
 
-  const handleLogout = () => {
-    dispatch({ type: "LOGOUT" });
-    toast.success("Logout successful!"); // Display success toast
-    history.push("/login"); // Redirect to login page after logout
-  };
+const handleLogout = async () => {
+  try {
+    // Make a logout request to the server
+    const response = await axios.post("/auth/logout", {}, {
+      headers: {
+        token:
+          "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+      },
+    });
+
+    if (response.status === 200) {
+      // Logout successful, dispatch logout action and redirect to login page
+      dispatch({ type: "LOGOUT" });
+      history.push("/login");
+      toast.success("Logout successful!");
+    } else {
+      // Logout failed, show error message
+      toast.error("Failed to logout. Please try again.");
+    }
+  } catch (error) {
+    // Handle error
+    console.error("Error during logout:", error);
+    toast.error("An error occurred during logout.");
+  }
+};
 
   return (
     <div className="topbar">

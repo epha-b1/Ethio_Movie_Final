@@ -152,20 +152,20 @@ router.post("/login", async (req, res) => {
       $or: [{ email: req.body.email }, { phoneNumber: req.body.phoneNumber }],
     });
 
-    if (user.activeSessions.length >= 3) {
+    if (user && user.activeSessions.length >= 3) {
       return res.status(403).json({ message: "Maximum session limit reached" });
     }
 
     // If user doesn't exist, return 401 (Unauthorized)
     if (!user) {
-      return res.status(401).json("Wrong email, phoneNumber, or password!");
+      return res.status(401).json({ message: "Wrong email, phoneNumber, or password!" });
     }
 
     // Decrypt the stored password and compare it with the provided password
     const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
     const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
     if (originalPassword !== req.body.password) {
-      return res.status(401).json("Wrong email, phoneNumber, or password!");
+      return res.status(401).json({ message: "Wrong email, phoneNumber, or password!" });
     }
 
     // Generate JWT access token with user ID and role
@@ -191,9 +191,10 @@ router.post("/login", async (req, res) => {
     res.status(200).json({ ...userInfo, accessToken });
   } catch (err) {
     console.error("Error during login:", err);
-    res.status(500).json("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
 
 router.post("/logout", async (req, res) => {
   try {
