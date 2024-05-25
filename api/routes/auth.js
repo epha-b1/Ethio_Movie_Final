@@ -144,6 +144,7 @@ router.post("/resend-verification", async (req, res) => {
   }
 });
 // User Login Endpoint
+// User Login Endpoint
 router.post("/login", async (req, res) => {
   try {
     // Find user by email or phoneNumber in the database
@@ -170,6 +171,10 @@ router.post("/login", async (req, res) => {
       { expiresIn: "5d" }
     );
 
+    // Add the new session token to the user's activeSessions array
+    user.activeSessions.push({ token: accessToken });
+    await user.save();
+
     // Exclude password field from user object and return with access token
     const { password, ...userInfo } = user._doc;
     res.status(200).json({ ...userInfo, accessToken });
@@ -179,6 +184,44 @@ router.post("/login", async (req, res) => {
   }
 });
 
+
+// Logout endpoint
+router.post("/logout", async (req, res) => {
+  try {
+    // Check if the authorization token exists in the request headers
+    const token = req.headers.token;
+    console.log(token);
+    if (!token) {
+      return res.status(401).json({ message: "Authorization token missing" });
+    }
+
+    // Find the user based on the active session token
+    const cleanedToken = token.replace(/^bearer\s/i, ''); // Remove "bearer " prefix
+    const user = await User.findOne({ "activeSessions.token": cleanedToken });
+
+    // If user is not found, return error
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Remove the active session with the provided token
+    user.activeSessions = user.activeSessions.filter(session => session.token !== cleanedToken);
+
+    // Save the updated user document
+    await user.save();
+
+    // Return success message
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    // Check if the error is due to invalid token
+    if (error.name === "JsonWebTokenError" || error.name === "TokenExpiredError") {
+      return res.status(401).json({ error: "Invalid or expired token" });
+    }
+    // Handle other errors
+    console.error("Error during logout:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 
 

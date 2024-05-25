@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const userSchema = new mongoose.Schema(
   {
     username: { type: String, required: true, unique: true },
@@ -10,14 +9,18 @@ const userSchema = new mongoose.Schema(
     role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true },
     subscription: { type: mongoose.Schema.Types.ObjectId, ref: "Subscription" },
     isVerified: { type: Boolean, default: false },
-    verificationToken: String, // Add field for verification token
-    //for mobile
+    verificationToken: String,
     userId: { type: String, required: false, unique: true },
     firstName: { type: String, required: false },
     lastName: { type: String, required: false },
     verificationCode: { type: String },
+    maxActiveSessions: { type: Number, default: 5 }, // Maximum 5 active sessions per user
     activeSessions: [
-      { token: String, createdAt: { type: Date, default: Date.now } },
+      { 
+        sessionId: { type: String },
+        token: { type: String },
+        createdAt: { type: Date, default: Date.now }
+      }
     ],
   },
   { timestamps: true }
@@ -32,7 +35,7 @@ userSchema.methods.isSubscribed = async function () {
   const Subscription = mongoose.model("Subscription");
   const subscription = await Subscription.findById(this.subscription);
 
-  return !!subscription && subscription.isActive(); // Returns true if subscription is found and active, false otherwise
+  return !!subscription && subscription.isActive();
 };
 
 module.exports = mongoose.model("User", userSchema);
