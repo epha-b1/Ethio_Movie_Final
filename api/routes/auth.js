@@ -200,7 +200,6 @@ router.post("/logout", async (req, res) => {
   try {
     // Check if the authorization token exists in the request headers
     const token = req.headers.token;
-    console.log(token);
     if (!token) {
       return res.status(401).json({ message: "Authorization token missing" });
     }
@@ -222,7 +221,17 @@ router.post("/logout", async (req, res) => {
     // Save the updated user document
     await user.save();
 
-    // Return success message
+    // Verify that the session has been removed
+    const isSessionRemoved = user.activeSessions.every(
+      (session) => session.token !== cleanedToken
+    );
+
+    if (!isSessionRemoved) {
+      // If the session is still found in the activeSessions array, return an error
+      return res.status(500).json({ error: "Failed to remove session" });
+    }
+
+    // Return success message if the session is successfully removed
     res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     // Handle errors
@@ -230,6 +239,7 @@ router.post("/logout", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 /**
  * @swagger
  * tags:
