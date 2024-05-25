@@ -174,7 +174,10 @@ router.post("/:id/views", verify, async (req, res) => {
     if (!movie) {
       return res.status(404).json({ message: 'Movie not found' });
     }
-
+    const user = await User.findById({ userId });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
     // Ensure that the views array is initialized
     movie.views = movie.views || [];
 
@@ -227,6 +230,81 @@ router.get("/search", verify, async (req, res) => {
   }
 });
 
+
+
+// Get all ratings for a specific movie
+router.get('/:id/ratings', async (req, res) => {
+  try {
+    const movieId = req.params.id;
+
+    // Find all ratings for the specified movie
+    const ratings = await Rating.find({ movie: movieId });
+
+    res.status(200).json(ratings);
+  } catch (error) {
+    console.error('Error fetching ratings:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+router.post('/:id/ratings',verifyToken, async (req, res) => {
+  try {
+    const movieId = req.params.id;
+    const ratingValue = req.body.rating;
+    const userId = req.user.id; // Assuming the user's ID is provided in the request user object
+
+    // Validate movie ID, rating value, and user email
+    if (!movieId || !ratingValue || isNaN(ratingValue) || !userId) {
+      return res.status(400).json({ message: 'Missing or invalid movie ID, rating value, or user email' });
+    }
+
+    const parsedRating = parseFloat(ratingValue);
+    if (parsedRating < 0 || parsedRating > 5) {
+      return res.status(400).json({ message: 'Rating must be between 0 and 5' });
+    }
+
+    // Find the movie by ID
+    const movie = await Movie.findById(movieId);
+    if (!movie) {
+      return res.status(404).json({ message: 'Movie not found' });
+    }
+
+    // Find the user by email
+    const user = await User.findOne({ userId });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Find and update the rating, or create a new one if it doesn't exist
+    const rating = await Rating.findOneAndUpdate(
+      { movie: movieId, user: userId }, // search criteria
+      { rating: parsedRating }, // new values
+      { new: true, upsert: true } // options
+    );
+
+    // Calculate the new average rating and vote count
+    const ratings = await Rating.find({ movie: movieId });
+    //const voteCount = ratings.length;
+    //const voteAverage = ratings.reduce((sum, r) => sum + r.rating, 0) / voteCount;
+
+    const previousVoteCount = movie.vote_count || 0;
+    const previousTotalRating = (movie.rating || 0) * previousVoteCount;
+    const newVoteCount = previousVoteCount + 1;
+    const newTotalRating = previousTotalRating + parsedRating;
+    const newAverageRating = newTotalRating / newVoteCount;
+    
+    // Update the movie with the new average rating and vote count
+    movie.rating = newAverageRating;
+    movie.vote_count = newVoteCount;
+    await movie.save();
+
+    return res.status(201).json({ message: 'Rating saved successfully' });
+  } catch (error) {
+    console.error('Error saving rating:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 /**
  * @swagger
@@ -502,4 +580,80 @@ router.get("/search", verify, async (req, res) => {
  *         description: Internal Server Error
  */
 
+/**
+ * @swagger
+ * /movies/{id}/ratings:
+ *   post:
+ *     summary: Submit or update a rating for a specific movie
+ *     tags: [Ratings]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The movie ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               rating:
+ *                 type: number
+ *                 description: The rating value
+ *     responses:
+ *       201:
+ *         description: Rating saved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: Missing or invalid movie ID, rating value, or user email
+ *       404:
+ *         description: Movie or user not found
+ *       500:
+ *         description: Internal server error
+ */
+/**
+ * @swagger
+ * /movies/{id}/ratings:
+ *   get:
+ *     summary: Get all ratings for a specific movie
+ *     tags: [Ratings]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The movie ID
+ *     responses:
+ *       200:
+ *         description: A list of ratings
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                   movie:
+ *                     type: string
+ *                   user:
+ *                     type: string
+ *                   rating:
+ *                     type: number
+ *       500:
+ *         description: Internal server error
+ */
 module.exports = router;
