@@ -18,7 +18,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       // Make a logout request to the server
-      const response = await axios.post("http://localhost:8800/api/auth/logout", {}, {
+      const response = await axios.post("/auth/logout", {}, {
         headers: {
           token:
             "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
