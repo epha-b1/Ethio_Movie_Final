@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const router = require("express").Router();
 const User = require("../models/User");
 const Role = require("../models/Role"); // Import Role model
@@ -143,36 +144,46 @@ router.post("/resend-verification", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-// User Login Endpoint
-// User Login Endpoint
+// Login endpoint
 router.post("/login", async (req, res) => {
   try {
-    // Find user by email or phoneNumber in the database
+    // Check if the user has reached the maximum session limit
     const user = await User.findOne({
       $or: [{ email: req.body.email }, { phoneNumber: req.body.phoneNumber }],
     });
 
+    if (user && user.activeSessions.length >= 3) {
+      return res.status(403).json({ message: "Maximum session limit reached" });
+    }
+
     // If user doesn't exist, return 401 (Unauthorized)
     if (!user) {
-      return res.status(401).json("Wrong email, phoneNumber, or password!");
+      return res.status(401).json({ message: "Wrong email, phoneNumber, or password!" });
     }
 
     // Decrypt the stored password and compare it with the provided password
     const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
     const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
     if (originalPassword !== req.body.password) {
-      return res.status(401).json("Wrong email, phoneNumber, or password!");
+      return res.status(401).json({ message: "Wrong email, phoneNumber, or password!" });
     }
 
     // Generate JWT access token with user ID and role
     const accessToken = jwt.sign(
-      { id: user._id, role: user.role ,phone:user.phoneNumber,userName:user.username,email:user.email },
+      {
+        id: user._id,
+        role: user.role,
+        phone: user.phoneNumber,
+        userName: user.username,
+        email: user.email,
+      },
       process.env.SECRET_KEY,
       { expiresIn: "5d" }
     );
 
     // Add the new session token to the user's activeSessions array
-    user.activeSessions.push({ token: accessToken });
+    const sessionId = new mongoose.Types.ObjectId().toString();
+    user.activeSessions.push({ sessionId: sessionId, token: accessToken });
     await user.save();
 
     // Exclude password field from user object and return with access token
@@ -180,12 +191,11 @@ router.post("/login", async (req, res) => {
     res.status(200).json({ ...userInfo, accessToken });
   } catch (err) {
     console.error("Error during login:", err);
-    res.status(500).json("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
 
-// Logout endpoint
 router.post("/logout", async (req, res) => {
   try {
     // Check if the authorization token exists in the request headers
@@ -195,17 +205,19 @@ router.post("/logout", async (req, res) => {
       return res.status(401).json({ message: "Authorization token missing" });
     }
 
-    // Find the user based on the active session token
-    const cleanedToken = token.replace(/^bearer\s/i, ''); // Remove "bearer " prefix
-    const user = await User.findOne({ "activeSessions.token": cleanedToken });
+    const cleanedToken = token.replace(/^bearer\s/i, ""); // Remove "bearer " prefix
+    const user = await User.findOne({
+      activeSessions: { $elemMatch: { token: cleanedToken } },
+    });
 
-    // If user is not found, return error
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Remove the active session with the provided token
-    user.activeSessions = user.activeSessions.filter(session => session.token !== cleanedToken);
+    // Remove the active session with the provided token from user's activeSessions array
+    user.activeSessions = user.activeSessions.filter(
+      (session) => session.token !== cleanedToken
+    );
 
     // Save the updated user document
     await user.save();
@@ -213,16 +225,10 @@ router.post("/logout", async (req, res) => {
     // Return success message
     res.status(200).json({ message: "Logout successful" });
   } catch (error) {
-    // Check if the error is due to invalid token
-    if (error.name === "JsonWebTokenError" || error.name === "TokenExpiredError") {
-      return res.status(401).json({ error: "Invalid or expired token" });
-    }
-    // Handle other errors
+    // Handle errors
     console.error("Error during logout:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
-
 
 module.exports = router;

@@ -14,7 +14,6 @@ const userSchema = new mongoose.Schema(
     firstName: { type: String, required: false },
     lastName: { type: String, required: false },
     verificationCode: { type: String },
-    maxActiveSessions: { type: Number, default: 5 }, // Maximum 5 active sessions per user
     activeSessions: [
       { 
         sessionId: { type: String },

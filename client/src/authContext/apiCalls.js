@@ -20,28 +20,36 @@ export const login = async (user, dispatch) => {
   try {
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(credential);
 
-    // Send login request based on credential type
     const res = await axios.post("auth/login", {
       [isEmail ? "email" : "phoneNumber"]: credential,
       password,
     });
-
-    // Retrieve user role name
-    const roleRes = await axios.get(
-      `/role/${res.data.role}`
-    );
-    const roleName = roleRes.data.role_name;
-
-    // Dispatch login success action based on role
-    if (roleName === "User") {
-      dispatch(loginSuccess(res.data));
-      toast.success("Login successful!");
-    } else {
-      dispatch(loginFailure());
-      toast.error("You are not an User. Please log in with an User account.");
-        }
+  
+    // Check if login was successful
+    if (res.status === 200) {
+      const roleRes = await axios.get(`/role/${res.data.role}`);
+      const roleName = roleRes.data.role_name;
+  
+      if (roleName === "User") {
+        dispatch(loginSuccess(res.data));
+        toast.success("Login successful!");
+      } else {
+        dispatch(loginFailure());
+        toast.error("You are not a User. Please log in with a User account.");
+      }
+    }
   } catch (err) {
+    const errorMessage = err.response.data.message;
+  
+    if (errorMessage === "Maximum session limit reached") {
+      toast.error("Maximum session limit reached. Please try again later.");
+    } else if (errorMessage === "Wrong email, phoneNumber, or password!") {
+      toast.error("Invalid email/phone number or password. Please try again.");
+    } else {
+      toast.error("An error occurred. Please try again later.");
+    }
+  
     dispatch(loginFailure());
-    toast.error("Invalid email/phone number or password. Please try again.");
   }
+  
 };
