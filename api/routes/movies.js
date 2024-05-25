@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const Movie = require("../models/Movie");
 const User = require('../models/User');
+const Rating = require('../models/Rating');
+const mongoose = require('mongoose');
 
 const verify = require("../verifyToken");
 const axios = require("axios");
@@ -226,79 +228,79 @@ router.get("/search", verify, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-// // Get all ratings for a specific movie
-// router.get('/:id/ratings', async (req, res) => {
-//   try {
-//     const movieId = req.params.id;
 
-//     // Find all ratings for the specified movie
-//     const ratings = await Rating.find({ movie: movieId });
+// Get all ratings for a specific movie
+router.get('/:id/ratings', async (req, res) => {
+  try {
+    const { id: movieId } = req.params;
 
-//     res.status(200).json(ratings);
-//   } catch (error) {
-//     console.error('Error fetching ratings:', error);
-//     return res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
+    console.log(movieId);
+
+    // Validate the movieId
+    if (!mongoose.Types.ObjectId.isValid(movieId)) {
+      return res.status(400).json({ message: 'Invalid movie ID' });
+    }
+
+    // Find all ratings for the specified movie
+    const ratings = await Rating.find({ movie: movieId });
+
+    res.status(200).json(ratings);
+  } catch (error) {
+    console.error('Error fetching ratings:', error.message);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
-// router.post('/:id/ratings',verify, async (req, res) => {
-//   try {
-//     const movieId = req.params.id;
-//     const ratingValue = req.body.rating;
-//     const userId = req.user.id; // Assuming the user's ID is provided in the request user object
 
-//     // Validate movie ID, rating value, and user email
-//     if (!movieId || !ratingValue || isNaN(ratingValue) || !userId) {
-//       return res.status(400).json({ message: 'Missing or invalid movie ID, rating value, or user email' });
-//     }
+router.post('/:id/ratings', verify, async (req, res) => {
+  try {
+    const movieId = req.params.id;
+    const ratingValue = req.body.rating;
+    const userId = req.user.id;
 
-//     const parsedRating = parseFloat(ratingValue);
-//     if (parsedRating < 0 || parsedRating > 5) {
-//       return res.status(400).json({ message: 'Rating must be between 0 and 5' });
-//     }
+    // Validate inputs
+    if (!movieId || !ratingValue || isNaN(ratingValue)) {
+      return res.status(400).json({ message: 'Missing or invalid movie ID or rating value' });
+    }
 
-//     // Find the movie by ID
-//     const movie = await Movie.findById(movieId);
-//     if (!movie) {
-//       return res.status(404).json({ message: 'Movie not found' });
-//     }
+    const parsedRating = parseFloat(ratingValue);
+    if (parsedRating < 0 || parsedRating > 5) {
+      return res.status(400).json({ message: 'Rating must be between 0 and 5' });
+    }
 
-//     // Find the user by email
-//     const user = await User.findOne({ userId });
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
+    // Find the movie by ID
+    const movie = await Movie.findById(movieId);
+    if (!movie) {
+      return res.status(404).json({ message: 'Movie not found' });
+    }
 
-//     // Find and update the rating, or create a new one if it doesn't exist
-//     const rating = await Rating.findOneAndUpdate(
-//       { movie: movieId, user: userId }, // search criteria
-//       { rating: parsedRating }, // new values
-//       { new: true, upsert: true } // options
-//     );
+    // Find and update the rating, or create a new one if it doesn't exist
+    const rating = await Rating.findOneAndUpdate(
+      { movie: movieId, user: userId },
+      { rating: parsedRating },
+      { new: true, upsert: true }
+    );
 
-//     // Calculate the new average rating and vote count
-//     const ratings = await Rating.find({ movie: movieId });
-//     //const voteCount = ratings.length;
-//     //const voteAverage = ratings.reduce((sum, r) => sum + r.rating, 0) / voteCount;
-
-//     const previousVoteCount = movie.vote_count || 0;
-//     const previousTotalRating = (movie.rating || 0) * previousVoteCount;
-//     const newVoteCount = previousVoteCount + 1;
-//     const newTotalRating = previousTotalRating + parsedRating;
-//     const newAverageRating = newTotalRating / newVoteCount;
+    // Calculate new average rating and vote count
+    const previousVoteCount = movie.vote_count || 0;
+    const previousTotalRating = (movie.rating || 0) * previousVoteCount;
+    const newVoteCount = previousVoteCount + 1;
+    const newTotalRating = previousTotalRating + parsedRating;
+    const newAverageRating = newTotalRating / newVoteCount;
     
-//     // Update the movie with the new average rating and vote count
-//     movie.rating = newAverageRating;
-//     movie.vote_count = newVoteCount;
-//     await movie.save();
+    // Update the movie with the new average rating and vote count
+    movie.rating = newAverageRating;
+    movie.vote_count = newVoteCount;
+    await movie.save();
 
-//     return res.status(201).json({ message: 'Rating saved successfully' });
-//   } catch (error) {
-//     console.error('Error saving rating:', error);
-//     return res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
+    return res.status(201).json({ message: 'Rating saved successfully' });
+  } catch (error) {
+    console.error('Error saving rating:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 /**
  * @swagger
