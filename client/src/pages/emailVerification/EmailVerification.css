@@ -1,6 +1,6 @@
 .email-verification-page .container {
   background-image: url("../../asset/image/blur-home-bg.png");
-  background-size: contain;
+  background-size: cover;
   position: relative;  display: flex;
   justify-content: center;
   align-items: center;

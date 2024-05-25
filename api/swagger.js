@@ -38,6 +38,7 @@ const options = {
 };
 
 const specs = swaggerJsdoc(options);
+module.exports = specs;
 
 // // Save Swagger JSON to a file
 // const filePath = path.join(__dirname, 'swagger.json');
