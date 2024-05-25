@@ -1,3 +1,10 @@
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: API endpoints for managing users
+ */
+
 const router = require("express").Router();
 const User = require("../models/User");
 const Role = require("../models/Role");
@@ -8,7 +15,52 @@ const nodemailer = require("nodemailer");
 const axios = require("axios"); // Import Axios
 const Token = require("../models/Token"); // Import the Token model
 
-// UPDATE user details
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   put:
+ *     summary: Update user details
+ *     description: Update the details of a user by their ID.
+ *     tags: [Users]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               phoneNumber:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: The updated user details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               $ref: '#/components/schemas/User'
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal server error
+ */
 router.put("/:id", verify, async (req, res) => {
   try {
     // Fetch user role using Axios
@@ -42,7 +94,35 @@ router.put("/:id", verify, async (req, res) => {
   }
 });
 
-// DELETE user account
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   delete:
+ *     summary: Delete user account
+ *     description: Delete a user account by their ID.
+ *     tags: [Users]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: User has been deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: User has been deleted...
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal server error
+ */
 router.delete("/:id", verify, async (req, res) => {
   try {
     // Fetch user role using Axios
@@ -64,6 +144,37 @@ router.delete("/:id", verify, async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/users/find/{id}:
+ *   get:
+ *     summary: Find user by ID
+ *     description: Retrieve user details by their ID.
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: The user details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *                 isSubscribed:
+ *                   type: boolean
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
 router.get("/find/:id", async (req, res) => {
   try {
     // Find user by ID and exclude the password field from the response
@@ -82,7 +193,35 @@ router.get("/find/:id", async (req, res) => {
   }
 });
 
-//GET ALL
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Get all users
+ *     description: Retrieve all user details.
+ *     tags: [Users]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: new
+ *         schema:
+ *           type: boolean
+ *         description: Whether to return only the latest users
+ *     responses:
+ *       200:
+ *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal server error
+ */
 router.get("/", verify, async (req, res) => {
   try {
     // Fetch user role using Axios
@@ -107,7 +246,30 @@ router.get("/", verify, async (req, res) => {
   }
 });
 
-// GET user statistics
+/**
+ * @swagger
+ * /api/users/stats:
+ *   get:
+ *     summary: Get user statistics
+ *     description: Retrieve user statistics, such as the number of users created each month.
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: User statistics
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: number
+ *                   total:
+ *                     type: number
+ *       500:
+ *         description: Internal server error
+ */
 router.get("/stats", async (req, res) => {
   try {
     // Get user creation month-wise statistics
@@ -130,7 +292,41 @@ router.get("/stats", async (req, res) => {
   }
 });
 
-// POST create a new user
+/**
+ * @swagger
+ * /api/users:
+ *   post:
+ *     summary: Create a new user
+ *     description: Create a new user account.
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               phoneNumber:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: The created user details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Internal server error
+ */
 router.post("/", async (req, res) => {
   try {
     // Encrypt password before saving it to the database
@@ -156,7 +352,30 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Forgot Password
+/**
+ * @swagger
+ * /api/users/forgot-password:
+ *   post:
+ *     summary: Forgot password
+ *     description: Request a password reset for a user account.
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Password reset email sent
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
 router.post("/forgot-password", async (req, res) => {
   try {
     const { email } = req.body;
@@ -272,7 +491,34 @@ router.post("/forgot-password", async (req, res) => {
   }
 });
 
-// Reset Password
+/**
+ * @swagger
+ * /api/users/reset-password:
+ *   post:
+ *     summary: Reset password
+ *     description: Reset the password for a user account.
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               token:
+ *                 type: string
+ *               newPassword:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Password reset successfully
+ *       400:
+ *         description: Invalid or expired token
+ *       404:
+ *         description: User or token not found
+ *       500:
+ *         description: Internal server error
+ */
 router.post("/reset-password", async (req, res) => {
   try {
     const { token, newPassword } = req.body;

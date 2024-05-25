@@ -30,6 +30,7 @@ router.post("/", verify, async (req, res) => {
   }
 });
 
+
 // UPDATE
 router.put("/:id", verify, async (req, res) => {
   try {
@@ -217,5 +218,279 @@ router.get("/search", verify, async (req, res) => {
   }
 });
 
+
+/**
+ * @swagger
+ * tags:
+ *   name: Movies
+ *   description: API endpoints for managing movies
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Movie:
+ *       type: object
+ *       properties:
+ *         title:
+ *           type: string
+ *         description:
+ *           type: string
+ *         uploadedBy:
+ *           type: string
+ *       required:
+ *         - title
+ *         - description
+ *         - uploadedBy
+ */
+
+/**
+ * @swagger
+ * /movies:
+ *   get:
+ *     summary: Retrieve all movies
+ *     description: Retrieve all movies uploaded by an admin or content creator
+ *     tags: [Movies]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of movies
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Movie'
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ * /movies/find/{id}:
+ *   get:
+ *     summary: Get a movie by ID
+ *     description: Retrieve a movie by its ID
+ *     tags: [Movies]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the movie to get
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A movie object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Movie'
+ *       404:
+ *         description: Movie not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ * /movies/random:
+ *   get:
+ *     summary: Get a random movie
+ *     description: Retrieve a random movie based on the type (series or movie)
+ *     tags: [Movies]
+ *     parameters:
+ *       - in: query
+ *         name: type
+ *         schema:
+ *           type: string
+ *         description: Type of movie (movie or series)
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A random movie object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Movie'
+ *       500:
+ *         description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ * /movies/search:
+ *   get:
+ *     summary: Search movies
+ *     description: Search movies by title or title1
+ *     tags: [Movies]
+ *     parameters:
+ *       - in: query
+ *         name: q
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Search query
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of movies matching the search query
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Movie'
+ *       400:
+ *         description: Missing search query
+ *       500:
+ *         description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ * /movies/{id}/views:
+ *   post:
+ *     summary: Record a view for a movie
+ *     description: Record a view for a movie with the given ID
+ *     tags: [Movies]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the movie
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: View recorded successfully
+ *       400:
+ *         description: Missing movie ID or user ID
+ *       404:
+ *         description: Movie not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ * /movies:
+ *   post:
+ *     summary: Create a new movie
+ *     description: Only admins or content creators can upload movies
+ *     tags: [Movies]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Movie'
+ *     responses:
+ *       201:
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Movie'
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ * /movies/{id}:
+ *   put:
+ *     summary: Update a movie
+ *     description: Update a movie with the given ID
+ *     tags: [Movies]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the movie
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Movie'
+ *     responses:
+ *       200:
+ *         description: Updated movie object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Movie'
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Movie not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ * /movies/{id}:
+ *   delete:
+ *     summary: Delete a movie
+ *     description: Delete a movie with the given ID
+ *     tags: [Movies]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the movie
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Movie deleted successfully
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Movie not found
+ *       500:
+ *         description: Internal Server Error
+ */
+/**
+ * @swagger
+ * /movies/allMovie:
+ *   get:
+ *     summary: Retrieve all movies (public access)
+ *     description: Retrieve all movies regardless of user role (public access)
+ *     tags: [Movies]
+ *     responses:
+ *       200:
+ *         description: A list of movies
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Movie'
+ *       500:
+ *         description: Internal Server Error
+ */
 
 module.exports = router;

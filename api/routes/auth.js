@@ -230,5 +230,159 @@ router.post("/logout", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+/**
+ * @swagger
+ * tags:
+ *   name: Authentication
+ *   description: API endpoints for user authentication
+ */
+
+/**
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     description: Registers a new user with the provided information.
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               phoneNumber:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User registered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: Bad request, email already registered
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/auth/verify-email/{token}:
+ *   get:
+ *     summary: Verify user's email
+ *     description: Verifies the user's email using the provided verification token.
+ *     tags: [Authentication]
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Verification token received in email
+ *     responses:
+ *       200:
+ *         description: Email verified successfully
+ *       400:
+ *         description: Invalid or expired token
+ *       404:
+ *         description: User not found
+ */
+
+/**
+ * @swagger
+ * /api/auth/resend-verification:
+ *   post:
+ *     summary: Resend email verification
+ *     description: Resends the email verification link to the user.
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Verification email resent
+ *       400:
+ *         description: User not found or already verified
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: User login
+ *     description: Authenticates the user and returns an access token.
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *                 accessToken:
+ *                   type: string
+ *       401:
+ *         description: Wrong email, phoneNumber, or password
+ *       403:
+ *         description: Maximum session limit reached
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/auth/logout:
+ *   post:
+ *     summary: User logout
+ *     description: Logs out the user by invalidating the access token.
+ *     tags: [Authentication]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *       401:
+ *         description: Authorization token missing
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
 
 module.exports = router;

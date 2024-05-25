@@ -35,3 +35,50 @@ subscriptionSchema.methods.isActive = function () {
 };
 
 module.exports = mongoose.model("Subscription", subscriptionSchema);
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Subscription:
+ *       type: object
+ *       properties:
+ *         amount:
+ *           type: number
+ *           description: The subscription amount
+ *           example: 10.99
+ *         currency:
+ *           type: string
+ *           description: The currency of the subscription
+ *           example: "USD"
+ *         email:
+ *           type: string
+ *           description: The email associated with the subscription
+ *           example: "example@example.com"
+ *         first_name:
+ *           type: string
+ *           description: The first name associated with the subscription
+ *           example: "John"
+ *         last_name:
+ *           type: string
+ *           description: The last name associated with the subscription
+ *           example: "Doe"
+ *         phone_number:
+ *           type: number
+ *           description: The phone number associated with the subscription
+ *           example: 1234567890
+ *         tx_ref:
+ *           type: string
+ *           description: The transaction reference of the subscription
+ *           example: "txn_123456789"
+ *         subscription_date:
+ *           type: string
+ *           format: date-time
+ *           description: The date when the subscription was created
+ *           example: "2024-05-27T10:00:00.000Z"
+ *         expire_date:
+ *           type: string
+ *           format: date-time
+ *           description: The date when the subscription expires
+ *           example: "2025-05-27T10:00:00.000Z"
+ */

@@ -10,3 +10,21 @@ const roleSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Role", roleSchema);
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Role:
+ *       type: object
+ *       properties:
+ *         role_name:
+ *           type: string
+ *           description: The name of the role
+ *           enum:
+ *             - User
+ *             - Admin
+ *             - Content_Creator
+ *       required:
+ *         - role_name
+ */

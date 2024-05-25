@@ -180,5 +180,199 @@ router.post("/:id/views", verify, async (req, res) => {
 
 
 
+/**
+ * @swagger
+ * tags:
+ *   name: Series
+ *   description: API endpoints for managing series
+ */
+
+/**
+ * @swagger
+ * /api/series:
+ *   post:
+ *     summary: Create a new series
+ *     description: Creates a new series if the user is authorized.
+ *     tags: [Series]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Series'
+ *     responses:
+ *       201:
+ *         description: Series created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Series'
+ *       403:
+ *         description: User is not allowed to create a series
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/series/{id}:
+ *   put:
+ *     summary: Update a series
+ *     description: Updates a series if the user is authorized.
+ *     tags: [Series]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the series to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Series'
+ *     responses:
+ *       200:
+ *         description: Series updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Series'
+ *       403:
+ *         description: User is not allowed to update the series
+ *       404:
+ *         description: Series not found
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/series/{id}:
+ *   delete:
+ *     summary: Delete a series
+ *     description: Deletes a series if the user is authorized.
+ *     tags: [Series]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the series to delete
+ *     responses:
+ *       200:
+ *         description: Series deleted successfully
+ *       403:
+ *         description: User is not allowed to delete the series
+ *       404:
+ *         description: Series not found
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/series/find/{id}:
+ *   get:
+ *     summary: Get a series by ID
+ *     description: Retrieves a series by its ID.
+ *     tags: [Series]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the series to retrieve
+ *     responses:
+ *       200:
+ *         description: Series retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Series'
+ *       404:
+ *         description: Series not found
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/series/random:
+ *   get:
+ *     summary: Get a random series
+ *     description: Retrieves a random series.
+ *     tags: [Series]
+ *     responses:
+ *       200:
+ *         description: Random series retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Series'
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/series:
+ *   get:
+ *     summary: Get all series
+ *     description: Retrieves all series if the user is authorized.
+ *     tags: [Series]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of series
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Series'
+ *       403:
+ *         description: User is not allowed to retrieve series
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/series/{id}/views:
+ *   post:
+ *     summary: Record a view for a series
+ *     description: Records a view for a series if the user is authorized.
+ *     tags: [Series]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the series to record the view for
+ *     responses:
+ *       200:
+ *         description: View recorded successfully
+ *       400:
+ *         description: Missing series ID or user ID
+ *       404:
+ *         description: Series not found
+ *       500:
+ *         description: Internal server error
+ */
 
 module.exports = router;

@@ -104,4 +104,101 @@ router.get("/total-birr", verify, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 module.exports = router;
+/**
+ * @swagger
+ * tags:
+ *   name: Subscription
+ *   description: API endpoints for managing subscriptions
+ */
+
+/**
+ * @swagger
+ * /api/subscription:
+ *   post:
+ *     summary: Initialize a subscription payment
+ *     description: Creates a new subscription and initializes a payment via the Chapa API.
+ *     tags: [Subscription]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               amount:
+ *                 type: number
+ *                 description: The amount for the subscription
+ *                 example: 100
+ *               currency:
+ *                 type: string
+ *                 description: The currency for the payment
+ *                 example: ETB
+ *               email:
+ *                 type: string
+ *                 description: The email of the subscriber
+ *                 example: example@example.com
+ *               first_name:
+ *                 type: string
+ *                 description: The first name of the subscriber
+ *                 example: John
+ *               last_name:
+ *                 type: string
+ *                 description: The last name of the subscriber
+ *                 example: Doe
+ *               phone_number:
+ *                 type: string
+ *                 description: The phone number of the subscriber
+ *                 example: 123456789
+ *               tx_ref:
+ *                 type: string
+ *                 description: The transaction reference
+ *                 example: tx123456789
+ *     responses:
+ *       200:
+ *         description: Subscription initialized successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: object
+ *                   description: Response from Chapa API
+ *                 dbsuccess:
+ *                   type: object
+ *                   description: Subscription saved in the database
+ *                 isSubscribed:
+ *                   type: boolean
+ *                   description: Whether the user is subscribed
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/subscription/total-birr:
+ *   get:
+ *     summary: Get total revenue from subscriptions
+ *     description: Retrieves the total revenue from all subscriptions.
+ *     tags: [Subscription]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Total revenue retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 totalRevenue:
+ *                   type: number
+ *                   description: Total revenue from subscriptions
+ *                   example: 1000
+ *       500:
+ *         description: Internal server error
+ */ 
