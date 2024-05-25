@@ -15,7 +15,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import './chart.css';
-
+import "./try.css"
 const Dashboard = ({ movies }) => {
   const getMovieRatingsData = () => {
     return movies.map(movie => ({ name: movie.title, rating: movie.rating }));

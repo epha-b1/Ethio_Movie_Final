@@ -58,7 +58,7 @@ export default function Home() {
     <div className="home">
       <FeaturedInfo />
       <Chart data={userStats} title="User Analytics" grid dataKey="New User" />
-      <Dashboard movies={movies} />
+      {/* <Dashboard movies={movies} /> */}
       <div className="homeWidgets">
         <WidgetSm />
         <WidgetLg />

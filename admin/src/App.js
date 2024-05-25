@@ -25,6 +25,7 @@ import { useContext } from "react";
 import SeriesList from "./pages/seriesList/SeriousList.jsx";
 import ForgotPassword from "./pages/forgotPassword/ForgotPassword.jsx";
 import ResetPassword from "./pages/resetPassword/resetPassword.jsx"
+import Analytics from "./pages/analytics/Analytics.jsx";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -49,6 +50,9 @@ function App() {
               <Route exact path="/">
                 <Home />
               </Route>
+              <Route path="/analytics" >
+          <Analytics />
+        </Route>
               <Route path="/users">
                 <UserList />
               </Route>
