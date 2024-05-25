@@ -20,7 +20,7 @@
 .loginPage .login .left {
   padding: 10px;
   height: 300px;
-  width: 120px;
+  width: 167px;
   background-color: rgba(0, 0, 0, 0.85);
 
   /* border: 1px solid red ; */
@@ -32,8 +32,7 @@
 .loginPage .login .right {
   height: 300px;
   background-color: rgba(0, 0, 0, 0.95);
-
-  /* border: 1px solid red ; */
+width: 300px;
   display: flex;
   flex-direction: row;
   align-items: center;
