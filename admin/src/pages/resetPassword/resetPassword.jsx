@@ -89,7 +89,8 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="login">
+    <div className="resetPage">
+      <div className="login">
         <Container component="main" maxWidth="xs" className="container1">
          <CssBaseline />
          <div className={classes.paper}>
@@ -148,6 +149,7 @@ export default function ResetPassword() {
            </Typography>
          </Box>
        </Container>
+    </div>
     </div>
      );
 }

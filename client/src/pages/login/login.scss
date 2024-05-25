@@ -3,9 +3,11 @@
   height: 100vh;
   // background-color: rgba(0, 0, 0, 0.977);
       margin: auto;
+      background-image: url("../../asset/image/blur-home-bg.png");
+      background-size: contain;
 
+  // background: linear-gradient(to left, rgb(23 129 234 / 50%), rgb(1 4 8));
 
-  background-size: cover;
   position: relative;
 
   .top {
@@ -40,6 +42,10 @@
       flex-direction: column;
       align-items: center;
 
+      .logo{
+        height: 80px;
+      }
+
     }
 
     form {
@@ -47,7 +53,7 @@
       // height: 300px;
       padding: 30px;
       border-radius: 5px;
-      background-color: rgba(0, 0, 0, 0.45);
+      background-color: rgba(0, 0, 0, 0.85);
       display: flex;
       margin: 105px;
       flex-direction: column;

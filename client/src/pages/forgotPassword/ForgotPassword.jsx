@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import "./forgotPassword.scss"; // Style your forgot password page here
+import "./forgotPassword.css"; // Style your forgot password page here
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -61,15 +61,18 @@ export default function ForgotPassword() {
 
       if (response.status === 200) {
         setSuccess(true);
+        setError("");
         toast.success(" Reset email sent successfully!");
 
-        setError("");
       } else {
         toast.error("Failed to reset password.");
+
+        setError("Failed to reset password.");
+
         setSuccess(false);
       }
     } catch (err) {
-      toast.error("Failed to reset password.");
+      toast.error("An error occurred while resetting password.");
 
       setError("An error occurred while resetting password.");
       setSuccess(false);
@@ -77,11 +80,12 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="login">
+    <div className="forgetPage">
+      <div className="login">
       <Container component="main" maxWidth="xs" className="container1">
         <CssBaseline />
         <div className={classes.paper}>
-          <img src={Logo} alt="" />
+          <img className="logo" src={Logo} alt="" />
           <Typography component="h1" variant="h5" style={customTypographyStyle}>
             <h2>Forgot Password</h2>
             {success && (
@@ -94,7 +98,7 @@ export default function ForgotPassword() {
             onSubmit={handleResetPassword}
             noValidate
           >
-            <input
+            <input className="input"
               type="email"
               placeholder="Enter your email"
               value={email}
@@ -141,6 +145,7 @@ export default function ForgotPassword() {
           </Typography>
         </Box>
       </Container>
+    </div>
     </div>
   );
 }

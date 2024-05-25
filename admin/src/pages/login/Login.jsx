@@ -68,15 +68,21 @@ export default function Auth() {
   };
 
   return (
-    <div className="login">
+    <div className="loginPage">
+     
+      <div className="login">
+      <div className="left">
+      <img src={Logo} alt="" />
+          <Typography component="h1" variant="h5" style={customTypographyStyle}>
+            Admin Sign in 
+          </Typography>
+      </div>
+      <div className="right">
       <Container component="main" maxWidth="xs" className="container1">
         <CssBaseline />
         <div className={classes.paper}>
           
-          <img src={Logo} alt="" />
-          <Typography component="h1" variant="h5" style={customTypographyStyle}>
-            Admin Sign in 
-          </Typography>
+          
           <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <input
               type="text"
@@ -125,6 +131,8 @@ export default function Auth() {
           </Typography>
         </Box>
       </Container>
+      </div>
+    </div>
     </div>
   );
 }
