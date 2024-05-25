@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 const verify = require("../verifyToken");
 const axios = require("axios");
-
+const admin = require('../firebaseNotification'); 
 // CREATE
 router.post("/", verify, async (req, res) => {
   try {
@@ -22,6 +22,15 @@ router.post("/", verify, async (req, res) => {
       });
       const savedMovie = await newMovie.save();
       res.status(201).json(savedMovie);
+      const message = {
+        notification: {
+          title: `አዲስ የወጣ ፊልም ${req.body.title} | ${req.body.title1} `,
+          body: `New movies is released check it out `,
+        },
+        topic: 'movies', // You can use a topic to send messages to multiple devices
+      };
+  
+      await admin.messaging().send(message);
     } else {
       res.status(403).json("You are not allowed to upload movies");
     }
