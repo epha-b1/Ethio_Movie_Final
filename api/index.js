@@ -4,7 +4,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('./swagger');
 dotenv.config();
 
 mongoose
@@ -35,6 +36,8 @@ app.use("/api/lists", listRoute);
 app.use("/api/payment", paymentRoute); 
 app.use("/api/role", roleRoute); 
 app.use("/api/serious", seriousRoute); 
+
+app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Start the server
 const PORT = process.env.PORT || 8800;

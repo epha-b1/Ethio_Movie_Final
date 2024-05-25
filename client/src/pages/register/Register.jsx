@@ -3,14 +3,15 @@ import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "sonner";
 import "./register.scss";
-
 import logo from "../../asset/image/logo.png";
+import Loader from '../../components/loader/Loader'; // Import the Loader component
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
+  const [loading, setLoading] = useState(false); // Add loading state
   const history = useHistory();
 
   const emailRef = useRef();
@@ -31,60 +32,62 @@ export default function Register() {
     setEmail(inputEmail);
   };
 
- const handleFinish = async (e) => {
-   e.preventDefault();
-   const inputPassword = passwordRef.current.value;
-   const inputUsername = usernameRef.current.value;
-   const inputPhoneNumber = phoneNumberRef.current.value; // Read the phone number input
+  const handleFinish = async (e) => {
+    e.preventDefault();
+    const inputPassword = passwordRef.current.value;
+    const inputUsername = usernameRef.current.value;
+    const inputPhoneNumber = phoneNumberRef.current.value;
 
-   // Validate email
-   if (!email) {
-     toast.error("Please enter an email address.");
-     return;
-   }
+    // Validate email
+    if (!email) {
+      toast.error("Please enter an email address.");
+      return;
+    }
 
-   // Validate username
-   if (!inputUsername) {
-     toast.error("Please enter a username.");
-     return;
-   }
+    // Validate username
+    if (!inputUsername) {
+      toast.error("Please enter a username.");
+      return;
+    }
 
-   // Validate password
-   if (inputPassword.length < 6) {
-     toast.error("Password must be at least 6 characters long.");
-     return;
-   }
+    // Validate password
+    if (inputPassword.length < 6) {
+      toast.error("Password must be at least 6 characters long.");
+      return;
+    }
 
-   // Validate phone number
-   if (!inputPhoneNumber) {
-     toast.error("Please enter a phone number.");
-     return;
-   }
+    // Validate phone number
+    if (!inputPhoneNumber) {
+      toast.error("Please enter a phone number.");
+      return;
+    }
 
-   // Set input values after validation
-   setPassword(inputPassword);
-   setUsername(inputUsername);
-   setphoneNumber(inputPhoneNumber); // Set the phone number state
+    // Set input values after validation
+    setPassword(inputPassword);
+    setUsername(inputUsername);
+    setphoneNumber(inputPhoneNumber);
 
-   // All validations passed, proceed with registration
-   try {
-     await axios.post("auth/register", {
-       email,
-       username,
-       password,
-       phoneNumber: inputPhoneNumber,
-     }); // Include phone number in the registration request
-     toast.success("Registration and Verification email sent successfully. You can now Verify.");
-     history.push({
-      pathname: "/resend-verification",
-      state: { email: email },
-    });
-   } catch (err) {
-     // Handle registration error
-     console.error("Registration error:", err);
-     toast.error("Registration failed. Please try again.");
-   }
- };
+    // All validations passed, proceed with registration
+    try {
+      setLoading(true); // Set loading to true before starting the registration process
+      await axios.post("auth/register", {
+        email,
+        username,
+        password,
+        phoneNumber: inputPhoneNumber,
+      });
+      toast.success("Registration and Verification email sent successfully. You can now Verify.");
+      history.push({
+        pathname: "/resend-verification",
+        state: { email: email },
+      });
+    } catch (err) {
+      console.error("Registration error:", err);
+      toast.error("Registration failed. Please try again.");
+    } finally {
+      setLoading(false); // Set loading to false after registration process is complete
+    }
+  };
 
   return (
     <div className="register">
@@ -110,7 +113,7 @@ export default function Register() {
         ) : (
           <form className="input">
             <input type="text" placeholder="Username" ref={usernameRef} />
-            <input type="text" placeholder="phoneNumber" ref={phoneNumberRef} />
+            <input type="text" placeholder="Phone Number" ref={phoneNumberRef} />
             <input type="password" placeholder="Password" ref={passwordRef} />
             <button className="registerButton" onClick={handleFinish}>
               Start
@@ -126,6 +129,24 @@ export default function Register() {
           </span>
         </div>
       </div>
+
+      {loading && ( // Show loader when loading state is true
+        <div
+          style={{
+            position: "fixed",
+            top: "0",
+            left: "0",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)"
+          }}
+        >
+          <Loader />
+        </div>
+      )}
     </div>
   );
 }

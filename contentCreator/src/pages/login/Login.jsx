@@ -25,27 +25,31 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: "100%", // Fix IE 11 issue.
+    display: "flex",
+    flexDirection: "column",
     marginTop: theme.spacing(1),
+    input:{
+      width: "100%", // Fix IE 11 issue.
+
+      display: "flex",
+      flexDirection: "row",
+    }
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
 }));
 const customColorStyle = {
-  marginTop: '8px', // Adjust padding top as needed
-  marginBottom: '8px', // Adjust padding top as needed
-  backgroundColor: ' #e9b14c ', // Background color
-  color: 'white', // Text color
+  marginTop: "8px",
+  marginBottom: "8px",
+  backgroundColor: " #e9b14c ", // Background color
+  color: "white", // Text color
 };
 
 const customTypographyStyle = {
-  marginTop: '15px',
-  marginBottom: '15px',
-    color: 'white',
-};
-const customInputStyle = {
-  marginBottom: '8px',
-    color: 'white',
+  color: "white",
+  marginTop: "15px",
+  marginBottom: "15px",
 };
 export default function Auth() {
   const classes = useStyles();
@@ -64,66 +68,71 @@ export default function Auth() {
   };
 
   return (
- <div className="loginPage">
-  <div className="login">
-     <Container component="main" maxWidth="xs" className="container1">
-      <CssBaseline />
-      <div className={classes.paper}>
-      
-        <img src={Logo} alt="" />
-        <Typography component="h1" variant="h5" style={customTypographyStyle }>
-          {isLogin ? "Content-creator Sign in" : "Sign up"}
-        </Typography>
-        <form className={classes.form} onSubmit={handleSubmit} noValidate>
-        <input
-        style={customInputStyle}
-            type="text"
-            placeholder="Email or phone number"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <input
-                  style={customInputStyle}
-
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          
-          
-    
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            className="submit"
-            disabled={isFetching}
-            style={customColorStyle} // Apply the custom style here
-            >
-            "Sign In" 
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="/forgot-password" variant="body2"             style={customTypographyStyle }
->
-                Forgot password?
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
+    <div className="loginPage">
+     
+      <div className="login">
+      <div className="left">
+      <img src={Logo} alt="" />
+          <Typography component="h1" variant="h5" style={customTypographyStyle}>
+            Sign in 
+          </Typography>
       </div>
-      <Box >
-        <Typography variant="body2" color="textSecondary" align="center" style={customTypographyStyle }>
-          {"Copyright © "}
-          <Link color="inherit" href="#" >
-            Ethio Movies
-          </Link>{" "}
-          {new Date().getFullYear()}
-          {"."}
-        </Typography>
-      </Box>
-    </Container>
- </div>
- </div>
+      <div className="right">
+      <Container component="main" maxWidth="xs" className="container1">
+        <CssBaseline />
+        <div className={classes.paper}>
+          
+          
+          <form className={classes.form} onSubmit={handleSubmit} noValidate>
+            <input
+              type="text"
+              placeholder="Email or phone number"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              className="submit"
+              disabled={isFetching}
+              style={customColorStyle} // Apply the custom style here
+            >
+              {isLogin ? "Sign In" : "Sign Up"}
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="/forgot-password" variant="body2" style={customTypographyStyle}>
+                  Forgot password?
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+        <Box>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            align="center"
+            style={customTypographyStyle}
+          >
+            {"Copyright © "}
+            <Link color="inherit" href="#">
+              Ethio Movies
+            </Link>{" "}
+            {new Date().getFullYear()}
+            {"."}
+          </Typography>
+        </Box>
+      </Container>
+      </div>
+    </div>
+    </div>
   );
 }

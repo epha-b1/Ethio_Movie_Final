@@ -216,6 +216,13 @@ export default function NewMovie() {
           </select>
         </div>
         <div className="addProductItem">
+          <label>Is Premium?</label>
+          <select name="premium" id="premium" onChange={handleChange}>
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+        </div>
+        <div className="addProductItem">
           <label>Trailer</label>
           <input
             type="file"

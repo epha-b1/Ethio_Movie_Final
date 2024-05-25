@@ -87,7 +87,8 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="login">
+<div className="LoginPage">
+<div className="login">
         <Container component="main" maxWidth="xs" className="container1">
          <CssBaseline />
          <div className={classes.paper}>
@@ -135,7 +136,7 @@ export default function ResetPassword() {
              </Grid>
            </form>
          </div>
-         <Box mt={8}>
+         <Box >
            <Typography variant="body2" color="textSecondary" align="center" style={customTypographyStyle }>
              {"Copyright © "}
              <Link color="inherit" href="#" >
@@ -147,5 +148,6 @@ export default function ResetPassword() {
          </Box>
        </Container>
     </div>
+</div>
      );
 }

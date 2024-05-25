@@ -15,6 +15,7 @@ const MovieSchema = new Schema(
     Age: { type: Number },
     genre: [String],
     isSeries: { type: Boolean, default: false },
+    premium: { type: Boolean, default: false },
     rating: { type: Number, default: 0 },
     duration: { type: String },
     director: { type: String },

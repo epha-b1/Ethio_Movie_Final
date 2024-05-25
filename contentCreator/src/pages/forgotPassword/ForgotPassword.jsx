@@ -77,7 +77,7 @@ export default function ForgotPassword() {
   };
 
   return (
-   <div className="loginPage">
+   <div className="forgetPage">
      <div className="login">
       <Container component="main" maxWidth="xs" className="container1">
         <CssBaseline />

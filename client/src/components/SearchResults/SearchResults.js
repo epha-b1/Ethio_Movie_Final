@@ -2,17 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from "@material-ui/icons";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
+import Loader from '../loader/Loader.jsx'; // Import the Loader component
 import "../listItem/listItem.scss";
-import "../list/list.scss";
 import "./searchResults.scss"
-import {
-    PlayArrow,
-    Add,
-    ThumbUpAltOutlined,
-    ThumbDownOutlined,
-  } from "@material-ui/icons";
+import "../list/list.scss";
+import { PlayArrow, Add, ThumbUpAltOutlined, ThumbDownOutlined } from "@material-ui/icons";
+
 const SearchResultsPage = () => {
   const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("query");
@@ -20,6 +18,7 @@ const SearchResultsPage = () => {
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
+        setLoading(true); // Set loading to true before fetching
         const response = await fetch(`/movies/search?q=${query}`, {
           headers: {
             token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
@@ -33,6 +32,8 @@ const SearchResultsPage = () => {
         }
       } catch (error) {
         console.error("Error fetching search results:", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching
       }
     };
 
@@ -47,7 +48,7 @@ const SearchResultsPage = () => {
   // Define ListItem component locally within SearchResultsPage
   const ListItem = ({ index, item }) => {
     const [isHovered, setIsHovered] = useState(false);
-  
+
     return (
       <Link to={{ pathname: "/watch", movie: item }}>
         <div
@@ -56,7 +57,6 @@ const SearchResultsPage = () => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <span>{item.title}</span>
           <img src={item.thumbnail} alt="" />
           {isHovered && (
             <>
@@ -71,7 +71,7 @@ const SearchResultsPage = () => {
                 <div className="itemInfoTop">
                   <span>{item.duration}</span>
                   <span className="limit">+{item.rating}</span>
-                  <span>{item.releaseDate}</span>
+                  <span>{new Date(item.releaseDate).getFullYear()}</span>
                 </div>
                 <div className="desc">{item.description}</div>
                 <div className="genre">{item.genre.join(", ")}</div>
@@ -82,7 +82,6 @@ const SearchResultsPage = () => {
       </Link>
     );
   };
-  
 
   // Define List component locally within SearchResultsPage
   const List = ({ list }) => {
@@ -115,7 +114,7 @@ const SearchResultsPage = () => {
           />
           <div className="container" ref={listRef}>
             {list.content.map((item, i) => (
-              <ListItem key={i} index={i} item={item} /> 
+              <ListItem key={i} index={i} item={item} /> // Render ListItem component here
             ))}
           </div>
           <ArrowForwardIosOutlined
@@ -127,9 +126,25 @@ const SearchResultsPage = () => {
     );
   };
 
+  if (loading) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <Loader /> 
+      </div>
+    );
+  }
+
   return (
     <div className="searched_container">
-      <List list={{ title: `Search Results for: ${query}`, content: searchResults }} />
+      <List list={{ title: `Search Results for: ${query}`, content: searchResults }} /> 
     </div>
   );
 };
