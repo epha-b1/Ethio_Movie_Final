@@ -208,7 +208,6 @@ router.post("/:id/views", verify, async (req, res) => {
   }
 });
 
-//to search movie
 
 // SEARCH
 router.get("/search", verify, async (req, res) => {
