@@ -1,12 +1,14 @@
 const swaggerJsdoc = require('swagger-jsdoc');
+const fs = require('fs');
+const path = require('path');
 
 const options = {
-  definition: {
-    openapi: '3.0.0', // Specify OpenAPI version
+  swaggerDefinition: {
+    openapi: '3.0.0',
     info: {
-      title: 'Ethiomovie API', // Title of the API
-      version: '1.0.0', // Version of the API
-      description: 'API documentation for Ethiomovie streaming service', // Description of the API
+      title: 'Ethiomovie API',
+      version: '1.0.0',
+      description: 'API documentation for Ethiomovie streaming service',
     },
     servers: [
       {
@@ -27,10 +29,17 @@ const options = {
         BearerAuth: [],
       },
     ],
+    externalDocs: {
+      description: 'Find more info here',
+      url: 'https://example.com/docs',
+    },
   },
-  apis: ['./models/**/*.js', './routes/**/*.js'], // Paths to the API docs
+  apis: ['./models/**/*.js', './routes/**/*.js'],
 };
 
 const specs = swaggerJsdoc(options);
 
-module.exports = specs;
+// // Save Swagger JSON to a file
+// const filePath = path.join(__dirname, 'swagger.json');
+// fs.writeFileSync(filePath, JSON.stringify(specs, null, 2));
+// console.log('Swagger documentation exported successfully to:', filePath);

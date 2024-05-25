@@ -1,0 +1,2094 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ethiomovie API",
+    "version": "1.0.0",
+    "description": "API documentation for Ethiomovie streaming service"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8800"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "List": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the list"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the list (e.g., \"movie\", \"series\", etc.)"
+          },
+          "genre": {
+            "type": "string",
+            "description": "The genre of the list"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "Content items in the list"
+            }
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "Movie": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the movie"
+          },
+          "title1": {
+            "type": "string",
+            "description": "Another title of the movie"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the movie"
+          },
+          "img": {
+            "type": "string",
+            "description": "URL of the main image associated with the movie"
+          },
+          "imgTitle": {
+            "type": "string",
+            "description": "Title of the main image"
+          },
+          "thumbnail": {
+            "type": "string",
+            "description": "URL of the thumbnail image"
+          },
+          "trailer": {
+            "type": "string",
+            "description": "URL of the movie trailer"
+          },
+          "video": {
+            "type": "string",
+            "description": "URL of the movie video"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Release date of the movie"
+          },
+          "Age": {
+            "type": "integer",
+            "description": "Age restriction for the movie"
+          },
+          "genre": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of genres associated with the movie"
+          },
+          "isSeries": {
+            "type": "boolean",
+            "description": "Indicates if the movie is a series"
+          },
+          "premium": {
+            "type": "boolean",
+            "description": "Indicates if the movie is premium content"
+          },
+          "rating": {
+            "type": "number",
+            "description": "Rating of the movie"
+          },
+          "duration": {
+            "type": "string",
+            "description": "Duration of the movie"
+          },
+          "director": {
+            "type": "string",
+            "description": "Director of the movie"
+          },
+          "actors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of actors in the movie"
+          },
+          "language": {
+            "type": "string",
+            "description": "Language of the movie"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country of production of the movie"
+          },
+          "uploadedBy": {
+            "type": "string",
+            "description": "ID of the user who uploaded the movie"
+          },
+          "views": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "description": "ID of the user who viewed the movie"
+                },
+                "count": {
+                  "type": "number",
+                  "description": "Number of times the movie has been viewed by the user"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "uploadedBy"
+        ]
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "role_name": {
+            "type": "string",
+            "description": "The name of the role",
+            "enum": [
+              "User",
+              "Admin",
+              "Content_Creator"
+            ]
+          }
+        },
+        "required": [
+          "role_name"
+        ]
+      },
+      "Episode": {
+        "type": "object",
+        "properties": {
+          "episodeNumber": {
+            "type": "number",
+            "description": "The episode number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the episode",
+            "example": "Episode 1"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the episode"
+          },
+          "duration": {
+            "type": "string",
+            "description": "The duration of the episode"
+          },
+          "thumbnail": {
+            "type": "string",
+            "description": "The thumbnail URL of the episode"
+          },
+          "url": {
+            "type": "string",
+            "description": "The URL of the episode"
+          }
+        }
+      },
+      "Season": {
+        "type": "object",
+        "properties": {
+          "seasonNumber": {
+            "type": "number",
+            "description": "The season number",
+            "example": 1
+          },
+          "episodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Episode"
+            }
+          }
+        }
+      },
+      "Series": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the series",
+            "example": "Game of Thrones"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the series"
+          },
+          "thumbnail": {
+            "type": "string",
+            "description": "The thumbnail URL of the series"
+          },
+          "rating": {
+            "type": "number",
+            "description": "The rating of the series",
+            "example": 8.9
+          },
+          "genre": {
+            "type": "array",
+            "description": "The genres of the series",
+            "items": {
+              "type": "string"
+            }
+          },
+          "language": {
+            "type": "string",
+            "description": "The language of the series",
+            "example": "English"
+          },
+          "country": {
+            "type": "string",
+            "description": "The country of origin of the series",
+            "example": "USA"
+          },
+          "seasons": {
+            "type": "array",
+            "description": "The seasons of the series",
+            "items": {
+              "$ref": "#/components/schemas/Season"
+            }
+          },
+          "uploadedBy": {
+            "type": "string",
+            "description": "The ID of the user who uploaded the series",
+            "example": "615e705b689ad2b9d5e9d628"
+          },
+          "views": {
+            "type": "array",
+            "description": "The views of the series",
+            "items": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "description": "The ID of the user who viewed the series",
+                  "example": "615e705b689ad2b9d5e9d628"
+                },
+                "count": {
+                  "type": "number",
+                  "description": "The count of views by the user",
+                  "example": 1
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "Subscription": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "The subscription amount",
+            "example": 10.99
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency of the subscription",
+            "example": "USD"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email associated with the subscription",
+            "example": "example@example.com"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name associated with the subscription",
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name associated with the subscription",
+            "example": "Doe"
+          },
+          "phone_number": {
+            "type": "number",
+            "description": "The phone number associated with the subscription",
+            "example": 1234567890
+          },
+          "tx_ref": {
+            "type": "string",
+            "description": "The transaction reference of the subscription",
+            "example": "txn_123456789"
+          },
+          "subscription_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date when the subscription was created",
+            "example": "2024-05-27T10:00:00.000Z"
+          },
+          "expire_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date when the subscription expires",
+            "example": "2025-05-27T10:00:00.000Z"
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "The ID of the user associated with the token",
+            "example": "60d8f05d1e81ab12c8da1bfe"
+          },
+          "token": {
+            "type": "string",
+            "description": "The token value",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The creation date of the token",
+            "example": "2024-05-27T10:00:00.000Z"
+          }
+        },
+        "required": [
+          "userId",
+          "token",
+          "createdAt"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "The username of the user",
+            "example": "john_doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user",
+            "example": "john.doe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the user",
+            "example": "hashed_password"
+          },
+          "profilePic": {
+            "type": "string",
+            "description": "The profile picture URL of the user",
+            "example": "https://example.com/profile_pic.jpg"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The phone number of the user",
+            "example": "+1234567890"
+          },
+          "role": {
+            "type": "string",
+            "description": "The role of the user",
+            "example": "60d8f05d1e81ab12c8da1bfe"
+          },
+          "subscription": {
+            "type": "string",
+            "description": "The subscription ID of the user",
+            "example": "60d8f05d1e81ab12c8da1bfe"
+          },
+          "isVerified": {
+            "type": "boolean",
+            "description": "Indicates whether the user's email is verified",
+            "example": true
+          },
+          "verificationToken": {
+            "type": "string",
+            "description": "The verification token for verifying the user's email",
+            "example": "verification_token"
+          },
+          "userId": {
+            "type": "string",
+            "description": "The unique ID of the user",
+            "example": "60d8f05d1e81ab12c8da1bfe"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The first name of the user",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The last name of the user",
+            "example": "Doe"
+          },
+          "verificationCode": {
+            "type": "string",
+            "description": "The verification code for verifying the user's phone number",
+            "example": "verification_code"
+          },
+          "activeSessions": {
+            "type": "array",
+            "description": "Array of active sessions for the user",
+            "items": {
+              "type": "object",
+              "properties": {
+                "sessionId": {
+                  "type": "string",
+                  "description": "The ID of the session",
+                  "example": "session_id"
+                },
+                "token": {
+                  "type": "string",
+                  "description": "The session token",
+                  "example": "session_token"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "The creation date of the session",
+                  "example": "2024-05-27T10:00:00.000Z"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "username",
+          "email",
+          "password",
+          "role"
+        ],
+        "example": {
+          "username": "john_doe",
+          "email": "john.doe@example.com",
+          "password": "hashed_password",
+          "role": "60d8f05d1e81ab12c8da1bfe"
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "externalDocs": {
+    "description": "Find more info here",
+    "url": "https://example.com/docs"
+  },
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "description": "Registers a new user with the provided information.",
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, email already registered"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/auth/verify-email/{token}": {
+      "get": {
+        "summary": "Verify user's email",
+        "description": "Verifies the user's email using the provided verification token.",
+        "tags": [
+          "Authentication"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Verification token received in email"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email verified successfully"
+          },
+          "400": {
+            "description": "Invalid or expired token"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/api/auth/resend-verification": {
+      "post": {
+        "summary": "Resend email verification",
+        "description": "Resends the email verification link to the user.",
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verification email resent"
+          },
+          "400": {
+            "description": "User not found or already verified"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "User login",
+        "description": "Authenticates the user and returns an access token.",
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "accessToken": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong email, phoneNumber, or password"
+          },
+          "403": {
+            "description": "Maximum session limit reached"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "summary": "User logout",
+        "description": "Logs out the user by invalidating the access token.",
+        "tags": [
+          "Authentication"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logout successful"
+          },
+          "401": {
+            "description": "Authorization token missing"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/lists": {
+      "post": {
+        "summary": "Create a new list",
+        "description": "Creates a new list.",
+        "tags": [
+          "Lists"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/List"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "New list created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/List"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized, only Admin can create a list"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get lists",
+        "description": "Retrieve a list of lists based on optional query parameters.",
+        "tags": [
+          "Lists"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Type of list (optional)"
+          },
+          {
+            "in": "query",
+            "name": "genre",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Genre of list (optional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of lists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/List"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/lists/{id}": {
+      "delete": {
+        "summary": "Delete a list",
+        "description": "Deletes a list by ID.",
+        "tags": [
+          "Lists"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the list to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List deleted successfully"
+          },
+          "403": {
+            "description": "Unauthorized, only Admin can delete a list"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a list",
+        "description": "Updates a list by ID.",
+        "tags": [
+          "Lists"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the list to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/List"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "List updated successfully"
+          },
+          "403": {
+            "description": "Unauthorized, only Admin can update a list"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/movies": {
+      "get": {
+        "summary": "Retrieve all movies",
+        "description": "Retrieve all movies uploaded by an admin or content creator",
+        "tags": [
+          "Movies"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of movies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new movie",
+        "description": "Only admins or content creators can upload movies",
+        "tags": [
+          "Movies"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Movie"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movies/find/{id}": {
+      "get": {
+        "summary": "Get a movie by ID",
+        "description": "Retrieve a movie by its ID",
+        "tags": [
+          "Movies"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the movie to get"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A movie object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Movie not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movies/random": {
+      "get": {
+        "summary": "Get a random movie",
+        "description": "Retrieve a random movie based on the type (series or movie)",
+        "tags": [
+          "Movies"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Type of movie (movie or series)"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A random movie object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movies/search": {
+      "get": {
+        "summary": "Search movies",
+        "description": "Search movies by title or title1",
+        "tags": [
+          "Movies"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Search query"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of movies matching the search query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing search query"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movies/{id}/views": {
+      "post": {
+        "summary": "Record a view for a movie",
+        "description": "Record a view for a movie with the given ID",
+        "tags": [
+          "Movies"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the movie"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "View recorded successfully"
+          },
+          "400": {
+            "description": "Missing movie ID or user ID"
+          },
+          "404": {
+            "description": "Movie not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movies/{id}": {
+      "put": {
+        "summary": "Update a movie",
+        "description": "Update a movie with the given ID",
+        "tags": [
+          "Movies"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the movie"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Movie"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated movie object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Movie not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a movie",
+        "description": "Delete a movie with the given ID",
+        "tags": [
+          "Movies"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the movie"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Movie deleted successfully"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Movie not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movies/allMovie": {
+      "get": {
+        "summary": "Retrieve all movies (public access)",
+        "description": "Retrieve all movies regardless of user role (public access)",
+        "tags": [
+          "Movies"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of movies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/roles": {
+      "get": {
+        "summary": "Get all roles",
+        "description": "Retrieves all roles.",
+        "tags": [
+          "Roles"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of roles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Role"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/roles/{id}": {
+      "get": {
+        "summary": "Get a role by ID",
+        "description": "Retrieves a role by its ID.",
+        "tags": [
+          "Roles"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the role to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/series": {
+      "post": {
+        "summary": "Create a new series",
+        "description": "Creates a new series if the user is authorized.",
+        "tags": [
+          "Series"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Series"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Series created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Series"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User is not allowed to create a series"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all series",
+        "description": "Retrieves all series if the user is authorized.",
+        "tags": [
+          "Series"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of series",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Series"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User is not allowed to retrieve series"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/series/{id}": {
+      "put": {
+        "summary": "Update a series",
+        "description": "Updates a series if the user is authorized.",
+        "tags": [
+          "Series"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the series to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Series"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Series updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Series"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User is not allowed to update the series"
+          },
+          "404": {
+            "description": "Series not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a series",
+        "description": "Deletes a series if the user is authorized.",
+        "tags": [
+          "Series"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the series to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Series deleted successfully"
+          },
+          "403": {
+            "description": "User is not allowed to delete the series"
+          },
+          "404": {
+            "description": "Series not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/series/find/{id}": {
+      "get": {
+        "summary": "Get a series by ID",
+        "description": "Retrieves a series by its ID.",
+        "tags": [
+          "Series"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the series to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Series retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Series"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Series not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/series/random": {
+      "get": {
+        "summary": "Get a random series",
+        "description": "Retrieves a random series.",
+        "tags": [
+          "Series"
+        ],
+        "responses": {
+          "200": {
+            "description": "Random series retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Series"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/series/{id}/views": {
+      "post": {
+        "summary": "Record a view for a series",
+        "description": "Records a view for a series if the user is authorized.",
+        "tags": [
+          "Series"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the series to record the view for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "View recorded successfully"
+          },
+          "400": {
+            "description": "Missing series ID or user ID"
+          },
+          "404": {
+            "description": "Series not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/subscription": {
+      "post": {
+        "summary": "Initialize a subscription payment",
+        "description": "Creates a new subscription and initializes a payment via the Chapa API.",
+        "tags": [
+          "Subscription"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "description": "The amount for the subscription",
+                    "example": 100
+                  },
+                  "currency": {
+                    "type": "string",
+                    "description": "The currency for the payment",
+                    "example": "ETB"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "The email of the subscriber",
+                    "example": "example@example.com"
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "description": "The first name of the subscriber",
+                    "example": "John"
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "description": "The last name of the subscriber",
+                    "example": "Doe"
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "The phone number of the subscriber",
+                    "example": 123456789
+                  },
+                  "tx_ref": {
+                    "type": "string",
+                    "description": "The transaction reference",
+                    "example": "tx123456789"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Subscription initialized successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "object",
+                      "description": "Response from Chapa API"
+                    },
+                    "dbsuccess": {
+                      "type": "object",
+                      "description": "Subscription saved in the database"
+                    },
+                    "isSubscribed": {
+                      "type": "boolean",
+                      "description": "Whether the user is subscribed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/subscription/total-birr": {
+      "get": {
+        "summary": "Get total revenue from subscriptions",
+        "description": "Retrieves the total revenue from all subscriptions.",
+        "tags": [
+          "Subscription"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Total revenue retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "totalRevenue": {
+                      "type": "number",
+                      "description": "Total revenue from subscriptions",
+                      "example": 1000
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "put": {
+        "summary": "Update user details",
+        "description": "Update the details of a user by their ID.",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The user ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated user details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user account",
+        "description": "Delete a user account by their ID.",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The user ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User has been deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "User has been deleted..."
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/users/find/{id}": {
+      "get": {
+        "summary": "Find user by ID",
+        "description": "Retrieve user details by their ID.",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The user ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "isSubscribed": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "summary": "Get all users",
+        "description": "Retrieve all user details.",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "new",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Whether to return only the latest users"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new user",
+        "description": "Create a new user account.",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The created user details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/users/stats": {
+      "get": {
+        "summary": "Get user statistics",
+        "description": "Retrieve user statistics, such as the number of users created each month.",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "User statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "number"
+                      },
+                      "total": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/users/forgot-password": {
+      "post": {
+        "summary": "Forgot password",
+        "description": "Request a password reset for a user account.",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset email sent"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/users/reset-password": {
+      "post": {
+        "summary": "Reset password",
+        "description": "Reset the password for a user account.",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  },
+                  "newPassword": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset successfully"
+          },
+          "400": {
+            "description": "Invalid or expired token"
+          },
+          "404": {
+            "description": "User or token not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "API endpoints for user authentication"
+    },
+    {
+      "name": "Lists",
+      "description": "API endpoints for managing lists"
+    },
+    {
+      "name": "Movies",
+      "description": "API endpoints for managing movies"
+    },
+    {
+      "name": "Roles",
+      "description": "API endpoints for managing roles"
+    },
+    {
+      "name": "Series",
+      "description": "API endpoints for managing series"
+    },
+    {
+      "name": "Subscription",
+      "description": "API endpoints for managing subscriptions"
+    },
+    {
+      "name": "Users",
+      "description": "API endpoints for managing users"
+    }
+  ]
+}

@@ -37,7 +37,7 @@ app.use("/api/payment", paymentRoute);
 app.use("/api/role", roleRoute); 
 app.use("/api/serious", seriousRoute); 
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Start the server
 const PORT = process.env.PORT || 8800;
