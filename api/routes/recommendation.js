@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { Movie, Rating } = require('../models/movieModel');
+const Movie = require("../models/Movie");
+const Rating = require("../models/Rating");
 const router = express.Router();
 
 // Utility function to calculate cosine similarity
@@ -17,7 +18,7 @@ async function getPopularMovies(limit = 10) {
 }
 
 // Collaborative filtering recommendation route
-router.get('/recommendations/:userId?', async (req, res) => {
+router.get('/:userId?', async (req, res) => {
   const { userId } = req.params;
 
   try {

@@ -28,6 +28,7 @@ const listRoute = require("./routes/lists");
 const paymentRoute = require("./routes/subscription"); 
 const roleRoute = require("./routes/role"); 
 const seriousRoute = require("./routes/serious"); 
+const recommendationRouter = require("./routes/recommendation"); 
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
@@ -36,6 +37,7 @@ app.use("/api/lists", listRoute);
 app.use("/api/payment", paymentRoute); 
 app.use("/api/role", roleRoute); 
 app.use("/api/serious", seriousRoute); 
+app.use('/api/recommendation', recommendationRouter);
 
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
