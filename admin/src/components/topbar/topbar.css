@@ -14,19 +14,19 @@
   align-items: center;
   justify-content: space-between;
 }
-
 .topLeft{
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 8px;
+  
 
 }
 
-
-
+img{
+  width: 70px;
+}
 .logo {
-  margin-top: 8px;
   font-weight: bold;
   font-size: 30px;
   color: darkblue;
