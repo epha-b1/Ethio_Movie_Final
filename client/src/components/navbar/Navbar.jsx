@@ -5,6 +5,7 @@ import { AuthContext } from "../../authContext/AuthContext";
 import logo from "../../asset/image/logo.png";
 import { Toaster, toast } from "sonner";
 import { Search } from "@material-ui/icons";
+import axios from "axios"; // Import axios for making HTTP requests
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -14,10 +15,30 @@ const Navbar = () => {
   const { user, dispatch } = useContext(AuthContext);
   const history = useHistory();
 
-  const handleLogout = () => {
-    toast.success("Logout successful!");
-    dispatch({ type: "LOGOUT" });
-    history.push("/login");
+  const handleLogout = async () => {
+    try {
+      // Make a logout request to the server
+      const response = await axios.post("http://localhost:8800/api/auth/logout", {}, {
+        headers: {
+          token:
+            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+        },
+      });
+
+      if (response.status === 200) {
+        // Logout successful, dispatch logout action and redirect to login page
+        dispatch({ type: "LOGOUT" });
+        history.push("/login");
+        toast.success("Logout successful!");
+      } else {
+        // Logout failed, show error message
+        toast.error("Failed to logout. Please try again.");
+      }
+    } catch (error) {
+      // Handle error
+      console.error("Error during logout:", error);
+      toast.error("An error occurred during logout.");
+    }
   };
 
   useEffect(() => {
@@ -25,8 +46,7 @@ const Navbar = () => {
       try {
         const response = await fetch(`/movies/search?q=${searchQuery}`, {
           headers: {
-            token:
-            "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+            Authorization: `Bearer ${user.accessToken}`,
           },
         });
         if (response.ok) {
@@ -41,7 +61,7 @@ const Navbar = () => {
     };
 
     searchMovies();
-  }, [searchQuery]);
+  }, [searchQuery, user.accessToken]);
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -50,13 +70,12 @@ const Navbar = () => {
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
   };
-  
+
   const handleSearch = () => {
     if (searchQuery.trim()) {
       history.push(`/search?query=${encodeURIComponent(searchQuery)}`);
     }
   };
-  
 
   return (
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
@@ -76,19 +95,18 @@ const Navbar = () => {
           <Search className="icon" onClick={toggleSearch} />
 
           {isSearchOpen && (
-           <input
-           type="text"
-           placeholder="Search..."
-           className="searchInput"
-           value={searchQuery}
-           onChange={handleInputChange}
-           onKeyPress={(e) => {
-             if (e.key === "Enter") {
-               handleSearch();
-             }
-           }}
-         />
-         
+            <input
+              type="text"
+              placeholder="Search..."
+              className="searchInput"
+              value={searchQuery}
+              onChange={handleInputChange}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSearch();
+                }
+              }}
+            />
           )}
 
           <div className="profile">
