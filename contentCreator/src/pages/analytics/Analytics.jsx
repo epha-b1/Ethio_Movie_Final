@@ -1,8 +1,6 @@
 import Chart from "../../components/chart/Chart";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
-import "./home.css";
-import { userData } from "../../dummyData";
-import WidgetSm from "../../components/widgetSm/WidgetSm";
+import "./analytics.css";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -10,7 +8,7 @@ import { MovieContext } from "../../context/movieContext/MovieContext";
 import { getMovies } from "../../context/movieContext/apiCalls";
 import Dashboard from "../../components/chart/try"; // Adjust the path as needed
 
-export default function Home() {
+export default function Analytics() {
   const { movies, dispatch: movieDispatch } = useContext(MovieContext);
   const [series, setSeries] = useState([]);
 
@@ -38,12 +36,9 @@ export default function Home() {
   }, []);
   return (
     <div className="home">
-      <FeaturedInfo />
-      {/* <Dashboard movies={movies} /> */}
+      <Dashboard movies={movies} />
 
-      <div className="homeWidgets">
-        <WidgetLg />
-      </div>
+
     </div>
   );
 }

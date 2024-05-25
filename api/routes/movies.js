@@ -234,7 +234,6 @@ router.get('/:id/ratings', async (req, res) => {
   try {
     const { id: movieId } = req.params;
 
-    console.log(movieId);
 
     // Validate the movieId
     if (!mongoose.Types.ObjectId.isValid(movieId)) {

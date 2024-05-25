@@ -17,6 +17,7 @@ import {
 import './chart.css';
 
 const Dashboard = ({ movies }) => {
+  
   const getMovieRatingsData = () => {
     return movies.map(movie => ({ name: movie.title, rating: movie.rating }));
   };
