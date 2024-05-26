@@ -23,6 +23,20 @@
     .left {
       display: flex;
       align-items: center;
+      input {
+        height: 30px;
+        width: 95%;
+        margin-top: 10px;
+
+        border-radius: 5px;
+        background-color: gray;
+        color: white;
+        padding-left: 10px;
+
+        &::placeholder {
+          color: lightgray;
+        }
+      }
 
       img {
         height: 70px;

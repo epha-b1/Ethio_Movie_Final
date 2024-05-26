@@ -57,6 +57,7 @@ const SearchResultsPage = () => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
+          <span>{item.title}</span>
           <img src={item.thumbnail} alt="" />
           {isHovered && (
             <>
