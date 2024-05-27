@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%", // Fix IE 11 issue.
     display: "flex",
     flexDirection: "column",
+    borderRadius:"10px",
     marginTop: theme.spacing(1),
     input: {
       width: "100%", // Fix IE 11 issue.
@@ -80,7 +81,7 @@ export default function Auth() {
           <Container component="main" maxWidth="xs" className="container1">
             <CssBaseline />
             <div className={classes.paper}>
-              <form className={classes.form} onSubmit={handleSubmit} noValidate>
+              <form className={classes.form} onSubmit={handleSubmit} noValidate >
                 <input
                   type="text"
                   placeholder="Email or phone number"
