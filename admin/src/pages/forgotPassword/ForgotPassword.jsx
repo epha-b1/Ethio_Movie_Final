@@ -87,7 +87,7 @@ export default function ForgotPassword() {
         <div className={classes.paper}>
           <img src={Logo} alt="" />
           <Typography component="h1" variant="h5" style={customTypographyStyle}>
-            <h2>Forgot Password</h2>
+            <>Forgot Password</>
             {success && (
               <p className="success">Reset email sent successfully!</p>
             )}
