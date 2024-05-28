@@ -15,9 +15,8 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import './chart.css';
-import './try.css';
+import "./try.css"
 const Dashboard = ({ movies }) => {
-  
   const getMovieRatingsData = () => {
     return movies.map(movie => ({ name: movie.title, rating: movie.rating }));
   };
@@ -36,17 +35,27 @@ const Dashboard = ({ movies }) => {
     }));
   };
 
+  // const getMovieViewsData = () => {
+  //   return movies.map(movie => ({ name: movie.title, views: movie.views.length }));
+  // };
   const getMovieViewsData = () => {
-    return movies.map(movie => ({ name: movie.title, views: movie.views.length }));
+    return movies.map(movie => {
+      const totalViews = movie.views.reduce(
+        (totalViews, view) => totalViews + view.count,
+        0
+      );
+      return { name: movie.title, views: totalViews };
+    });
   };
 
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
   return (
     <div className="dashboard">
-      <h2>Movie Dashboard</h2>
+      <h2>Movie Analytics</h2>
 
-      <div className="chart-container">
+<div className="cont">
+<div className="chart-container Movie-rating">
         <h3>Movie Ratings</h3>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={getMovieRatingsData()}>
@@ -60,7 +69,7 @@ const Dashboard = ({ movies }) => {
         </ResponsiveContainer>
       </div>
 
-      <div className="chart-container">
+      <div className="chart-container Genere-rating">
         <h3>Genre Distribution</h3>
         <ResponsiveContainer width="100%" height={400}>
           <PieChart>
@@ -83,6 +92,7 @@ const Dashboard = ({ movies }) => {
           </PieChart>
         </ResponsiveContainer>
       </div>
+</div>
 
       <div className="chart-container">
         <h3>Movie Views</h3>
