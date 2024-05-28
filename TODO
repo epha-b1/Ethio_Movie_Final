@@ -11,3 +11,15 @@ Content Creater:
   ☐ Upload movie 
 
 
+  docker run --name serverapp_c -p 8800:8800 -v D:\Work Shop\Web\EthioMovie_Final\api:/app -v /app/node_modules serverapp
+  docker run --name serverapp_c -p 8800:8800 -v "D:\Work Shop\Web\EthioMovie_Final\api:/app" -v /app/node_modules serverapp
+
+  D:\Work Shop\Web\EthioMovie_Final\api
+
+  docker push ephab/ethio-movie-app:tagname
+  docker build -t ephab/ethio-movie-app:client .
+  docker build -t ephab/ethio-movie-app:server .
+
+
+  docker push ephab/ethio-movie-app:client
+  docker push ephab/ethio-movie-app:server
