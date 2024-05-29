@@ -11,10 +11,17 @@ Content Creater:
   ☐ Upload movie 
 
 
-  
+  run: docker build -t adminapp .
+  run: docker build -t contentcreatorapp .
+  run: docker build -t clientapp .
+  run: docker build -t serverapp .
 
-  docker run --name serverapp_c -p 8800:8800 -v D:\Work Shop\Web\EthioMovie_Final\api:/app -v /app/node_modules serverapp
+
+
   docker run --name serverapp_c -p 8800:8800 -v "D:\Work Shop\Web\EthioMovie_Final\api:/app" -v /app/node_modules serverapp
+  docker run --name adminapp_ -p 3000:3000 -v "D:\Work Shop\Web\EthioMovie_Final\admin:/app" -v /app/node_modules adminapp
+  docker run --name contentcreatorapp_c -p 3001:3001 -v "D:\Work Shop\Web\EthioMovie_Final\contentcreator:/app" -v /app/node_modules contentcreatorapp
+  docker run --name clientapp_c -p 3002:3002 -v "D:\Work Shop\Web\EthioMovie_Final\client:/app" -v /app/node_modules clientapp
 
   D:\Work Shop\Web\EthioMovie_Final\api
 
