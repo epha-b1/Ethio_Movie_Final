@@ -49,7 +49,7 @@ export default function Topbar() {
         <div className="topLeft">
           <img src={Logo} alt="" className="logo" />
 
-          <span className="logo">Content-Creator</span>
+          <span className="logo">ContentCreator</span>
         </div>
         <div className="topRight">
           {/* <div className="topbarIconContainer">
