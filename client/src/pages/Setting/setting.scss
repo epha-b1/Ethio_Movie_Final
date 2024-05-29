@@ -128,16 +128,18 @@
 
     .password-fields {
       display: flex;
+      flex-direction: column;
 
       input {
         margin-right: 10px;
         padding: 5px;
         height: 15px;
-// color: white;
+        margin: 8px;
+        margin-top: 12px;
         border-radius: 3px;
         border: 1px solid #ccc;
         font-size: 12px;
-        width: 200px;
+        width: 150px;
       }
     }
 

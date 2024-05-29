@@ -17,6 +17,7 @@ const MySetting = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [newPhoneNumber, setnewPhoneNumber] = useState("");
   const [newEmail, setNewEmail] = useState("");
@@ -70,39 +71,50 @@ const MySetting = () => {
   const handleCloseConfirmDialog = () => {
     setIsConfirmDialogOpen(false); // Close the confirmation dialog
   };
+  
 
-  const handleUpdatePassword = async (e) => {
-    e.preventDefault();
 
-    try {
-      const userRes = await axios.get(`/users/find/${userId}`, {
+// Client-side code
+const handleUpdatePassword = async (e) => {
+  e.preventDefault();
+
+  // Check if newPassword and confirmPassword match
+  if (newPassword !== confirmPassword) {
+          toast.error("New password and confirm password do not match.");
+
+    return;
+  }
+
+  try {
+    const response = await axios.put(
+      `/users/update-password/${userId}`,
+      {
+        oldPassword,
+        newPassword
+      },
+      {
         headers: {
-          token:
-            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+          token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
         },
-      });
-      const userPassword = userRes.data.user.password;
-      const bytes = CryptoJS.AES.decrypt(
-        userPassword,
-        process.env.REACT_APP_SECRET_KEY
-      );
-      const decrypteduserPassword = bytes.toString(CryptoJS.enc.Utf8);
-
-      if (oldPassword !== decrypteduserPassword) {
-        toast.error("Incorrect old password. Please try again.");
-        return;
       }
-
-      const updatedUser = { id: userId, password: newPassword };
-      await updateUser(updatedUser, dispatch);
+    );
       toast.success("Password updated successfully!");
-      setOldPassword("");
-      setNewPassword("");
-    } catch (error) {
-      toast.error("Failed to update password. Please try again.");
-      console.error("Error updating password:", error);
-    }
-  };
+
+    // Reset password fields
+    setOldPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+
+    // Handle response as needed
+    console.log(response.data);
+  } catch (error) {
+    // Handle error
+          toast.error("Failed to update password. Please try again.");
+
+    console.error('Error updating password:', error);
+  }
+};
+
 
   const handleUpdateUsername = async () => {
     try {
@@ -224,6 +236,13 @@ const MySetting = () => {
                   placeholder="New Password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
+                />
+                
+                <input
+                  type="password"
+                  placeholder="Confirm New Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
               <button onClick={handleUpdatePassword}>Update</button>

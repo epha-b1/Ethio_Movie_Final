@@ -547,9 +547,7 @@ router.post("/reset-password", async (req, res) => {
     //   process.env.SECRET_KEY
     // ).toString();
 
-    console.log(newPassword);
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    console.log(hashedPassword);
 
     user.password = hashedPassword;
     await user.save();
@@ -576,6 +574,35 @@ router.post("/reset-password", async (req, res) => {
     res.status(200).json({ message: "Password reset successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+// Update password endpoint
+router.put('/update-password/:id', async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const userId = req.params.id;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Incorrect old password' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedNewPassword = await bcrypt.hash(newPassword, salt);
+
+    user.password = hashedNewPassword;
+    await user.save();
+
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error('Error updating password:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
