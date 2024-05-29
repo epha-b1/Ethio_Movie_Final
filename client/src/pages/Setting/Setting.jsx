@@ -82,7 +82,6 @@ const MySetting = () => {
         },
       });
       const userPassword = userRes.data.user.password;
-      console.log("Mereph");
       const bytes = CryptoJS.AES.decrypt(
         userPassword,
         process.env.REACT_APP_SECRET_KEY

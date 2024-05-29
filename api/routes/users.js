@@ -14,6 +14,7 @@ const jwt = require("jsonwebtoken"); // Import jsonwebtoken library
 const nodemailer = require("nodemailer");
 const axios = require("axios"); // Import Axios
 const Token = require("../models/Token"); // Import the Token model
+const bcrypt = require('bcrypt');
 
 /**
  * @swagger
@@ -541,10 +542,15 @@ router.post("/reset-password", async (req, res) => {
     }
 
     // Update user's password
-    const hashedPassword = CryptoJS.AES.encrypt(
-      newPassword,
-      process.env.SECRET_KEY
-    ).toString();
+    // const hashedPassword = CryptoJS.AES.encrypt(
+    //   newPassword,
+    //   process.env.SECRET_KEY
+    // ).toString();
+
+    console.log(newPassword);
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    console.log(hashedPassword);
+
     user.password = hashedPassword;
     await user.save();
 
