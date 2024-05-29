@@ -40,7 +40,9 @@ app.use("/api/serious", seriousRoute);
 app.use('/api/recommendation', recommendationRouter);
 
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
-
+app.get("/", (req, res) => {
+  res.send("Hello Ethio Movie!");
+});
 // Start the server
 const PORT = process.env.PORT || 8800;
 app.listen(PORT, () => {
