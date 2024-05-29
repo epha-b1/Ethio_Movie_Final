@@ -10,7 +10,7 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [phoneNumber, setphoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false); // Add loading state
   const history = useHistory();
 
@@ -62,18 +62,13 @@ export default function Register() {
       return;
     }
 
-    // Set input values after validation
-    setPassword(inputPassword);
-    setUsername(inputUsername);
-    setphoneNumber(inputPhoneNumber);
-
     // All validations passed, proceed with registration
     try {
       setLoading(true); // Set loading to true before starting the registration process
       await axios.post("auth/register", {
         email,
-        username,
-        password,
+        username: inputUsername,
+        password: inputPassword,
         phoneNumber: inputPhoneNumber,
       });
       toast.success("Registration and Verification email sent successfully. You can now Verify.");
