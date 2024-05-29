@@ -15,7 +15,6 @@ function getRandomTenDigitNumber() {
   return number;
 }
 
-console.log(getRandomTenDigitNumber());
 // User Registration Endpoint
 router.post("/register", async (req, res) => {
   try {
