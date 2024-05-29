@@ -42,7 +42,7 @@ jobs:
       - name: Install and Test Server
         working-directory: ./api
         run: |
-          npm install
+          npm install --legacy-peer-deps
           export MONGODB_URI=$MONGODB_URI
           export TOKEN_KEY=$TOKEN_KEY
           export EMAIL=$EMAIL
