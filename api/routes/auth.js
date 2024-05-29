@@ -46,8 +46,7 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ message: "Email is already registered" });
     }
 
-    console.log(username);
-    console.log(email);
+ 
 
     // Generate verification token
     const verificationToken = jwt.sign({ email }, process.env.SECRET_KEY, {
