@@ -29,7 +29,7 @@ const VerificationResend = () => {
       <div className={styles.messageBox}>
         <h2 className={styles.messageTitle}>Almost there!</h2>
         <p className={styles.messageText}>
-          We’ve sent you an email at {email}.
+        We’ve sent you an email at <span style={{ color: "red", fontWeight: "bold" }}>{email}</span>.
           <br />
           Please follow the instructions in the email.
         </p>

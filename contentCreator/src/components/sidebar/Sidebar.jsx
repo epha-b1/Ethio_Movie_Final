@@ -81,7 +81,7 @@ export default function Sidebar() {
             
           </ul>
         </div>
-        <div className="sidebarMenu">
+        {/* <div className="sidebarMenu">
           <h3 className="sidebarTitle">Notifications</h3>
           <ul className="sidebarList">
             <li className="sidebarListItem"  onClick={handleItemClick}>
@@ -114,7 +114,7 @@ export default function Sidebar() {
               Reports
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );

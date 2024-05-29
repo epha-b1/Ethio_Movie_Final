@@ -76,7 +76,30 @@ export default function Sidebar() {
                 Lists
               </li>
             </Link>
-            <Link to="/newMovie" className="link">
+            {/* <Link to="/newMovie" className="link">
+              <li className="sidebarListItem" onClick={handleItemClick}>
+                <AddToQueue className="sidebarIcon" />
+                Add Movie
+              </li>
+            </Link>
+            <Link to="/newSerious" className="link">
+              <li className="sidebarListItem" onClick={handleItemClick}>
+                <AddToQueue className="sidebarIcon" />
+                Add Serious
+              </li>
+            </Link>
+            <Link to="/newList" className="link">
+              <li className="sidebarListItem" onClick={handleItemClick}>
+                <QueuePlayNext className="sidebarIcon" />
+                Add List
+              </li>
+            </Link> */}
+          </ul>
+        </div>
+        <div className="sidebarMenu">
+          <h3 className="sidebarTitle">Upload</h3>
+          <ul className="sidebarList">
+          <Link to="/newMovie" className="link">
               <li className="sidebarListItem" onClick={handleItemClick}>
                 <AddToQueue className="sidebarIcon" />
                 Add Movie
@@ -96,40 +119,7 @@ export default function Sidebar() {
             </Link>
           </ul>
         </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Notifications</h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem"  onClick={handleItemClick}>
-              <MailOutline className="sidebarIcon" />
-              Mail
-            </li>
-            <li className="sidebarListItem" onClick={handleItemClick}>
-              <DynamicFeed className="sidebarIcon" />
-              Feedback
-            </li>
-            <li className="sidebarListItem" onClick={handleItemClick}>
-              <ChatBubbleOutline className="sidebarIcon" />
-              Messages
-            </li>
-          </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Staff</h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem" onClick={handleItemClick}>
-              <WorkOutline className="sidebarIcon" />
-              Manage
-            </li>
-            <li className="sidebarListItem" onClick={handleItemClick}>
-              <Timeline className="sidebarIcon" />
-              Analytics
-            </li>
-            <li className="sidebarListItem" onClick={handleItemClick}>
-              <Report className="sidebarIcon" />
-              Reports
-            </li>
-          </ul>
-        </div>
+      
       </div>
     </div>
   );

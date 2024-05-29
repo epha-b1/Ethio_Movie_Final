@@ -70,6 +70,17 @@ img{
 .icon {
   margin: 0px 15px;
   cursor: pointer;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+}
+
+.accountContainer{
+  display: flex;
+}
+.accountContainer img{
+  width: 20px;
 }
 
 .profile_image {

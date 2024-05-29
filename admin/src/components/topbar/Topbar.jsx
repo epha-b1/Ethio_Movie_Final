@@ -7,6 +7,7 @@ import { AuthContext } from "../../context/authContext/AuthContext";
 import { toast } from "sonner";
 import Logo from "../../asset/image/logo.png";
 import axios from "axios"; // Import axios for making HTTP requests
+import AccountIcon from "../../asset/image/Avator.png";
 
 export default function Topbar() {
   const { dispatch, user } = useContext(AuthContext); // Assuming you have user information in your AuthContext
@@ -15,12 +16,16 @@ export default function Topbar() {
   const handleLogout = async () => {
     try {
       // Make a logout request to the server
-      const response = await axios.post("/auth/logout", {}, {
-        headers: {
-          token:
-            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-        },
-      });
+      const response = await axios.post(
+        "/auth/logout",
+        {},
+        {
+          headers: {
+            token:
+              "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+          },
+        }
+      );
 
       if (response.status === 200) {
         // Logout successful, dispatch logout action and redirect to login page
@@ -42,25 +47,30 @@ export default function Topbar() {
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-        <img src={Logo} alt="" className="logo" />
+          <img src={Logo} alt="" className="logo" />
 
           <span className="logo">Admin</span>
         </div>
         <div className="topRight">
-          <div className="topbarIconContainer">
+          {/* <div className="topbarIconContainer">
             <NotificationsNone />
             <span className="topIconBadge">2</span>
           </div>
           <div className="topbarIconContainer">
             <Language />
             <span className="topIconBadge">2</span>
-          </div>
+          </div> */}
           {/* <div className="topbarIconContainer">
             <Settings />
           </div> */}
 
           <div className="profile">
-            <div className="username icon">{user.username}</div>
+            <div className="accountContainer">
+              <div className="username icon">
+                <img src={AccountIcon} alt="" />
+                {user.username}
+              </div>
+            </div>
 
             {/* <Settings className="icon" /> */}
             <div className="options">
