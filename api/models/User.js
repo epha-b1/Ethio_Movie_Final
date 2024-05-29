@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
     subscription: { type: mongoose.Schema.Types.ObjectId, ref: "Subscription" },
     isVerified: { type: Boolean, default: false },
     verificationToken: String,
-    userId: { type: String, },
+    userId: { type: String, required:false,unique:false ,default:null},
     firstName: { type: String, required: false },
     lastName: { type: String, required: false },
     verificationCode: { type: String },

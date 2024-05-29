@@ -5,7 +5,17 @@ const Role = require("../models/Role"); // Import Role model
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer"); // Import nodemailer
+const bcrypt = require('bcrypt');
 
+function getRandomTenDigitNumber() {
+  let number = '';
+  for (let i = 0; i < 10; i++) {
+      number += Math.floor(Math.random() * 10); // Generate a random digit (0-9)
+  }
+  return number;
+}
+
+console.log(getRandomTenDigitNumber());
 // User Registration Endpoint
 router.post("/register", async (req, res) => {
   try {
@@ -13,10 +23,12 @@ router.post("/register", async (req, res) => {
     const { username, email, password, phoneNumber, role } = req.body;
 
     // Encrypt the password using AES encryption with the SECRET_KEY
-    const encryptedPassword = CryptoJS.AES.encrypt(
-      password,
-      process.env.SECRET_KEY
-    ).toString();
+    // const encryptedPassword = CryptoJS.AES.encrypt(
+    //   password,
+    //   process.env.SECRET_KEY
+    // ).toString();
+    const encryptedPassword = await bcrypt.hash(password, 10);
+    // const hashedPassword = await bcrypt.hash(password, 10);
 
     let selectedRole;
 
@@ -39,8 +51,9 @@ router.post("/register", async (req, res) => {
     const verificationToken = jwt.sign({ email }, process.env.SECRET_KEY, {
       expiresIn: "1d", // Token expires in 1 day
     });
-
+    var userId = getRandomTenDigitNumber();
     const newUser = new User({
+      userId,
       username,
       email,
       password: encryptedPassword,
@@ -162,10 +175,14 @@ router.post("/login", async (req, res) => {
     }
 
     // Decrypt the stored password and compare it with the provided password
-    const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
-    const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
-    if (originalPassword !== req.body.password) {
-      return res.status(401).json({ message: "Wrong email, phoneNumber, or password!" });
+    // const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
+    // const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
+    // if (originalPassword !== req.body.password) {
+    //   return res.status(401).json({ message: "Wrong email, phoneNumber, or password!" });
+    // }
+    const passwordMatch = await bcrypt.compare(req.body.password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     // Generate JWT access token with user ID and role
