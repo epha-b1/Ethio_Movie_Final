@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema(
   {
-    username: { type: String, required: true, unique: true },
+    username: { type: String,  },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     profilePic: { type: String, default: "" },
-    phoneNumber: { type: String, required: false, unique: true },
+    phoneNumber: { type: String, },
     role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true },
     subscription: { type: mongoose.Schema.Types.ObjectId, ref: "Subscription" },
     isVerified: { type: Boolean, default: false },
     verificationToken: String,
-    userId: { type: String, required: false, unique: true },
+    userId: { type: String, },
     firstName: { type: String, required: false },
     lastName: { type: String, required: false },
     verificationCode: { type: String },
