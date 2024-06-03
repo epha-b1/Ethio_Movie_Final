@@ -155,7 +155,7 @@ export default function NewSerious() {
             name="thumbnail"
             onChange={(e) => handleFileChange(e, "thumbnail")}
           />
-        </div> */}
+        </div> 
         <div className="addProductItem">
           <label>Rating</label>
           <input
@@ -166,6 +166,7 @@ export default function NewSerious() {
             onChange={handleChange}
           />
         </div>
+        */}
         <div className="addProductItem">
           <label>Genre</label>
           <input
