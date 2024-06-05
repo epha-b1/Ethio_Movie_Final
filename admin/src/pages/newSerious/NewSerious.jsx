@@ -261,7 +261,7 @@ export default function NewSerious() {
                     <img src={episode.thumbnail} alt="Episode Thumbnail" />
                   )}
                   <button
-                    className="addProductButton"
+                    className="addSeriesButton"
                     onClick={(e) => handleUpload(e, "thumbnail", seasonIndex, episodeIndex)}
                   >
                     Upload Thumbnail
@@ -277,7 +277,7 @@ export default function NewSerious() {
                     <a href={episode.url}>Episode URL</a>
                   )}
                   <button
-                    className="addProductButton"
+                    className="addSeriesButton"
                     onClick={(e) => handleUpload(e, "url", seasonIndex, episodeIndex)}
                   >
                     Upload URL
@@ -289,7 +289,7 @@ export default function NewSerious() {
         ))}
         <button type="button" onClick={addSeason}>Add Season</button>
        
-          <button className="addProductButton" onClick={handleSubmit}>Create</button>
+          <button className="addSeriesButton" onClick={handleSubmit}>Create</button>
         
       </form>
       {uploaded < 5 && (

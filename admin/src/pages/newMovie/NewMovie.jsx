@@ -5,6 +5,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from "@firebase/storage";
 import { createMovie } from "../../context/movieContext/apiCalls";
 import { MovieContext } from "../../context/movieContext/MovieContext";
 import CircularProgress from "@mui/material/CircularProgress";
+
 export default function NewMovie() {
   const [movie, setMovie] = useState(null);
   const [img, setImg] = useState(null);
@@ -13,13 +14,46 @@ export default function NewMovie() {
   const [trailer, setTrailer] = useState(null);
   const [video, setVideo] = useState(null);
   const [uploaded, setUploaded] = useState(0);
-  const [uploadProgress, setUploadProgress] = useState(0); // State for upload progress
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [fileNames, setFileNames] = useState({
+    img: "",
+    imgTitle: "",
+    thumbnail: "",
+    trailer: "",
+    video: "",
+  });
 
   const { dispatch } = useContext(MovieContext);
 
   const handleChange = (e) => {
     const value = e.target.value;
     setMovie({ ...movie, [e.target.name]: value });
+  };
+
+  const handleFileChange = (e, label) => {
+    const file = e.target.files[0];
+    if (file) {
+      switch (label) {
+        case "img":
+          setImg(file);
+          break;
+        case "imgTitle":
+          setImgTitle(file);
+          break;
+        case "thumbnail":
+          setThumbnail(file);
+          break;
+        case "trailer":
+          setTrailer(file);
+          break;
+        case "video":
+          setVideo(file);
+          break;
+        default:
+          break;
+      }
+      setFileNames((prev) => ({ ...prev, [label]: file.name }));
+    }
   };
 
   const upload = (items) => {
@@ -33,7 +67,7 @@ export default function NewMovie() {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setUploadProgress(progress); // Update upload progress
+          setUploadProgress(progress);
 
           console.log("Upload is " + progress + "% done");
         },
@@ -45,7 +79,7 @@ export default function NewMovie() {
             setMovie((prev) => {
               return { ...prev, [item.label]: url };
             });
-            setUploaded((prev) => prev + 1); // Update uploaded count
+            setUploaded((prev) => prev + 1);
           });
         }
       );
@@ -67,147 +101,74 @@ export default function NewMovie() {
     e.preventDefault();
     createMovie(movie, dispatch);
   };
-  console.log(movie);
 
   return (
     <div className="newMovie">
       <h1 className="addMovieTitle">New Movie</h1>
       <form className="addMovieForm">
-        <div className="addMovieItem">
-          <label>Image</label>
-          <input
-            type="file"
-            id="img"
-            name="img"
-            onChange={(e) => setImg(e.target.files[0])}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Title image</label>
-          <input
-            type="file"
-            id="imgTitle"
-            name="imgTitle"
-            onChange={(e) => setImgTitle(e.target.files[0])}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Thumbnail image</label>
-          <input
-            type="file"
-            id="imgSm"
-            name="thumbnail"
-            onChange={(e) => setThumbnail(e.target.files[0])}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Title</label>
-          <input
-            type="text"
-            placeholder="ተፈጣሪዝም"
-            name="title"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Title_eng</label>
-          <input
-            type="text"
-            placeholder="Tefetarism"
-            name="title1"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Description</label>
-          <input
-            type="text"
-            placeholder="description"
-            name="description"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Release Date</label>
-          <input
-            type="date"
-            placeholder="release_date"
-            name="releaseDate"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Genre</label>
-          <input
-            type="text"
-            placeholder="Genre"
-            name="genre"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Duration</label>
-          <input
-            type="text"
-            placeholder="Duration"
-            name="duration"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Age Limit</label>
-          <input
-            type="text"
-            placeholder=""
-            name="Age"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Director</label>
-          <input
-            type="text"
-            placeholder="Director"
-            name="director"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Actors</label>
-          <input
-            type="text"
-            placeholder="actors"
-            name="actors"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Language</label>
-          <input
-            type="text"
-            placeholder="language"
-            name="language"
-            onChange={handleChange}
-          />
-        </div>
-        {/* <div className="addMovieItem">
-          <label>Rating</label>
-          <input
-            type="text"
-            placeholder="rating"
-            name="rating"
-            onChange={handleChange}
-          />
-        </div> */}
-        <div className="addMovieItem">
-          <label>Country</label>
-          <input
-            type="text"
-            placeholder="country"
-            name="country"
-            onChange={handleChange}
-          />
-        </div>
+        {[
+          { label: "Image", name: "img", state: setImg },
+          { label: "Title image", name: "imgTitle", state: setImgTitle },
+          { label: "Thumbnail image", name: "thumbnail", state: setThumbnail },
+          { label: "Trailer", name: "trailer", state: setTrailer },
+          { label: "Video", name: "video", state: setVideo },
+        ].map(({ label, name, state }) => (
+          <div className="addMovieItem" key={name}>
+            <label>{label}</label>
+            <label className="upload" htmlFor={name}>
+              <svg
+                className="upload-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              {fileNames[name] ? (
+                <span>{fileNames[name]}</span>
+              ) : (
+                <span>Drag and drop here</span>
+              )}
+              <input
+                type="file"
+                id={name}
+                name={name}
+                onChange={(e) => handleFileChange(e, name)}
+              />
+            </label>
+          </div>
+        ))}
+        {[
+          { label: "Title", name: "title", type: "text", placeholder: "ተፈጣሪዝም" },
+          { label: "Title_eng", name: "title1", type: "text", placeholder: "Tefetarism" },
+          { label: "Description", name: "description", type: "text", placeholder: "description" },
+          { label: "Release Date", name: "releaseDate", type: "date", placeholder: "release_date" },
+          { label: "Genre", name: "genre", type: "text", placeholder: "Genre" },
+          { label: "Duration", name: "duration", type: "text", placeholder: "Duration" },
+          { label: "Age Limit", name: "Age", type: "text", placeholder: "" },
+          { label: "Director", name: "director", type: "text", placeholder: "Director" },
+          { label: "Actors", name: "actors", type: "text", placeholder: "actors" },
+          { label: "Language", name: "language", type: "text", placeholder: "language" },
+          { label: "Country", name: "country", type: "text", placeholder: "country" },
+        ].map(({ label, name, type, placeholder }) => (
+          <div className="addMovieItem" key={name}>
+            <label>{label}</label>
+            <input
+              type={type}
+              placeholder={placeholder}
+              name={name}
+              onChange={handleChange}
+            />
+          </div>
+        ))}
         <div className="addMovieItem">
           <label>Is Series?</label>
           <select name="isSeries" id="isSeries" onChange={handleChange}>
@@ -222,38 +183,25 @@ export default function NewMovie() {
             <option value="true">Yes</option>
           </select>
         </div>
-        <div className="addMovieItem">
-          <label>Trailer</label>
-          <input
-            type="file"
-            name="trailer"
-            onChange={(e) => setTrailer(e.target.files[0])}
-          />
-        </div>
-        <div className="addMovieItem">
-          <label>Video</label>
-          <input
-            type="file"
-            name="video"
-            onChange={(e) => setVideo(e.target.files[0])}
-          />
-        </div>
         {uploaded === 5 ? (
-          <button className="addProductButton" onClick={handleSubmit}>
+          <button className="addMovieButton" onClick={handleSubmit}>
             Create
           </button>
         ) : (
-          <button className="addProductButton" onClick={handleUpload}>
+          <>
+          <button className="addMovieButton" onClick={handleUpload}>
             Upload
           </button>
-        )}
-      </form>
-      {uploaded < 5 && (
-        <div className="progressIndicator">
+          <div className="progressIndicator">
           <CircularProgress variant="determinate" value={uploadProgress} />
           <span>{`${Math.round(uploadProgress)}%`}</span>
         </div>
-      )}{" "}
+          </>
+          
+        )}
+      </form>
+    
+      
     </div>
   );
 }
