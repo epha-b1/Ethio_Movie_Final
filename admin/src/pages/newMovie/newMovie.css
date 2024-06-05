@@ -1,14 +1,15 @@
-.newProduct {
+.newMovie {
   flex: 4;
 }
 
-.addProductForm {
+.addMovieForm {
   margin-top: 10px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   flex-wrap: wrap;
 }
 
-.addProductItem {
+.addMovieItem {
   width: 250px;
   display: flex;
   flex-direction: column;
@@ -16,18 +17,18 @@
   padding: 20px;
 }
 
-.addProductItem > label {
+.addMovieItem > label {
   color: gray;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-.addProductItem > input {
+.addMovieItem > input {
   padding: 10px;
   border: 1px solid black;
 }
 
-.addProductItem > select {
+.addMovieItem > select {
   padding: 10px;
 }
 

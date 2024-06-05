@@ -70,10 +70,10 @@ export default function NewMovie() {
   console.log(movie);
 
   return (
-    <div className="newProduct">
-      <h1 className="addProductTitle">New Movie</h1>
-      <form className="addProductForm">
-        <div className="addProductItem">
+    <div className="newMovie">
+      <h1 className="addMovieTitle">New Movie</h1>
+      <form className="addMovieForm">
+        <div className="addMovieItem">
           <label>Image</label>
           <input
             type="file"
@@ -82,7 +82,7 @@ export default function NewMovie() {
             onChange={(e) => setImg(e.target.files[0])}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Title image</label>
           <input
             type="file"
@@ -91,7 +91,7 @@ export default function NewMovie() {
             onChange={(e) => setImgTitle(e.target.files[0])}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Thumbnail image</label>
           <input
             type="file"
@@ -100,7 +100,7 @@ export default function NewMovie() {
             onChange={(e) => setThumbnail(e.target.files[0])}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Title</label>
           <input
             type="text"
@@ -109,7 +109,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Title_eng</label>
           <input
             type="text"
@@ -118,7 +118,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Description</label>
           <input
             type="text"
@@ -127,7 +127,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Release Date</label>
           <input
             type="date"
@@ -136,7 +136,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Genre</label>
           <input
             type="text"
@@ -145,7 +145,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Duration</label>
           <input
             type="text"
@@ -154,7 +154,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Age Limit</label>
           <input
             type="text"
@@ -163,7 +163,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Director</label>
           <input
             type="text"
@@ -172,7 +172,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Actors</label>
           <input
             type="text"
@@ -181,7 +181,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Language</label>
           <input
             type="text"
@@ -190,7 +190,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        {/* <div className="addProductItem">
+        {/* <div className="addMovieItem">
           <label>Rating</label>
           <input
             type="text"
@@ -199,7 +199,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div> */}
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Country</label>
           <input
             type="text"
@@ -208,21 +208,21 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Is Series?</label>
           <select name="isSeries" id="isSeries" onChange={handleChange}>
             <option value="false">No</option>
             <option value="true">Yes</option>
           </select>
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Is Premium?</label>
           <select name="premium" id="premium" onChange={handleChange}>
             <option value="false">No</option>
             <option value="true">Yes</option>
           </select>
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Trailer</label>
           <input
             type="file"
@@ -230,7 +230,7 @@ export default function NewMovie() {
             onChange={(e) => setTrailer(e.target.files[0])}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addMovieItem">
           <label>Video</label>
           <input
             type="file"

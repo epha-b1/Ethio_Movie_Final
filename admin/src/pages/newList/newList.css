@@ -1,35 +1,35 @@
-.newProduct {
+.newList {
   flex: 4;
 }
 
-.addProductForm {
+.addListForm {
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
 }
 
-.addProductItem {
+.addListItem {
   width: 400px;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
 }
 
-.addProductItem > label {
+.addListItem > label {
   color: gray;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-.addProductItem > input {
+.addListItem > input {
   padding: 10px;
 }
 
-.addProductItem > select {
+.addListItem > select {
   padding: 10px;
 }
 
-.addProductButton {
+.addListButton {
   height: 30px;
   margin-top: 10px;
   padding: 7px 10px;

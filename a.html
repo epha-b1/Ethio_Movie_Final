@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Movie Form</title>
+</head>
+<style>
+    body {
+        background-color: #f9fafb;
+        color: #374151;
+        font-family: 'Arial', sans-serif;
+      }
+      
+      .container {
+        padding: 3rem 1rem;
+        max-width: 1024px;
+        margin: 0 auto;
+      }
+      
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .column {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+      
+      .field {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .field label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+      
+      .field input[type="text"],
+      .field input[type="number"],
+      .field input[type="date"],
+      .field input[type="file"],
+      .field textarea {
+        padding: 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        background-color: #fff;
+        color: #374151;
+      }
+      
+      .field textarea {
+        min-height: 120px;
+      }
+      
+      .upload {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 2px dashed #d1d5db;
+        border-radius: 0.375rem;
+        padding: 1.5rem;
+      }
+      
+      .upload-icon {
+        width: 48px;
+        height: 48px;
+        color: #9ca3af;
+      }
+      
+      .upload-label {
+        display: inline-block;
+        cursor: pointer;
+        color: #3b82f6;
+      }
+      
+      .upload-input {
+        display: none;
+      }
+      
+      .upload-text span {
+        margin-left: 0.5rem;
+      }
+      
+      .upload-text .file-type {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+      
+      .upload-btn {
+        background-color: #3b82f6;
+        color: #fff;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        align-self: flex-end;
+      }
+      
+      .upload-btn:hover {
+        background-color: #2563eb;
+      }
+      
+      @media (min-width: 768px) {
+        .grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #111827;
+          color: #d1d5db;
+        }
+      
+        .container {
+          background-color: #1f2937;
+          padding: 3rem 1rem;
+        }
+      
+        .field input[type="text"],
+        .field input[type="number"],
+        .field input[type="date"],
+        .field input[type="file"],
+        .field textarea {
+          background-color: #374151;
+          color: #d1d5db;
+        }
+      
+        .upload {
+          border-color: #374151;
+        }
+      
+        .upload-icon {
+          color: #6b7280;
+        }
+      
+        .upload-label {
+          color: #3b82f6;
+        }
+      
+        .upload-text .file-type {
+          color: #9ca3af;
+        }
+      
+        .upload-btn {
+          background-color: #3b82f6;
+        }
+      
+        .upload-btn:hover {
+          background-color: #2563eb;
+        }
+      }
+      
+</style>
+<body>
+  <div class="container">
+    <div class="grid">
+      <div class="column">
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" id="title" placeholder="Enter movie title">
+        </div>
+        <div class="field">
+          <label for="title1">Title (Alternate)</label>
+          <input type="text" id="title1" placeholder="Enter alternate movie title">
+        </div>
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="Enter movie description"></textarea>
+        </div>
+        <div class="field">
+          <label for="img">Image</label>
+          <div class="upload">
+            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <div class="upload-text">
+              <label for="img" class="upload-label">Upload a file</label>
+              <input type="file" id="img" class="upload-input">
+              <span>or drag and drop</span>
+              <p class="file-type">PNG, JPG, GIF up to 10MB</p>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="imgTitle">Image Title</label>
+          <input type="text" id="imgTitle" placeholder="Enter image title">
+        </div>
+        <div class="field">
+          <label for="thumbnail">Thumbnail</label>
+          <div class="upload">
+            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <div class="upload-text">
+              <label for="thumbnail" class="upload-label">Upload a file</label>
+              <input type="file" id="thumbnail" class="upload-input">
+              <span>or drag and drop</span>
+              <p class="file-type">PNG, JPG, GIF up to 10MB</p>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="trailer">Trailer</label>
+          <div class="upload">
+            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <div class="upload-text">
+              <label for="trailer" class="upload-label">Upload a file</label>
+              <input type="file" id="trailer" class="upload-input">
+              <span>or drag and drop</span>
+              <p class="file-type">MP4, AVI, MOV up to 100MB</p>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="video">Movie</label>
+          <div class="upload">
+            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <div class="upload-text">
+              <label for="video" class="upload-label">Upload a file</label>
+              <input type="file" id="video" class="upload-input">
+              <span>or drag and drop</span>
+              <p class="file-type">MP4, AVI, MOV up to 1GB</p>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="releaseDate">Release Date</label>
+          <input type="date" id="releaseDate">
+        </div>
+        <div class="field">
+          <label for="age">Age</label>
+          <input type="number" id="age" placeholder="Enter movie age rating">
+        </div>
+        <div class="field">
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" placeholder="Enter movie genre">
+        </div>
+        <div class="field">
+          <label for="isSeries">Is Series</label>
+          <input type="checkbox" id="isSeries">
+        </div>
+        <div class="field">
+          <label for="premium">Premium</label>
+          <input type="checkbox" id="premium">
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label for="rating">Rating</label>
+          <input type="number" id="rating" placeholder="Enter movie rating">
+        </div>
+        <div class="field">
+          <label for="duration">Duration</label>
+          <input type="text" id="duration" placeholder="Enter movie duration">
+        </div>
+        <div class="field">
+          <label for="director">Director</label>
+          <input type="text" id="director" placeholder="Enter movie director">
+        </div>
+        <div class="field">
+          <label for="actors">Actors</label>
+          <input type="text" id="actors" placeholder="Enter movie actors">
+        </div>
+        <div class="field">
+          <label for="language">Language</label>
+          <input type="text" id="language" placeholder="Enter movie language">
+        </div>
+        <div class="field">
+          <label for="country">Country</label>
+          <input type="text" id="country" placeholder="Enter movie country">
+        </div>
+        <div class="field">
+          <button class="upload-btn">Upload</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

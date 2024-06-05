@@ -125,10 +125,10 @@ export default function NewSerious() {
   
 
   return (
-    <div className="newProduct">
+    <div className="newSeries">
       <h1 className="addProductTitle">New TV Series</h1>
-      <form className="addProductForm">
-        <div className="addProductItem">
+      <form className="addSeriesForm">
+        <div className="addSeriesItem">
           <label>Title</label>
           <input
             type="text"
@@ -138,7 +138,7 @@ export default function NewSerious() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addSeriesItem">
           <label>Description</label>
           <input
             type="text"
@@ -148,15 +148,15 @@ export default function NewSerious() {
             onChange={handleChange}
           />
         </div>
-        {/* <div className="addProductItem">
+        {/* <div className="addSeriesItem">
           <label>Thumbnail</label>
           <input
             type="file"
             name="thumbnail"
             onChange={(e) => handleFileChange(e, "thumbnail")}
           />
-        </div> */}
-        <div className="addProductItem">
+        </div> 
+        <div className="addSeriesItem">
           <label>Rating</label>
           <input
             type="number"
@@ -166,7 +166,8 @@ export default function NewSerious() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        */}
+        <div className="addSeriesItem">
           <label>Genre</label>
           <input
             type="text"
@@ -176,7 +177,7 @@ export default function NewSerious() {
             onChange={(e) => setSeries({ ...series, genre: e.target.value.split(", ") })}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addSeriesItem">
           <label>Language</label>
           <input
             type="text"
@@ -186,7 +187,7 @@ export default function NewSerious() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
+        <div className="addSeriesItem">
           <label>Country</label>
           <input
             type="text"
@@ -197,12 +198,12 @@ export default function NewSerious() {
           />
         </div>
         {series.seasons.map((season, seasonIndex) => (
-          <div key={season._id} className="addProductItem">
+          <div key={season._id} className="addSeriesItem">
             <h2>Season {season.seasonNumber}</h2>
             <button type="button" onClick={() => addEpisode(seasonIndex)} className="addEpisodeBtn">Add Episode</button>
             {season.episodes.map((episode, episodeIndex) => (
               <div key={episode._id}>
-                <div className="addProductItem">
+                <div className="addSeriesItem">
                   <label>Title</label>
                   <input
                     type="text"
@@ -218,7 +219,7 @@ export default function NewSerious() {
                     }}
                   />
                 </div>
-                <div className="addProductItem">
+                <div className="addSeriesItem">
                   <label>Description</label>
                   <input
                     type="text"
@@ -234,7 +235,7 @@ export default function NewSerious() {
                     }}
                   />
                 </div>
-                <div className="addProductItem">
+                <div className="addSeriesItem">
                   <label>Duration</label>
                   <input
                     type="text"
@@ -250,7 +251,7 @@ export default function NewSerious() {
                     }}
                   />
                 </div>
-                <div className="addProductItem">
+                <div className="addSeriesItem">
                   <label>Thumbnail</label>
                   <input
                     type="file"
@@ -266,7 +267,7 @@ export default function NewSerious() {
                     Upload Thumbnail
                   </button>
                 </div>
-                <div className="addProductItem">
+                <div className="addSeriesItem">
                   <label>URL</label>
                   <input
                     type="file"

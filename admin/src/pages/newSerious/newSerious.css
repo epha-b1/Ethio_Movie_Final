@@ -1,14 +1,14 @@
-.newProduct {
+.newSeries {
   flex: 4;
 }
 
-.addProductForm {
+.addSeriesForm {
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
 }
 
-.addProductItem {
+.addSeriesItem {
   width: 250px;
   display: flex;
   flex-direction: column;
