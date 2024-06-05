@@ -1,43 +1,72 @@
 .newList {
   flex: 4;
+  padding: 20px;
 }
 
+.formRight{
+  width: 35%;
+
+}
 .addListForm {
-  margin-top: 10px;
+  margin-top: 20px;
   display: flex;
-  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  gap: 20px;
 }
 
 .addListItem {
-  width: 400px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .addListItem > label {
-  color: gray;
+  color: #333;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
-.addListItem > input {
-  padding: 10px;
-}
-
+.addListItem > input,
 .addListItem > select {
   padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.addListItem > input:focus,
+.addListItem > select:focus {
+  border-color: #4caf50;
 }
 
 .addListButton {
-  height: 30px;
-  margin-top: 10px;
-  padding: 7px 10px;
+  height: 40px;
+  margin-top: 20px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: darkblue;
   color: white;
   font-weight: 600;
   cursor: pointer;
-  align-self: center;
+  align-self: flex-end;
+  transition: background-color 0.3s;
+}
+
+.addListButton:hover {
+  background-color: #45a049;
+}
+
+.formRight .addListItem > select {
+  height: 300px;
+  overflow-y: auto;
+}
+
+.addListTitle {
+  color: #333;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  /* text-align: center; */
 }
