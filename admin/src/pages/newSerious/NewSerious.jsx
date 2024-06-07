@@ -292,7 +292,7 @@ export default function NewSerious() {
           <button className="addSeriesButton" onClick={handleSubmit}>Create</button>
         
       </form>
-      {uploaded < 5 && (
+      {uploaded == 5 && (
         <div className="progressIndicator">
           <CircularProgress variant="determinate" value={uploadProgress} />
           <span>{`${Math.round(uploadProgress)}%`}</span>

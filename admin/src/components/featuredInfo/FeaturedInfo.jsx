@@ -6,7 +6,10 @@ import { getUsers } from "../../context/userContext/apiCalls";
 import { MovieContext } from "../../context/movieContext/MovieContext";
 import { getMovies } from "../../context/movieContext/apiCalls";
 import axios from "axios";
-
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import MovieIcon from '@material-ui/icons/Movie';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import LiveTvIcon from '@material-ui/icons/LiveTv';
 export default function FeaturedInfo() {
   const { users, dispatch: userDispatch } = useContext(UserContext);
   const { movies, dispatch: movieDispatch } = useContext(MovieContext);
@@ -67,42 +70,42 @@ export default function FeaturedInfo() {
 
   return (
     <div className="featured">
-      <div className="featuredItem">
+      <div className="featuredItem Revenue">
         <span className="featuredTitle">Revenue</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">{TotalRevenue} Birr</span>
+          <span className="featuredMoney">{TotalRevenue} <span className="birr">Birr</span></span>
           <span className="featuredMoneyRate">
-            <ArrowUpward className="featuredIcon postive" />
+            <AttachMoneyIcon className="featuredIcon postive" fontSize="large" />
           </span>
         </div>
         {/* <span className="featuredSub">Compared to last month</span> */}
       </div>
-      <div className="featuredItem">
+      <div className="featuredItem userInfo">
         <span className="featuredTitle">Total User</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">{users.length}</span>
           <span className="featuredMoneyRate">
-            <ArrowUpward className="featuredIcon postive" />
+            <SupervisorAccountIcon className="featuredIcon postive"fontSize="large" />
           </span>
         </div>
         {/* <span className="featuredSub">Compared to last month</span> */}
       </div>
-      <div className="featuredItem">
+      <div className="featuredItem MovieInfo">
         <span className="featuredTitle">Total Movie</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">{movies.length}</span>
           <span className="featuredMoneyRate">
-            <ArrowUpward className="featuredIcon" />
+            <MovieIcon className="featuredIcon" fontSize="large" />
           </span>
         </div>
         {/* <span className="featuredSub">Compared to last month</span> */}
       </div>
-      <div className="featuredItem">
+      <div className="featuredItem SeriesInfo">
         <span className="featuredTitle">Total Series</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">{seriesTotal}</span>
           <span className="featuredMoneyRate">
-            <ArrowUpward className="featuredIcon postive" />
+            <LiveTvIcon className="featuredIcon postive"fontSize="large" />
           </span>
         </div>
       </div>

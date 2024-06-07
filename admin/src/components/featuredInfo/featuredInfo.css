@@ -16,6 +16,7 @@
 
 .featuredTitle{
     font-size: 20px;
+    color: white;
 }
 
 .featuredMoneyContainer{
@@ -27,18 +28,23 @@
 .featuredMoney{
     font-size: 30px;
     font-weight: 600;
+    color: white;
 }
 
 .featuredMoneyRate{
     display: flex;
     align-items: center;
     margin-left: 20px;
+    
 }
-
+.postive{
+    font-size: 80px;
+}
 .featuredIcon{
-    font-size: 14px;
-    margin-left: 5px;
-    color: green;
+    font-size: 82px;
+      
+    margin-left: 55px;
+    color: white;
 }
 
 .featuredIcon.negative{
@@ -48,4 +54,21 @@
 .featuredSub{
     font-size: 15px;
     color: gray;
+}
+
+.Revenue{
+    background-color: rgb(84,126,78);
+}
+.userInfo{
+background-color: rgb(74,126,167);
+}
+.MovieInfo{
+background-color: rgb(162,124,24);
+}
+.SeriesInfo{
+background-color: rgb(112, 148, 177);
+}
+
+.birr{
+    font-size: 13px;
 }
