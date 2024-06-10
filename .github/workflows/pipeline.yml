@@ -1,13 +1,10 @@
-# The name of the workflow.
 name: Build and Deploy
 
-# Run the workflow when code is pushed to the main branch
 on:
   push:
     branches:
       - main
 
-# Set environment variables
 env:
   MONGODB_URI: ${{ secrets.MONGODB_URI }}
   TOKEN_KEY: ${{ secrets.TOKEN_KEY }}
@@ -21,76 +18,51 @@ env:
   EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
   FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
-# This is the workflow that is being run.
 jobs:
   build-and-deploy:
-    # This is telling GitHub to run the workflow on the latest version of Ubuntu.
     runs-on: ubuntu-latest
     steps:
-      # Checkout the code from the GitHub repository
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Install dependencies for the admin application
       - name: Install Admin Dependencies
         working-directory: ./admin
         run: npm install --legacy-peer-deps
 
-      # Install dependencies for the content creator application
       - name: Install Content Creator Dependencies
         working-directory: ./contentcreator
         run: npm install --legacy-peer-deps
 
-      # Install dependencies for the client application
       - name: Install Client Dependencies
         working-directory: ./client
         run: npm install --legacy-peer-deps
 
-      # Install dependencies for the server application
       - name: Install Server Dependencies
         working-directory: ./api
-        run: |
-          npm install --legacy-peer-deps
-          export MONGODB_URI=$MONGODB_URI
-          export TOKEN_KEY=$TOKEN_KEY
-          export EMAIL=$EMAIL
-          export PASSWORD=$PASSWORD
-          export MONGO_URL=$MONGO_URL
-          export SECRET_KEY=$SECRET_KEY
-          export PORT=$PORT
-          export CHAPA_AUTH_KEY=$CHAPA_AUTH_KEY
-          export EMAIL_USERNAME=$EMAIL_USERNAME
-          export EMAIL_PASSWORD=$EMAIL_PASSWORD
-          export FIREBASE_SERVICE_ACCOUNT=$FIREBASE_SERVICE_ACCOUNT
+        run: npm install --legacy-peer-deps
 
-      # Build a Docker image for the admin application
       - name: Build Admin Docker Image
         working-directory: ./admin
         run: docker build -t adminapp .
 
-      # Build a Docker image for the content creator application
-      - name: Build Content Creator Docker Image
+      - name: Build ContentCreator Docker Image
         working-directory: ./contentcreator
         run: docker build -t contentcreatorapp .
 
-      # Build a Docker image for the client application
       - name: Build Client Docker Image
         working-directory: ./client
         run: docker build -t clientapp .
 
-      # Build a Docker image for the server application
       - name: Build Server Docker Image
         working-directory: ./api
         run: docker build -t serverapp .
 
-      # Login to Docker Hub using credentials from repository secrets
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Push the Docker images to Docker Hub
       - name: Push Docker Images to Docker Hub
         run: |
           docker tag adminapp ephab/ethio-movie-app:admin-${{github.run_number}}
@@ -101,3 +73,10 @@ jobs:
           docker push ephab/ethio-movie-app:contentcreator-${{github.run_number}}
           docker push ephab/ethio-movie-app:client-${{github.run_number}}
           docker push ephab/ethio-movie-app:server-${{github.run_number}}
+
+      - name: Deploy Containers
+        run: |
+          docker run --name adminapp_c -p 3000:3000 -d ephab/ethio-movie-app:admin-${{github.run_number}}
+          docker run --name contentcreatorapp_c -p 3001:3000 -d ephab/ethio-movie-app:contentcreator-${{github.run_number}}
+          docker run --name clientapp_c -p 3002:3000 -d ephab/ethio-movie-app:client-${{github.run_number}}
+          docker run --name serverapp_c -p 8800:8800 -d ephab/ethio-movie-app:server-${{github.run_number}}
