@@ -30,7 +30,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Install Content Creator Dependencies
-        working-directory: ./contentcreator
+        working-directory: ./contentCreator
         run: npm install --legacy-peer-deps
 
       - name: Install Client Dependencies
@@ -46,7 +46,7 @@ jobs:
         run: docker build -t adminapp .
 
       - name: Build ContentCreator Docker Image
-        working-directory: ./contentcreator
+        working-directory: ./contentCreator
         run: docker build -t contentcreatorapp .
 
       - name: Build Client Docker Image
