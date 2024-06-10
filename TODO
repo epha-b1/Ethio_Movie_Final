@@ -17,8 +17,8 @@ Content Creater:
 
   docker run --name adminapp_c -p 3000:3000 -d adminapp
   docker run --name serverapp_c -p 8800:8800 -d serverapp
-  docker run --name contentcreatorapp_c -p 4000:4000 -d contentcreatorapp
-  docker run --name clientapp_c -p 3002:3002 -d clientapp
+  docker run --name contentcreatorapp_c -p 3001:3000 -d contentcreatorapp
+  docker run --name clientapp_c -p 3002:3000 -d clientapp
 
 
   docker run --name serverapp_c -p 8800:8800 -v "D:\Work Shop\Web\EthioMovie_Final\api:/app" -v /app/node_modules serverapp

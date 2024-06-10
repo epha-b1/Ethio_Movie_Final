@@ -1,58 +1,60 @@
-# The version of the docker-compose.
 version: "3.8"
-# Telling docker-compose to build the client and server images and run them in containers.
+
 services:
   admin:
-    # Telling docker-compose to build the client image using the Dockerfile in the client directory.
+    # Telling docker-compose to build the admin image using the Dockerfile in the admin directory.
     build: ./admin
     # Giving the container a name.
     container_name: adminapp_c
     # Mapping the port 3000 on the host machine to the port 3000 on the container.
     ports:
       - "3000:3000"
-    # Mapping the client directory on the host machine to the /app directory on the container.
+    # Mapping the admin directory on the host machine to the /app directory on the container.
     volumes:
       - ./admin:/app
-      - ./app/node_modules
+      - /app/node_modules
     # Allows you to run container in detached mode.
     stdin_open: true
     tty: true
+
   contentcreator:
-    # Telling docker-compose to build the client image using the Dockerfile in the client directory.
+    # Telling docker-compose to build the contentcreator image using the Dockerfile in the contentcreator directory.
     build: ./contentcreator
     # Giving the container a name.
     container_name: contentcreatorapp_c
-    # Mapping the port 3000 on the host machine to the port 3000 on the container.
+    # Mapping the port 3001 on the host machine to the port 3000 on the container.
     ports:
-      - "4000:4000"
-    # Mapping the client directory on the host machine to the /app directory on the container.
+      - "3001:3000"
+    # Mapping the contentcreator directory on the host machine to the /app directory on the container.
     volumes:
       - ./contentcreator:/app
-      - ./app/node_modules
+      - /app/node_modules
     # Allows you to run container in detached mode.
     stdin_open: true
     tty: true
+
   client:
     # Telling docker-compose to build the client image using the Dockerfile in the client directory.
     build: ./client
     # Giving the container a name.
     container_name: clientapp_c
-    # Mapping the port 3000 on the host machine to the port 3000 on the container.
+    # Mapping the port 3002 on the host machine to the port 3000 on the container.
     ports:
-      - "3002:3002"
+      - "3002:3000"
     # Mapping the client directory on the host machine to the /app directory on the container.
     volumes:
       - ./client:/app
-      - ./app/node_modules
+      - /app/node_modules
     # Allows you to run container in detached mode.
     stdin_open: true
     tty: true
+
   server:
-    # Telling docker-compose to build the client image using the Dockerfile in the server directory.
+    # Telling docker-compose to build the server image using the Dockerfile in the server directory.
     build: ./server
     container_name: serverapp_c
     ports:
       - "8800:8800"
     volumes:
       - ./server:/app
-      - ./app/node_modules
+      - /app/node_modules

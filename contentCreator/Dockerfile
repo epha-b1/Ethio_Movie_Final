@@ -14,7 +14,7 @@ RUN npm install --legacy-peer-deps
 COPY . .
 
 # Layer 6: Telling Docker that the container will listen on port 3000.
-EXPOSE 3001
+EXPOSE 3000
 
 # Layer 7: Telling Docker to run the `npm start` command when the container is started.
 CMD ["npm", "start"]
