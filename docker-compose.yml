@@ -19,7 +19,7 @@ services:
 
   contentcreator:
     # Telling docker-compose to build the contentcreator image using the Dockerfile in the contentcreator directory.
-    build: ./contentcreator
+    build: ./contentCreator
     # Giving the container a name.
     container_name: contentcreatorapp_c
     # Mapping the port 3001 on the host machine to the port 3000 on the container.
@@ -27,7 +27,7 @@ services:
       - "3001:3000"
     # Mapping the contentcreator directory on the host machine to the /app directory on the container.
     volumes:
-      - ./contentcreator:/app
+      - ./contentCreator:/app
       - /app/node_modules
     # Allows you to run container in detached mode.
     stdin_open: true
